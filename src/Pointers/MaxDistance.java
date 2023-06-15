@@ -1,6 +1,9 @@
-package Array;
+package Pointers;
 import java.util.*;
 /*
+刷题次数：2
+二刷：忘记更新历史最大最小值
+
 https://leetcode.cn/problems/maximum-distance-in-arrays/description/
 
 You are given m arrays, where each array is sorted in ascending order.
@@ -41,7 +44,7 @@ public class MaxDistance {
             // 获得当前array的最小值和最大值，即第0个数和最后一个数
             int newMin = getValue(i, 0);
             int newMax = getValue(i, colSize(i));
-            // 交叉相减，具体看第6不
+            // 交叉相减，具体看第6步
             int maxDiff = Math.max(Math.abs(newMax - minNum), Math.abs(newMin - maxNum));
             result = Math.max(result, maxDiff);
             // 更新历史最小值和历史最大值

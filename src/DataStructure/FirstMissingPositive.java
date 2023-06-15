@@ -1,4 +1,4 @@
-package Array;
+package DataStructure;
 import java.util.*;
 /*
 https://leetcode.cn/problems/first-missing-positive/description/

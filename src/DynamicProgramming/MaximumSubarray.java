@@ -1,5 +1,10 @@
-package Array;
+package DynamicProgramming;
 /*
+刷题次数：2
+二刷：忘记了dp的定义和迭代公式，注意此题需要用变形的前缀和，而非普通前缀和
+dp定义：以下标i的数作为结尾的连续子数组的最大和
+一般前缀和：dp[i] = dp[i - 1] + nums[i]
+求最大值的前缀和：dp[i] = Math.max(dp[i - 1] + nums[i], nums[i])
 
 https://leetcode.cn/problems/maximum-subarray/
 https://www.lintcode.com/problem/41/
@@ -11,7 +16,7 @@ Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
 Output: 6
 Explanation: The subarray [4,-1,2,1] has the largest sum 6.
 
-思路1：DP，或者说前缀和
+思路1：DP，或者说变形前缀和
 1. state：dp[i]表示，以下标为i的数作为结尾的连续子数组的最大和
 2. function：dp[i] =
     1. 如果dp[i-1] < 0，那么此时加上任何数，最大和都会减少，为了求得最大和，直接抛弃前面的结果，从0开始
@@ -21,6 +26,13 @@ Explanation: The subarray [4,-1,2,1] has the largest sum 6.
 3. initialize：dp[0] = nums[0]，按照dp的定义应该很好理解
 4. answer：注意答案并不是dp[-1]，因为定义中，dp只是表示某个数为结尾的连续子数组的最大和，但是
     题目并不限制这个连续子数组从哪开始从哪结束，所以答案是max(dp[:])
+
+注意：这里的dp并非是前缀和，而是变形后的
+前缀和：以i为结尾的前面所有数的和
+变形后的前缀和：以i为结尾的前面所有数的和，但如果某个位置的和<0，则从头开始
+          以：[-2, 1,-3, 4,-1, 2, 1,-5, 4]为例子：
+      前缀和： [-2,-1,-4, 0,-1, 1, 2,-3, 1]
+变形后的前缀和  [-2, 1,-2, 4, 3, 5, 6, 1, 5]
 
 时间复杂度：O(2N)，即O(N)，先遍历一次获得前缀和，再遍历一次前缀和得最大值
 空间复杂度：O(N)
