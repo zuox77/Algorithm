@@ -13,7 +13,7 @@ https://leetcode.cn/problems/container-with-most-water/description/
             2. 下一个更短：面积减小，面积可能减少(比当前最短的还要短时)，可能不变
  */
 public class ContainerWithMostWater {
-    public int Solution(int[] height) {
+    public int solution(int[] height) {
         int n = height.length;
         int maxWater = 0, left = 0, right = n - 1;
         while (left < right) {

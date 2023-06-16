@@ -22,7 +22,7 @@ You must solve it in O(log(arr.length)) time complexity
  */
 
 public class PeakIndexInMountainArray {
-    public int Solution(int[] arr) {
+    public int solution(int[] arr) {
         int n = arr.length;
         int left = 0;
         int right = n - 1;

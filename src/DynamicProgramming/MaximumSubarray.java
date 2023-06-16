@@ -49,7 +49,7 @@ Explanation: The subarray [4,-1,2,1] has the largest sum 6.
 
 public class MaximumSubarray {
     // DP
-    public int Solution1(int[] nums) {
+    public int solution1(int[] nums) {
         // corner case
         if (nums == null || nums.length == 0) {
             return 0;
@@ -75,7 +75,7 @@ public class MaximumSubarray {
     }
 
     // 写法优化版DP
-    public int Solution1Improved(int[] nums) {
+    public int solution1Improved(int[] nums) {
         // corner case
         if (nums == null || nums.length == 0) {
             return 0;
@@ -102,7 +102,7 @@ public class MaximumSubarray {
     }
 
     // Prefix Sum
-    public int Solution2(int[] nums) {
+    public int solution2(int[] nums) {
         // corner case
         if (nums == null || nums.length == 0) {
             return 0;

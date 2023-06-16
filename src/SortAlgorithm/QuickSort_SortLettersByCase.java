@@ -15,7 +15,7 @@ https://www.jiuzhang.com/problem/sort-letters-by-case/
  */
 
 public class QuickSort_SortLettersByCase {
-    public void Solution1(char[] chars) {
+    public void solution1(char[] chars) {
         int left = 0, right = chars.length - 1;
 
         while (left <= right) {
@@ -36,7 +36,7 @@ public class QuickSort_SortLettersByCase {
     }
 
     // 双指针
-    public void Solution2(char[] chars) {
+    public void solution2(char[] chars) {
         int n = chars.length;
         int left = 0, right = n - 1;
         while (left <= right) {

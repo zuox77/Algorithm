@@ -56,7 +56,7 @@ https://www.jiuzhang.com/problem/largest-rectangle-in-histogram/
  */
 
 public class LargestRectangleInHistogram {
-    public int Solution(int[] heights) {
+    public int solution(int[] heights) {
         Stack<Integer> stack = new Stack<>();
         int maxArea = 0;
 

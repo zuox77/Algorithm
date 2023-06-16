@@ -54,7 +54,7 @@ Explanation: The smallest positive integer 1 is missing.
  */
 
 public class FirstMissingPositive {
-    public int Solution1(int[] nums) {
+    public int solution1(int[] nums) {
         int n = nums.length;
         for (int i = 0; i < n; i++) {
             while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) { //用第9步的条件2而不是条件1
@@ -74,7 +74,7 @@ public class FirstMissingPositive {
         nums[end] = temp;
     }
 
-    public int Solution2(int[] nums) {
+    public int solution2(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num: nums) {
             set.add(num);

@@ -17,7 +17,7 @@ https://leetcode.cn/problems/permutations/description/
  */
 
 public class Permutation {
-    public List<List<Integer>> Solution1(int[] nums) {
+    public List<List<Integer>> solution1(int[] nums) {
         int n = nums.length;
         List<List<Integer>> result = new ArrayList<>();
         HashSet<Integer> visited = new HashSet<>();

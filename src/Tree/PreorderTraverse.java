@@ -49,7 +49,7 @@ https://www.jiuzhang.com/problem/binary-tree-preorder-traversal/
 
 public class PreorderTraverse {
     // DFS
-    public List<Integer> Solution1(Node root) {
+    public List<Integer> solution1(Node root) {
         List<Integer> res = new ArrayList<Integer>();
         recursion(res, root);
         return res;
@@ -72,15 +72,15 @@ public class PreorderTraverse {
     }
 
     // 分治
-    public List<Integer> Solution2(Node root) {
+    public List<Integer> solution2(Node root) {
         List<Integer> res = new ArrayList<Integer>();
         if (root == null) {
             return res;
         }
 
         // divide
-        List<Integer> left = Solution2(root.left);
-        List<Integer> right = Solution2(root.right);
+        List<Integer> left = solution2(root.left);
+        List<Integer> right = solution2(root.right);
 
         // conquer
         res.add(root.val);
@@ -91,7 +91,7 @@ public class PreorderTraverse {
     }
 
     // stack
-    public List<Integer> Solution3(Node root) {
+    public List<Integer> solution3(Node root) {
         List<Integer> res = new ArrayList<Integer>();
         Stack<Node> stack = new Stack<Node>();
 
@@ -120,7 +120,7 @@ public class PreorderTraverse {
             this.indicator = indicator;
         }
     }
-    public List<Integer> Solution4(Node root) {
+    public List<Integer> solution4(Node root) {
         List<Integer> res = new ArrayList<Integer>();
         Stack<State> stack = new Stack<>();
         stack.push(new State(root, 0));
@@ -149,7 +149,7 @@ public class PreorderTraverse {
     }
 
     // morris
-    public List<Integer> Solution5(Node root) {
+    public List<Integer> solution5(Node root) {
         List<Integer> res = new ArrayList<Integer>();
         // create dummy node in case root is lost
         Node now = root;

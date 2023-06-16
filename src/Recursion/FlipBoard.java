@@ -11,7 +11,7 @@ Given a N * M board, each position is either 1 or 0, need to flip all 1 to 0
 public class FlipBoard {
     private int[][] directions = new int[][] {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
-    public int Solution(int[][] matrix) {
+    public int solution(int[][] matrix) {
         HashSet<int[]> visited = new HashSet<>();
         Deque<int[]> queue = new LinkedList<>();
 

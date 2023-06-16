@@ -15,7 +15,7 @@ https://leetcode.cn/problems/valid-parentheses/
  */
 
 public class ValidParentheses {
-    public boolean Solution(String s) {
+    public boolean solution(String s) {
         HashMap<Character, Character> charMap = new HashMap<>();
         charMap.put('(', ')');
         charMap.put('{', '}');

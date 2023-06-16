@@ -78,7 +78,7 @@ Then buy on day 7 (price = 1) and sell on day 8 (price = 4), profit = 4-1 = 3.
 
 public class BestTimeStock3 {
     // DP巧妙解法
-    public int Solution1(int[] prices) {
+    public int solution1(int[] prices) {
         int n = prices.length;
         // corner case
         if (n <= 1) {
@@ -97,7 +97,7 @@ public class BestTimeStock3 {
     }
 
     // DP正常解法
-    public int Solution2(int[] prices) {
+    public int solution2(int[] prices) {
         int n = prices.length;
         int k = 2;
         // corner case

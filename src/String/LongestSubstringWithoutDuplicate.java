@@ -24,7 +24,7 @@ https://www.jiuzhang.com/problem/longest-substring-without-repeating-characters/
  */
 import java.util.HashMap;
 public class LongestSubstringWithoutDuplicate {
-    public int Solution1(String s) {
+    public int solution1(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         int maxCount = 0;
         int left = 0;

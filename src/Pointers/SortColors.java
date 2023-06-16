@@ -34,7 +34,7 @@ https://www.jiuzhang.com/problem/sort-colors/
 
 public class SortColors {
     // 双指针
-    public int[] Solution1(int[] nums) {
+    public int[] solution1(int[] nums) {
         int n = nums.length;
         int left = 0, mid = 0, right = n - 1;
 

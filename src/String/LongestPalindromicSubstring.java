@@ -11,7 +11,7 @@ https://leetcode.cn/problems/longest-palindromic-substring/description/
     4. 如果中心扩展方程要return左右两端的下标，那计算长度时候还要重新算长度
  */
 public class LongestPalindromicSubstring {
-    public String Solution(String s) {
+    public String solution(String s) {
         int maxLength = 0;
         int[] result = new int[2];
         int len = s.length();

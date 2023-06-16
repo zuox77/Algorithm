@@ -18,7 +18,7 @@ import java.util.List;
 我们可以不考虑输出结果的顺序。
  */
 public class Test {
-    public List<Integer> Solution(int[] nums1, int[] nums2) {
+    public List<Integer> solution(int[] nums1, int[] nums2) {
         // check length
         int n = nums1.length;
         int m = nums2.length;

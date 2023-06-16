@@ -14,7 +14,7 @@ https://leetcode.cn/problems/letter-combinations-of-a-phone-number/description/
     4. char相减可以直接变成int
  */
 public class LetterCombPhoneNumber {
-    class Solution {
+    class solution {
         private String[] map = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
         public List<String> letterCombinations(String digits) {

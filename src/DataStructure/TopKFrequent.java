@@ -58,7 +58,7 @@ public class TopKFrequent {
     pairComparator.compare(pair1, pair2) > 0：表示pair1比pair2大
      */
 
-    public int[] Solution1(int[] nums, int k) {
+    public int[] solution1(int[] nums, int k) {
         // define a max heap and override its compare method
         PriorityQueue<Pair> maxHeap = new PriorityQueue<>(new Comparator<Pair>() {
             @Override

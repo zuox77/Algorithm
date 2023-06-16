@@ -12,7 +12,7 @@ start = 0
 end = 5
  */
 public class LongestUniqueSubstring {
-    public int Solution(String s) {
+    public int solution(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         int n = s.length();
         // corner case

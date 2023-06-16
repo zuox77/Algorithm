@@ -12,7 +12,7 @@ Output: 5
  */
 
 public class KthLargestElement {
-    public int Solution(int[] nums, int k) {
+    public int solution(int[] nums, int k) {
         PriorityQueue<Integer> heap = new PriorityQueue<>(k);
         int result = -1;
         // corner case

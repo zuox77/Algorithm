@@ -33,7 +33,7 @@ Explanation: 3 is a peak element and your function should return the index numbe
 空间复杂度：O(1)
  */
 public class FindAnyPeakLeetcode {
-    public static int Solution(int[] nums) {
+    public static int solution(int[] nums) {
         // corner case
         if (nums == null) {
             return -1;

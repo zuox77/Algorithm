@@ -1,4 +1,4 @@
-package Array;
+package Recursion;
 /*
 https://leetcode.cn/problems/median-of-two-sorted-arrays/
 https://www.lintcode.com/problem/65/
@@ -39,7 +39,7 @@ https://www.jiuzhang.com/problem/median-of-two-sorted-arrays/
 
 public class MedianOfTwoSortedArrays {
     // 分治法
-    public static double Solution1(int[] nums1, int[] nums2) {
+    public static double solution1(int[] nums1, int[] nums2) {
         int totalLength = nums1.length + nums2.length;
         // check odd or even
         if (totalLength % 2 == 0) {
@@ -75,7 +75,7 @@ public class MedianOfTwoSortedArrays {
     }
 
     // 归并法，但并不真正归并成一个新的数组，只是通过归并来找
-    public static double Solution2(int[] nums1, int[] nums2) {
+    public static double solution2(int[] nums1, int[] nums2) {
         /* 不需要corner case的判断，因为如果nums1 = [], nums2 = [1]，就不能简单的return0
         // corner case
         if (nums1 == null || nums1.length == 0) {

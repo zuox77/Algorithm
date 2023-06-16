@@ -16,7 +16,7 @@ output: 7, the two subarrays are [1, 3] and [2, -1, 2] or [1, 3, -1, 2] and [2]
 详细可以看DynamicProgramming.md
  */
 public class MaximumSubarray2 {
-    public class Solution1 {
+    public class solution1 {
         public int maxTwoSubArrays(List<Integer> nums) {
             int len = nums.size();
 

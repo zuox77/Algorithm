@@ -26,7 +26,7 @@ Output:
 空间复杂度：O(1)
  */
 public class FindAnyPeak {
-    public static int Solution(int[] a) {
+    public static int solution(int[] a) {
         // corner case
         if (a == null) {
             return 0;

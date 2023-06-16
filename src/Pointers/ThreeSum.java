@@ -14,7 +14,7 @@ https://www.jiuzhang.com/problem/3sum/
  */
 
 public class ThreeSum {
-    public ArrayList<ArrayList<Integer>> Solution1(int[] nums) {
+    public ArrayList<ArrayList<Integer>> solution1(int[] nums) {
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
         int n = nums.length;
         if (n < 3) {

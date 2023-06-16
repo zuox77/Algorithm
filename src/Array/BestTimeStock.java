@@ -24,7 +24,7 @@ Note that buying on day 2 and selling on day 1 is not allowed because you must b
  */
 
 public class BestTimeStock {
-    public int Solution(int[] prices) {
+    public int solution(int[] prices) {
         // corner case
         if (prices == null || prices.length == 0) {
             return 0;

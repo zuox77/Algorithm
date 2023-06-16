@@ -70,7 +70,7 @@ public class QuickSort_PartitionArray {
     }
 
     // partition array
-    public int[] Solution(int[] nums, int k) {
+    public int[] solution(int[] nums, int k) {
         int left = 0, right = nums.length - 1;
         int pivotIndex = (left + right) / 2;
         k = nums[pivotIndex];

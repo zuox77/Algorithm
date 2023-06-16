@@ -1,6 +1,9 @@
 package Array;
 import java.util.*;
 /*
+刷题次数：2
+二刷：忘记考虑rowNums = 1的情况，解决方案：要么加一个corner case处理，要么在更新rowNum的时候，判断一下numRows - 1 == 0
+
 https://leetcode.cn/problems/zigzag-conversion/description/?orderBy=most_votes
 
 思路：
@@ -14,7 +17,7 @@ https://leetcode.cn/problems/zigzag-conversion/description/?orderBy=most_votes
  */
 
 public class ZigzagConversion {
-    public String Solution(String s, int numRows) {
+    public String solution(String s, int numRows) {
         if (numRows < 2) {
             return s;
         }
