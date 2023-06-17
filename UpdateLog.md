@@ -17,3 +17,6 @@
 1. Completed `GroupAnagrams.java`, will finish solution2 later
 2. Summarized some return data types of `HashMap` in `DataStructure.md`
 3. Replaced all methods name starting with capitalized `Solution` to `solution`, in order to be consisted with the name convention
+### 2023/06/17
+1. Completed `GroupAnagrams.java` solution2
+2. Summarized self-build HashMap via array
