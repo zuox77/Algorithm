@@ -1,7 +1,7 @@
 package Tree;
 
 public class Node {
-    int val; // 这些变量都不能是private，因为在其他类里面就会无法访问
+    int val; // 这些变量都不能是private, 因为在其他类里面就会无法访问
     Node left;
     Node right;
     public Node() {}

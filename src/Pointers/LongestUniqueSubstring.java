@@ -1,9 +1,9 @@
 package Pointers;
 import java.util.HashMap;
 /*
-输入：abcabcbb
-3，abc
-输入：aaaa
+输入: abcabcbb
+3, abc
+输入: aaaa
 输出a
 
 abcdec

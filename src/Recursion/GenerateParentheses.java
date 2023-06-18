@@ -5,10 +5,10 @@ import java.util.List;
 /*
 https://leetcode.cn/problems/generate-parentheses/description/
 
-思路：DFS
-1. 难点在于此题是一个隐式二叉树，怎么样去形成每一层的节点
+思路: DFS
+1. 难点在于此题是一个隐式二叉树, 怎么样去形成每一层的节点
 2. 其实只需要通过左括号和右括号的数量来判断就可以
-3. 并且左括号数量严格大于右括号时，要直接return
+3. 并且左括号数量严格大于右括号时, 要直接return
  */
 
 public class GenerateParentheses {

@@ -3,15 +3,15 @@ package SortAlgorithm;
 https://www.lintcode.com/problem/49/
 https://www.jiuzhang.com/problem/sort-letters-by-case/
 
-思路1：
+思路1: 
 跟快排一模一样
-时间复杂度：O(N)
-空间复杂度：O(1)
+时间复杂度: O(N)
+空间复杂度: O(1)
 
-思路2：
-跟SortColors一模一样，双指针
-时间复杂度：O(N)
-空间复杂度：O(1)
+思路2: 
+跟SortColors一模一样, 双指针
+时间复杂度: O(N)
+空间复杂度: O(1)
  */
 
 public class QuickSort_SortLettersByCase {

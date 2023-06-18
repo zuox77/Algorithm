@@ -1,7 +1,7 @@
 package BinarySearch;
 /*
 https://leetcode.cn/problems/peak-index-in-a-mountain-array/description/
-题目：
+题目: 
 An array arr a mountain if the following properties hold:
 
 arr.length >= 3
@@ -12,7 +12,7 @@ Given a mountain array arr, return the index i such that arr[0] < arr[1] < ... <
 
 You must solve it in O(log(arr.length)) time complexity
 
-思路：二分
+思路: 二分
 1.
 1.
 1.
@@ -37,7 +37,7 @@ public class PeakIndexInMountainArray {
             } else if (!isLeftLarge && isRightLarge) {
                 left = mid + 1;
                 // 递减和谷底
-            } else {// 递减：isLeftLarge && !isRightLarge，谷底：isLeftLarge && isRightLarge
+            } else {// 递减: isLeftLarge && !isRightLarge, 谷底: isLeftLarge && isRightLarge
                 right = mid;
             }
         }

@@ -1,6 +1,6 @@
 # Data Structure 总结
 ## 哈希表 HashMap
-### HashMap的key和values的类型
+### 哈希表的key和values的类型
 ```
 map.keyset()   --> Set<String>
 map.values()   --> Collection<List<String>>

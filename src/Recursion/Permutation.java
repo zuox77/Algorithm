@@ -6,13 +6,13 @@ import java.util.List;
 /*
 https://leetcode.cn/problems/permutations/description/
 
-思路：dfs
-1. 一个HashSet保存当前已经遍历过的元素，防止重复元素
+思路: dfs
+1. 一个HashSet保存当前已经遍历过的元素, 防止重复元素
 2. 一个ArrayList保存当前路径
 3. 一个ArrayList保存最后结果
-4. 原方程里面不需要for循环，直接在递归函数里面for就行，不用多此一举
-时间复杂度：O(N^2)
-空间复杂度：O(N * N!)，递归深度O(logN)，忽略不计，因为记录的是全排列，全排列个数是N!，每个全排列都是N的长度
+4. 原方程里面不需要for循环, 直接在递归函数里面for就行, 不用多此一举
+时间复杂度: O(N^2)
+空间复杂度: O(N * N!), 递归深度O(logN), 忽略不计, 因为记录的是全排列, 全排列个数是N!, 每个全排列都是N的长度
 
  */
 

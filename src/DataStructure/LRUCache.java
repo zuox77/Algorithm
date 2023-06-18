@@ -5,30 +5,30 @@ https://leetcode.cn/problems/lru-cache/description/
 https://www.lintcode.com/problem/134/
 https://www.jiuzhang.com/problem/lru-cache/
 
-思路：
+思路: 
 1. 建立双向链表
-2. 构造方程里面需要有：
-    1. cache上限：capacity
-    3. 一头一尾，并且头尾互连，作为dummy nodes
-    4. 一个哈希字典，key是node的value，value是node本身，方便查找
-3. get方程：
-    1. 在哈希字典里面找key，如果没有返回默认值
-    2. 如果有，先用removeFromList方程删除此node，再用addtoHead方程插入此node，以此表示这个node被调用过，会放在最前端
-4. put方程：
-    在哈希字典里面找key：
-        1. 如果没有：先检查map.size()，removeFromList(tail.prev)方程，再创建新的node
-        2. 如果有：先将已有node的value更新，removeFromList
+2. 构造方程里面需要有: 
+    1. cache上限: capacity
+    3. 一头一尾, 并且头尾互连, 作为dummy nodes
+    4. 一个哈希字典, key是node的value, value是node本身, 方便查找
+3. get方程: 
+    1. 在哈希字典里面找key, 如果没有返回默认值
+    2. 如果有, 先用removeFromList方程删除此node, 再用addtoHead方程插入此node, 以此表示这个node被调用过, 会放在最前端
+4. put方程: 
+    在哈希字典里面找key: 
+        1. 如果没有: 先检查map.size(), removeFromList(tail.prev)方程, 再创建新的node
+        2. 如果有: 先将已有node的value更新, removeFromList
     最后统一addtoHead方程
-5. addtoHead方程：
+5. addtoHead方程: 
     1. 主要负责将node插入head
     2. 加入哈希字典
-6. removeFromList：
+6. removeFromList: 
     1. 主要负责将node移出链表
     2. 删去哈希字典
 
-需要注意的点：
-1. removeFromList方程不是将node从尾端(tail)移走，只是将node移出链表，因为需要移出链表的node不一定都在tail前面
-2. addtoHead方程一定是将node加入头端(head)，表示最近使用过
+需要注意的点: 
+1. removeFromList方程不是将node从尾端(tail)移走, 只是将node移出链表, 因为需要移出链表的node不一定都在tail前面
+2. addtoHead方程一定是将node加入头端(head), 表示最近使用过
  */
 
 class Node {
@@ -95,7 +95,7 @@ class LRUCache {
 
     public void removeFromList(Node node) {
         /*
-        这里不能写成：
+        这里不能写成: 
         tail.prev = node.prev;
         node.prev.next = tail;
         因为不是从tail移除！是从链表任意位置移除！

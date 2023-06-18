@@ -7,10 +7,10 @@ https://leetcode.cn/problems/3sum/
 https://www.lintcode.com/problem/57/
 https://www.jiuzhang.com/problem/3sum/
 
-思路：双指针，或者说三指针
-1. 利用双指针的做法，先确定一个值，然后其余两个值用双指针来算
-2. 在最开始的for循环要记得去重，遇到重复就移动指针
-3. 后面twoPointer里面的循环里，也要去重，用一个while来去重，遇到重复就在while里面移动指针
+思路: 双指针, 或者说三指针
+1. 利用双指针的做法, 先确定一个值, 然后其余两个值用双指针来算
+2. 在最开始的for循环要记得去重, 遇到重复就移动指针
+3. 后面twoPointer里面的循环里, 也要去重, 用一个while来去重, 遇到重复就在while里面移动指针
  */
 
 public class ThreeSum {

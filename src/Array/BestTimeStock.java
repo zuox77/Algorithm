@@ -1,6 +1,6 @@
 package Array;
 /*
-刷题次数：2
+刷题次数: 2
 
 https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/
 https://www.lintcode.com/problem/149/
@@ -15,12 +15,12 @@ Output: 5
 Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
 Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
 
-思路：贪心算法
-1. 一个变量记录遍历到当前位置时的最低价格，并不断更新 minPrice = Math.min(minPrice, price)
-2. 一个变量记录遍历到当前位置时的最大获益，即当前位置的价格-最低价格，并不断更新 maxProfit = Math.max(maxProfit, price - minPrice)
+思路: 贪心算法
+1. 一个变量记录遍历到当前位置时的最低价格, 并不断更新 minPrice = Math.min(minPrice, price)
+2. 一个变量记录遍历到当前位置时的最大获益, 即当前位置的价格-最低价格, 并不断更新 maxProfit = Math.max(maxProfit, price - minPrice)
 
-时间复杂度：O(N)，遍历一次
-空间复杂度：O(1)
+时间复杂度: O(N), 遍历一次
+空间复杂度: O(1)
  */
 
 public class BestTimeStock {

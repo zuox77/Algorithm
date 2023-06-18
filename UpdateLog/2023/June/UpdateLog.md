@@ -20,3 +20,8 @@
 ### 2023/06/17
 1. Completed `GroupAnagrams.java` solution2
 2. Summarized self-build HashMap via array
+### 2023/06/18
+1. Added `UpdateLog` directory and refactored `UpdateLog.md` to `June`
+2. Re-studied `String` knowledge, including ways of creating a new String and the differences between them
+3. Rephrased all `HashMap` in comments/notes to Chinese word `哈希表`, in order to be consisted with the writing style convention
+4. Rephrased all Chinese punctuations to English punctuations

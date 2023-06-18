@@ -5,9 +5,9 @@ import java.util.Queue;
 /*
 https://leetcode.cn/problems/implement-stack-using-queues/description/?orderBy=most_votes
 
-思路：
-1. 栈是先进后出，队列是先进先出
-2. 用两个队列，每次加入新元素时，先加入queue2，然后将queue1里面的元素一个个poll出来加到queue2里面去，从而人为形成先进后出的顺序
+思路: 
+1. 栈是先进后出, 队列是先进先出
+2. 用两个队列, 每次加入新元素时, 先加入queue2, 然后将queue1里面的元素一个个poll出来加到queue2里面去, 从而人为形成先进后出的顺序
 3. Queue<Integer> queue = new LinkedList<>();
  */
 
