@@ -10,6 +10,57 @@
    1. 如果`nums[mid] > target`, 那么将`right`指针移动到`mid`, 即`right = mid`
    1. 如果`nums[mid] < target`, 那么将`left`指针移动到`mid`, 即`left = mid`
    1. 如果`nums[mid] = target`, 那么答案已经找到, 要么返回该值, 要么根据题意做其他处理
+#### 公式搭配一
+```
+// 定义指针
+int left = 0, right = n - 1;
+// while循环遍历
+while (left + 1 < right) {
+   int mid = left + (right - left) / 2; // 等于: (left + right) / 2, 只不过这样写可以避免left和right都是很大的数值从而超过int的限制
+   // 分情况判断指针如何移动
+   // 找到答案, 直接返回
+   if (nums[mid] == target) {
+      return mid;
+   // 比target小, 说明答案在右侧, 所以左指针往右移动
+   } else if (nums[mid] < target) {
+      left = mid;
+   // 比target大, 说明答案在左侧, 所以右指针往左移动
+   } else {
+      right = mid;
+   }
+}
+// 用这个方法会将答案缩小到left和right指针最后的位置, 所以需要再判断一次
+if (nums[left] == target) {
+   return left;
+} else {
+   return right;
+}
+// 没找到答案, 返回异常值
+return -1;
+```
+#### 公式搭配二
+```
+// 定义指针
+int left = 0, right = n - 1;
+// while循环遍历
+while (left <= right) { // 与搭配一不同, 这里是left <= right
+   int mid = left + (right - left) / 2; // 等于: (left + right) / 2, 只不过这样写可以避免left和right都是很大的数值从而超过int的限制
+   // 分情况判断指针如何移动
+   // 找到答案, 直接返回
+   if (nums[mid] == target) {
+      return mid;
+   // 比target小, 说明答案在右侧, 所以左指针往右移动
+   } else if (nums[mid] < target) {
+      left = mid + 1; // 与搭配一不同, 这里要加一
+   // 比target大, 说明答案在左侧, 所以右指针往左移动
+   } else {
+      right = mid;
+   }
+}
+// 因为是left <= right作为while循环的判断值, 所以不需要额外判断一次
+// 没找到答案, 返回异常值
+return -1;
+```
 ## 二分算法详解
 ### 为什么一定要是有序数组
 因为二分算法是通过: 比较数组`mid`位置上的数的数值与`target`之间的关系来判断如何二分并舍弃其中一半的数, 
@@ -17,6 +68,7 @@
 ### 二分法题型
 1. 数组无重复值, 求`target`的位置
 2. 数组有重复值, 求`target`首次出现的位置, 或者最后出现的位置, 或者都要
+3. 其他变形题
 ### 二分法公式里, while循环的不同写法
 二分公式里, 循环语句的三种写法: （其中1和4是一样的）
 

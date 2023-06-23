@@ -2,10 +2,10 @@ package BinarySearch;
 /*
 刷题次数: 2
 二刷: 
-1. 还记得怎么找某一列的最大值, 但忘记了怎么循环找到行
-2. 也忘记了该怎么同时判断边界和大小的问题
-3. 对于行和列还是分辨不清楚, mat.length是行的最大值, mat[0].length是列的最大值
-4. 当想要遍历去找到一列的最大值, 其实用的是mat.length, 因为列的最大值其实是Math.max(mat[0][col], mat[1][col], mat[2][col], .., mat[n][col])
+1. 对我个人而言, 经常搞混淆矩阵坐标, 所以用长宽这个概念来代替 -> int len (故意用len这个错别字区分length方法) = mat[0].lenght; int width = mat.length;
+2. 对于该怎么循环, 记住: 外围的while循环是不断减少长(len)的范围, 内侧的for循环是遍历某一列(width)从而找到该列的最大值
+3. 找到某一列的最大值以后, 判断左侧右侧的大小时候, 记得: 1. 需要先判断边界条件 2. 再判断大小
+4. 判断边界条件时: 记住要以left和right指针作为当前的边界, 而不是以len和width
 
 https://leetcode.cn/problems/find-a-peak-element-ii/description/
 https://leetcode.cn/problems/find-a-peak-element-ii/solutions/1208991/python3-er-fen-qie-pian-shi-jian-fu-za-d-gmd2/?orderBy=most_votes
@@ -47,42 +47,43 @@ Explanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptab
 空间复杂度: O(1)
  */
 
-public class FindAnyPeakII {
-    public int[] findPeakGrid(int[][] mat) {
-        int m = mat.length;    // 行
-        int n = mat[0].length; // 列
-
-        int colLeft = 0, colRight = n - 1;
-
-        // 最好用colLeft<=colRight
-        while (colLeft <= colRight) {
-            // 找到列的中点
-            int colMid = (colLeft + colRight) / 2;
-            int rowMax = -1;
-            int rowMaxIndex = -1;
-            boolean isLeftLarge = false, isRightLarge = false;
-            // 遍历整个列, 找到最大值和最大值的下标
-            for (int row = 0; row < m; row++) {
-                if (rowMax < mat[row][colMid]) {
-                    rowMaxIndex = row;
-                    rowMax = mat[row][colMid];
-                    // rowMax = mat[rowMaxIndex][colMid]
+class FindAnyPeakII {
+    public int[] solution(int[][] mat) {
+        // 找到长和宽
+        int len = mat[0].length;
+        int width = mat.length;
+        // 二分法遍历找到中点列
+        int left = 0, right = len - 1;
+        while (left <= right) {
+            // 找到中点列
+            int mid = left + (right - left) / 2;
+            // 遍历中点列找到该列的最大值
+            int colMax = mat[0][mid];
+            int colMaxIndex = 0;
+            for (int i = 1; i < width; i++) {
+                if (colMax < mat[i][mid]) {
+                    colMax = mat[i][mid];
+                    colMaxIndex = i;
                 }
             }
-            // 中间列的最大值的左边是否大于, 判断边界要用colLeft
-            isLeftLarge = colMid - 1 >= colLeft && mat[rowMaxIndex][colMid - 1] > rowMax;
-            // 中间列的最大值的优边是否大于, 判断边界要用colRight
-            isRightLarge = colMid + 1 <= colRight && mat[rowMaxIndex][colMid + 1] > rowMax;
-            // 如果都比当前值小, 则说明当前值已经是峰值
-            if (!isLeftLarge && !isRightLarge) {
-                return new int[] {rowMaxIndex, colMid};
-            } else if (isLeftLarge) {
-                colRight = colMid;
+            // 比较mat[colMaxIndex][mid]左右找到最大值
+            boolean leftLarger = mid - 1 >= left && mat[colMaxIndex][mid - 1] > colMax;
+            boolean rightLarger = mid + 1 <= right && mat[colMaxIndex][mid + 1] > colMax;
+            // 分情况判断
+            // 当前点比左右都大, 则说明是峰顶, 找到答案直接返回即可
+            if (!leftLarger && !rightLarger) {
+                return new int[] {colMaxIndex, mid};
+                // 当前点处于向右递增, 则右边更有可能有峰顶, 所以left指针向右移动
+            } else if (!leftLarger && rightLarger) {
+                // 注意这里一定要是mid+1, 详情可以看BinarySearch.md
+                left = mid + 1;
+                // 当前点处于向左递增, 则左边更有可能有峰顶, 所以right指针向左移动
+                // 同时这还包含了峰谷的情况, 即当前点比左右两边都小, 这个情况下, 往哪边移动都可以
             } else {
-                colLeft = colMid + 1;
+                right = mid;
             }
         }
-
+        // 如果while循环退出了都没找到, 则说明可能没有峰值
         return new int[] {-1, -1};
     }
 }

@@ -27,7 +27,7 @@ String s2 = new String("abc");
 ```
 // 程序初始化
 String str1 = new String("java");
-String str2 = "java"
+String str2 = "java";
 String str3 = new String(str2);
 String str4 = "java";
 ```

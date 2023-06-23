@@ -1,4 +1,10 @@
 # FYI
-1. All questions came from `leetcode.com` or `lintcode.com`
-1. All solutions came from myself or the official solutions or online solutions
-1. This is only used for practicing purpose
+1. 所有的题均来自于`leetcode.com`或者`lintcode.com`或者其他网络资源
+1. 所有的题解来源于官方题解或者是其他网络资源
+1. 仅仅为个人学习, 不用于任何商业行为
+1. 转载请注明出处
+# 如何使用
+1. 所有问题均在 `src/`目录下
+2. 不同类型的问题, 按照其涉及的知识点, 分在不同的目录下
+3. 某些问题可能会涉及到多个知识点, 该类问题会被复制到所有涉及的目录下, 方便使用
+4. 每个目录下面会有一个`.md`文件, 比如`BinarySearch.md`, 用来总结`BinarySearch`的一些通用知识或者解法

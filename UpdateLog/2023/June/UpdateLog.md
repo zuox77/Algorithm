@@ -25,3 +25,7 @@
 2. Re-studied `String` knowledge, including ways of creating a new String and the differences between them
 3. Rephrased all `HashMap` in comments/notes to Chinese word `哈希表`, in order to be consisted with the writing style convention
 4. Rephrased all Chinese punctuations to English punctuations
+### 2023/06/23
+1. Completed `SearchInserPosition.java`, `SearchMatrix.java` and `SearchMatrixII.java`
+2. Updated `BinarySearch.md`
+3. Deleted some duplicate problems
