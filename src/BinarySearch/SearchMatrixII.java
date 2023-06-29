@@ -43,7 +43,7 @@ Output: true
  */
 
 public class SearchMatrixII {
-    public boolean solution(int[][] matrix, int target) {
+    public boolean solution1(int[][] matrix, int target) {
         // 找到长宽
         int len = matrix[0].length, width = matrix.length;
         // 用递归来做

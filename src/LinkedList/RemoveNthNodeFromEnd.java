@@ -10,7 +10,7 @@ https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/?favor
 4. 快慢指针最后停下来的位置应该是, 慢指针在, 需要移出的node的前一个, 快指针在null停下: while (fast != null)
  */
 public class RemoveNthNodeFromEnd {
-    public Node solution(Node head, int n) {
+    public Node solution1(Node head, int n) {
         Node dummy = new Node();
         dummy.next = head;
         Node slow = dummy, fast = head;

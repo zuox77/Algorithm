@@ -1,5 +1,7 @@
 package String;
 /*
+刷题次数: 2
+
 https://leetcode.cn/problems/longest-palindromic-substring/description/
 
 思路: 
@@ -11,7 +13,7 @@ https://leetcode.cn/problems/longest-palindromic-substring/description/
     4. 如果中心扩展方程要return左右两端的下标, 那计算长度时候还要重新算长度
  */
 public class LongestPalindromicSubstring {
-    public String solution(String s) {
+    public String solution1(String s) {
         int maxLength = 0;
         int[] result = new int[2];
         int len = s.length();
@@ -19,7 +21,7 @@ public class LongestPalindromicSubstring {
         // for循环不要从1开始, 也不要写< len- 1
         for (int i = 0; i < len; i++) {
             // 奇数偶数的中心点定义不一样
-            // 所以要运行两次, 再比较两次的大小取最大
+            // 所以要运行两次, 再比较两次的最大长度的大小, 取最大
             int[] odd = centerSpread(s, len, i, i);
             int[] even = centerSpread(s, len, i, i + 1);
             int[] longer = odd[1] > even[1] ? odd : even;
@@ -33,6 +35,7 @@ public class LongestPalindromicSubstring {
 
     public int[] centerSpread(String s, int len, int start, int end) {
         while (start >= 0 && end < len && s.charAt(start) == s.charAt(end)) {
+            // start往左移动, end往右移动, 扩散开来
             start--;
             end++;
         }

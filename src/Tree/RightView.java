@@ -30,7 +30,7 @@ return the values of the nodes you can see ordered from top to bottom
 
 public class RightView {
     // BFS
-    public List<Integer> solution(Node root) {
+    public List<Integer> solution1(Node root) {
         Queue<Node> queue = new LinkedList<>();
         List<Integer> result = new ArrayList<>();
         if (root == null) {

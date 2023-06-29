@@ -48,7 +48,7 @@ Explanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptab
  */
 
 class FindAnyPeakII {
-    public int[] solution(int[][] mat) {
+    public int[] solution1(int[][] mat) {
         // 找到长和宽
         int len = mat[0].length;
         int width = mat.length;

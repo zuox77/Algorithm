@@ -52,7 +52,7 @@ public class QuickSort_PartitionArray {
             }
             // find the first element which is < pivot and on the right side of pivot
             while (left <= right && nums[right] > pivot) {
-                right++;
+                right--;
             }
 
             if (left <= right) {
@@ -70,7 +70,7 @@ public class QuickSort_PartitionArray {
     }
 
     // partition array
-    public int[] solution(int[] nums, int k) {
+    public int[] solution1(int[] nums, int k) {
         int left = 0, right = nums.length - 1;
         int pivotIndex = (left + right) / 2;
         k = nums[pivotIndex];

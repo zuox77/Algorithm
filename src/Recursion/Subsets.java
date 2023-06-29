@@ -23,7 +23,7 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
  */
 
 public class Subsets {
-    public List<List<Integer>> solution(int[] nums) {
+    public List<List<Integer>> solution1(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
 
         // dfs

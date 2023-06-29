@@ -17,7 +17,7 @@ https://leetcode.cn/problems/zigzag-conversion/description/?orderBy=most_votes
  */
 
 public class ZigzagConversion {
-    public String solution(String s, int numRows) {
+    public String solution1(String s, int numRows) {
         if (numRows < 2) {
             return s;
         }

@@ -32,7 +32,7 @@ public class KClosestPointsToOrigin {
         }
     }
 
-    public int[][] solution(int[][] points, int k) {
+    public int[][] solution1(int[][] points, int k) {
         PriorityQueue<Pair> heap = new PriorityQueue<>((a, b) -> a.dist - b.dist);
         int[][] res = new int[k][2];
 

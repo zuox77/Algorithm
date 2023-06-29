@@ -32,7 +32,7 @@ public class TopKWords {
             this.occur = occur;
         }
     }
-    public String[][] solution(String[] words, int k) {
+    public String[][] solution1(String[] words, int k) {
         HashMap<String, Pair> map = new HashMap<>();
         PriorityQueue<Pair> heap = new PriorityQueue<>(k, new Comparator<Pair>() {
             @Override

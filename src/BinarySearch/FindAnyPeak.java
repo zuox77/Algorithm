@@ -29,7 +29,7 @@ Output: 1
 
  */
 public class FindAnyPeak {
-    public static int solution(int[] a) {
+    public static int solution1(int[] a) {
         // corner case
         if (a == null) {
             return 0;

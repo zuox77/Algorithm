@@ -1,8 +1,5 @@
 package Recursion;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /*
 https://leetcode.cn/problems/combination-sum/description/?favorite=2cktkvj
@@ -30,7 +27,7 @@ These are the only two combinations.
    比如下一层如果从2开始遍历, 那么path=[2,3,6,2],这一定与已经遍历过的[2,2,3,6]重复
  */
 public class CombinationSum {
-    public List<List<Integer>> solution(int[] candidates, int target) {
+    public List<List<Integer>> solution1(int[] candidates, int target) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(candidates);
         dfs(candidates, target, 0, new ArrayList<Integer>(), 0, result);

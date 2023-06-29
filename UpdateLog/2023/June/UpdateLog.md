@@ -19,7 +19,7 @@
 3. Replaced all methods name starting with capitalized `Solution` to `solution`, in order to be consisted with the name convention
 ### 2023/06/17
 1. Completed `GroupAnagrams.java` solution2
-2. Summarized self-build HashMap via array
+2. Summarized `self-build HashMap` method via array in `DataStructure.md`
 ### 2023/06/18
 1. Added `UpdateLog` directory and refactored `UpdateLog.md` to `June`
 2. Re-studied `String` knowledge, including ways of creating a new String and the differences between them
@@ -29,3 +29,8 @@
 1. Completed `SearchInserPosition.java`, `SearchMatrix.java` and `SearchMatrixII.java`
 2. Updated `BinarySearch.md`
 3. Deleted some duplicate problems
+### 2023/06/30
+1. Completed `Anagrams.java`, `MaxAreaOfIsland.java`, `SpiralMatrix.java`
+2. Summarized `BFS` method in `BFS.md`
+3. Added `July` directory
+4. Rephrased all function name to be `solution1` instead of `solution`, even if they don't have a second solution
