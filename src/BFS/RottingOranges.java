@@ -30,7 +30,8 @@ Explanation: Since there are already no fresh oranges at minute 0, the answer is
 2. 这道题是变形题，有三个状态：当前橘子正在腐烂且未腐烂完，当前橘子全部腐烂完，当前橘子全部腐烂完但仍有新鲜橘子。为了考虑这个情况，需要：
   1. 在初始状态计算新鲜橘子的数量，在最后的时候，可以通过剩余新鲜橘子的数量判断是否有无法被腐烂的橘子
   2. 在初始状态可以将所有腐烂的橘子放入queue中（记住：BFS不一定非要通过for loop开启第一个点，也可以先遍历把第一层所有的点都放入queue）
-  3. 需要注意，只有腐烂的橘子附近的四个橘子会被腐烂，所以需要额外判断，不需要
+  3. 需要注意，只有腐烂的橘子附近的四个橘子会被腐烂，所以需要计算每一次queue的当前长度，用for loop，这样可以保证每次都只遍历初始的腐烂的橘子
+  然后只对这些橘子周围四个橘子进行状态改变
  */
 
 import java.util.ArrayDeque;
@@ -58,6 +59,7 @@ public class RottingOranges {
         while (freshOrange > 0 && !queue.isEmpty()) {
             time++;
             int currentSize = queue.size();
+            // 这里需要通过计算每一层有多少个来限制腐烂橘子的个数，只对当前腐烂橘子周围四个橘子进行处理
             for (int i = 0; i < currentSize; i++) {
                 int[] current = queue.poll();
                 for (int[] direction: DIRECTIONS) {
