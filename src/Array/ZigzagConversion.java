@@ -1,5 +1,7 @@
 package Array;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 /*
 刷题次数: 2
 二刷: 忘记考虑rowNums = 1的情况, 解决方案: 要么加一个corner case处理, 要么在更新rowNum的时候, 判断一下numRows - 1 == 0
@@ -30,7 +32,7 @@ public class ZigzagConversion {
         // iterate and use a counter to decide direction
         int rowNum = 0;
         int direction = -1;
-        for (char c: s.toCharArray()) {
+        for (char c : s.toCharArray()) {
             result.get(rowNum).append(c);
             if (rowNum == 0 || rowNum == numRows - 1) {
                 direction = -direction;
@@ -40,7 +42,7 @@ public class ZigzagConversion {
 
         // iterate to get final answer
         StringBuilder resultString = new StringBuilder();
-        for (StringBuilder row: result) {
+        for (StringBuilder row : result) {
             resultString.append(row);
         }
         return resultString.toString();

@@ -86,7 +86,7 @@ public class BestTimeStock3 {
         }
 
         int buy1 = -prices[0], sell1 = 0, buy2 = -prices[0], sell2 = 0;
-        for (int price: prices) {
+        for (int price : prices) {
             buy1 = Math.max(buy1, -price);
             sell1 = Math.max(sell1, buy1 + price);
             buy2 = Math.max(buy2, sell1 - price);

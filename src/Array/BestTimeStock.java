@@ -35,7 +35,7 @@ public class BestTimeStock {
         int maxProfit = 0;
 
         // iterate
-        for (int price: prices) {
+        for (int price : prices) {
             minPrice = Math.min(minPrice, price);
             maxProfit = Math.max(price - minPrice, maxProfit);
         }

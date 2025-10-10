@@ -72,7 +72,7 @@ class FindAnyPeakII {
             // 分情况判断
             // 当前点比左右都大, 则说明是峰顶, 找到答案直接返回即可
             if (!leftLarger && !rightLarger) {
-                return new int[] {colMaxIndex, mid};
+                return new int[]{colMaxIndex, mid};
                 // 当前点处于向右递增, 则右边更有可能有峰顶, 所以left指针向右移动
             } else if (!leftLarger && rightLarger) {
                 // 注意这里一定要是mid+1, 详情可以看BinarySearch.md
@@ -84,6 +84,6 @@ class FindAnyPeakII {
             }
         }
         // 如果while循环退出了都没找到, 则说明可能没有峰值
-        return new int[] {-1, -1};
+        return new int[]{-1, -1};
     }
 }

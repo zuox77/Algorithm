@@ -35,7 +35,7 @@ public class UglyNumber2 {
 
         for (int i = 0; i < n; i++) {
             curUgly = heap.poll();
-            for (int factor: factors) {
+            for (int factor : factors) {
                 newUgly = curUgly * factor;
                 if (!visited.contains(newUgly)) {
                     visited.add(newUgly);
@@ -43,6 +43,6 @@ public class UglyNumber2 {
                 }
             }
         }
-        return (int)curUgly;
+        return (int) curUgly;
     }
 }

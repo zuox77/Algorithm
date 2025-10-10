@@ -1,5 +1,8 @@
 package DataStructure;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 /*
 刷题次数: 2
 第二次: 还记得前缀树大概的思路, 但是忘了具体怎么实现
@@ -67,9 +70,11 @@ public class RemoveSubFolder {
             // trie(b的trie) -> children:{"d": trie(d的trie)}
             Trie trie = this;
             // 将此字符串通过'/'分割并遍历
-            for (String path: str.split("/")) { // "/a/b/e" -> ["", "a", "b", "c"]
+            for (String path : str.split("/")) { // "/a/b/e" -> ["", "a", "b", "c"]
                 // 排除掉第一个, 因为第一个是空字符串
-                if (path == "") { continue; }
+                if (path == "") {
+                    continue;
+                }
                 // 查询是否在children这个字典中
                 // 如果不在
                 if (!trie.children.containsKey(path)) {
@@ -105,11 +110,12 @@ public class RemoveSubFolder {
                 return;
             }
             // 遍历
-            for (Trie child: trie.children.values()) {
+            for (Trie child : trie.children.values()) {
                 dfs(child, resultIdx);
             }
         }
     }
+
     public List<String> solution1(String[] folders) {
         // 定义变量
         List<String> result = new ArrayList<>();
@@ -119,7 +125,7 @@ public class RemoveSubFolder {
             trie.add(folders[i], i);
         }
         // 通过search得到一个答案的index的列表, 然后通过对应到folders中找到真正的目录
-        for (int i: trie.search()) {
+        for (int i : trie.search()) {
             result.add(folders[i]);
         }
         return result;

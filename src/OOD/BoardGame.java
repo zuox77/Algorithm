@@ -1,4 +1,5 @@
 package OOD;
+
 import java.util.HashMap;
 /*
 https://www.1point3acres.com/bbs/thread-970148-1-1.html
@@ -10,13 +11,18 @@ https://www.1point3acres.com/bbs/thread-953876-1-1.html
 public class BoardGame {
     private HashMap<Integer, StringBuilder> board = new HashMap<>();
     private int winLength;
-    public BoardGame (int winLength) {
+
+    public BoardGame(int winLength) {
         this.winLength = winLength;
     }
+
     enum Player {
         PLAYER_WHITE('W'), PLAYER_RED('R');
         char symbol;
-        Player(char symbol) { this.symbol = symbol; }
+
+        Player(char symbol) {
+            this.symbol = symbol;
+        }
 
         public Character toChar() {
             return this.symbol;

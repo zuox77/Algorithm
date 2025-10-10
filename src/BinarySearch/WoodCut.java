@@ -34,13 +34,13 @@ public class WoodCut {
     public int solution1(int[] woods, int k) {
         // 定义指针, 且找到右侧最大值, 即右边界
         int left = 1, right = -1; // 注意: 左指针left一定是从1开始
-        for (int wood: woods) {
+        for (int wood : woods) {
             right = Math.max(wood, right);
         }
-         // corner case
-         if (right < 1 || right < k) {
-             return 0;
-         }
+        // corner case
+        if (right < 1 || right < k) {
+            return 0;
+        }
         // 二分遍历
         while (left + 1 < right) {
             // 找到中点
@@ -56,15 +56,19 @@ public class WoodCut {
         }
         // 额外检查一次left和right
         // 一定要先检查right, 因为题目要求最大长度, 有可能left和right都可以, 但right更大
-        if (getCutNum(woods, right) >= k) { return right; }
-        if (getCutNum(woods, left) >= k) { return left; }
+        if (getCutNum(woods, right) >= k) {
+            return right;
+        }
+        if (getCutNum(woods, left) >= k) {
+            return left;
+        }
         return 0;
     }
 
     public int getCutNum(int[] woods, int len) {
         int num = 0;
         // 遍历找到一共能切割成多少份
-        for (int wood: woods) {
+        for (int wood : woods) {
             num += wood / len;
         }
         return num;

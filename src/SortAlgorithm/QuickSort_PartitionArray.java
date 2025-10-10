@@ -63,9 +63,9 @@ public class QuickSort_PartitionArray {
                 right--;
             }
 
-        // recursion
-        quickSortTemplate(nums, start, right);
-        quickSortTemplate(nums, left, end);
+            // recursion
+            quickSortTemplate(nums, start, right);
+            quickSortTemplate(nums, left, end);
         }
     }
 

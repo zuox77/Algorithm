@@ -1,5 +1,9 @@
 package Tree;
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 /*
 刷题次数: 2
@@ -128,7 +132,9 @@ public class PreOrderTraverse {
         List<Integer> result = new ArrayList<>();
         Deque<Node> stack = new ArrayDeque<>();
         // 先检查是否是null, 不然加进stack会报错
-        if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 将root放入stack
         stack.push(root);
         // 开始循环遍历
@@ -153,17 +159,21 @@ public class PreOrderTraverse {
     class State {
         Node node;
         int indicator;
+
         public State(Node node, int indicator) {
             this.node = node;
             this.indicator = indicator;
         }
     }
+
     public List<Integer> solution4(Node root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         Deque<State> stack = new ArrayDeque<>();
         // 先检查是否是null, 不然加进stack会报错
-        if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 将root放入stack
         stack.push(new State(root, 0));
         // 开始遍历
@@ -173,7 +183,9 @@ public class PreOrderTraverse {
             Node node = now.node;
             int indicator = now.indicator;
             // 先检查null, 避免后续node.left/node.right出错
-            if (node == null) { continue; }
+            if (node == null) {
+                continue;
+            }
             // 这是一个通用template, 其本质就是逆向添加进stack, 再一一弹出
             // 对于前序遍历, 其实下面的代码就够了: 
             // stack.push(new State(node.right, 0));
@@ -216,8 +228,8 @@ public class PreOrderTraverse {
                 if (tmp.right == now) {
                     tmp.right = null;
                     now = now.right;
-                // 如果此时tmp.right != now, 说明我们还没有将右子节点和父节点连上, 这是第一次遍历到这个节点
-                // 所以将节点添加进result, 并将tmp.right指向now, 然后now更新为now.left, 继续遍历
+                    // 如果此时tmp.right != now, 说明我们还没有将右子节点和父节点连上, 这是第一次遍历到这个节点
+                    // 所以将节点添加进result, 并将tmp.right指向now, 然后now更新为now.left, 继续遍历
                 } else {
                     // 因为是前序遍历: 根 - 左 - 右
                     // 所以当第一次遍历到这个节点的时候就需要把它加入result, 因为now即是根, 根要最开始被添加进去
@@ -225,7 +237,7 @@ public class PreOrderTraverse {
                     tmp.right = now;
                     now = now.left;
                 }
-            // 这里代表最上层的左子树已经全部添加进了result, 现在换右子树
+                // 这里代表最上层的左子树已经全部添加进了result, 现在换右子树
             } else {
                 result.add(now.val);
                 now = now.right;

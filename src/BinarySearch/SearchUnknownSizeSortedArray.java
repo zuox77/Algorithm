@@ -57,10 +57,10 @@ public class SearchUnknownSizeSortedArray {
             // 找到target, 则直接返回
             if (reader.get(mid) == target) {
                 return mid;
-            // 比target小, 则left往右移动
+                // 比target小, 则left往右移动
             } else if (reader.get(mid) < target) {
                 left = mid;
-            // 比target大, 则right往左移动
+                // 比target大, 则right往左移动
             } else {
                 right = mid;
             }
@@ -68,6 +68,7 @@ public class SearchUnknownSizeSortedArray {
         // 最后再判断一次
         return reader.get(left) == target ? left : reader.get(right) == target ? right : -1;
     }
+
     public int soluiton2(ArrayReader reader, int target) {
         // 定义指针
         int left = 0, right = 1;
@@ -85,10 +86,10 @@ public class SearchUnknownSizeSortedArray {
             // 找到target, 则直接返回
             if (reader.get(mid) == target) {
                 return mid;
-            // 比target小, 则left往右移动
+                // 比target小, 则left往右移动
             } else if (reader.get(mid) < target) {
                 left = mid;
-            // 比target大, 则right往左移动
+                // 比target大, 则right往左移动
             } else {
                 right = mid; // -----> 与思路1的区别
             }

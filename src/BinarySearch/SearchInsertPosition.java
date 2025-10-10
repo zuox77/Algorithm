@@ -1,4 +1,5 @@
 package BinarySearch;
+
 /*
 刷题次数: 2
 
@@ -44,7 +45,9 @@ public class SearchInsertPosition {
         }
         // 根据题意, 如果[1, 3, 5, 6], target = 2, 答案是1, 说明插入的位置在比target大的第一个数所在的位置
         // 而用left <= right的话, 退出循环时, left应该和right是同一个数, 所以比较哪个都可以
-        if (nums[left] >= target) {return left;}
+        if (nums[left] >= target) {
+            return left;
+        }
         return len;
     }
 }

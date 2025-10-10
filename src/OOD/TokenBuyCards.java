@@ -1,4 +1,5 @@
 package OOD;
+
 import java.util.HashMap;
 
 /*
@@ -34,14 +35,17 @@ public class TokenBuyCards {
     public enum Color {
         Red("Red"), Blue("Blue"), Green("Green"), White("White"), Black("Black"), Gold("Gold");
         private String name;
+
         private Color(String name) {
             this.name = name;
         }
+
         @Override
         public String toString() {
             return this.name;
         }
     }
+
     public class Token {
         /*
         1. Token有颜色属性和计数属性
@@ -49,18 +53,22 @@ public class TokenBuyCards {
          */
         private Color color;
         private int count;
+
         // constructor
         public Token(Color color, int count) {
             this.color = color;
             this.count = count;
         }
+
         // get methods
         public Color getTokenColor() {
             return this.color;
         }
+
         public int getTokenNumber() {
             return this.count;
         }
+
         // update methods
         public void setTokenNumber(int value) {
             this.count = value;
@@ -74,19 +82,23 @@ public class TokenBuyCards {
          */
         private HashMap<Color, Token> cardToken = new HashMap<>();
         private Color color;
+
         // constructor
         public Card(HashMap<Color, Token> cardToken, Color color) {
             this.cardToken = cardToken;
             this.color = color;
         }
+
         // get methods
         public Color getCardColor() {
             return this.color;
         }
+
         public HashMap<Color, Token> getCardTokens() {
             return this.cardToken;
         }
     }
+
     public class Customer {
         /*
         1. Customer由多个token组成, 表示拥有的token数量
@@ -95,20 +107,24 @@ public class TokenBuyCards {
          */
         private HashMap<Color, Token> customerToken;
         private HashMap<Color, Integer> discount = new HashMap<>();
+
         // constructor
         public Customer(HashMap<Color, Token> customerToken) {
             this.customerToken = customerToken;
         }
+
         // get methods
         public HashMap<Color, Token> getAllTokens() {
             return this.customerToken;
         }
+
         public Token getToken(Color color) {
             if (this.customerToken.containsKey(color)) {
                 return this.customerToken.get(color);
             }
             return null;
         }
+
         // purchase methods
         public boolean purchase(Card card) {
             if (canPurchase(card)) {
@@ -117,12 +133,13 @@ public class TokenBuyCards {
             }
             return false;
         }
+
         public boolean canPurchase(Card card) {
             Color cardColor = card.color;
             if (this.customerToken.get(Color.Gold) != null) {
                 int goldNumber = this.customerToken.get(Color.Gold).getTokenNumber();
             }
-            for (HashMap.Entry<Color, Token> entry: card.getCardTokens().entrySet()) {
+            for (HashMap.Entry<Color, Token> entry : card.getCardTokens().entrySet()) {
                 Color tokenColor = entry.getKey();
                 int price = entry.getValue().getTokenNumber();
                 // customer doesn't have the token of this color
@@ -147,12 +164,14 @@ public class TokenBuyCards {
             }
             return true;
         }
+
         public void updateAllToken(Card card) {
-            HashMap<Color, Token> cardToken  = card.getCardTokens();
-            for (HashMap.Entry<Color, Token> entry: cardToken.entrySet()) {
+            HashMap<Color, Token> cardToken = card.getCardTokens();
+            for (HashMap.Entry<Color, Token> entry : cardToken.entrySet()) {
                 updateToken(entry.getKey(), entry.getValue());
             }
         }
+
         public void updateToken(Color cardTokenColor, Token cardToken) {
             Token customerToken = this.customerToken.get(cardTokenColor);
             int customerTokenNumber = customerToken.getTokenNumber();

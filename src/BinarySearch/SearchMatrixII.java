@@ -67,14 +67,22 @@ public class SearchMatrixII {
         } else if (num > target) {
             // if (recursion(matrix, rowLeft, rowMid, colLeft, colRight, target)) {return true;}
             // if (recursion(matrix, rowMid, rowRight, colLeft, colMid, target)) {return true;}
-            if (recursion(matrix, rowLeft, rowMid, colMid, colRight, target)) {return true;}
-            if (recursion(matrix, rowLeft, rowRight, colLeft, colMid, target)) {return true;}
+            if (recursion(matrix, rowLeft, rowMid, colMid, colRight, target)) {
+                return true;
+            }
+            if (recursion(matrix, rowLeft, rowRight, colLeft, colMid, target)) {
+                return true;
+            }
             // 如果比target小, 那么说明左上角的所有数都比target小, 所以排除左上角
         } else {
             // if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {return true;}
             // if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {return true;}
-            if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {return true;}
-            if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {return true;}
+            if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {
+                return true;
+            }
+            if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {
+                return true;
+            }
         }
         return false;
     }

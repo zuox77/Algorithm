@@ -3,6 +3,7 @@ package DataStructure;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+
 /*
 给定一个字符串数组, 再给定整数 k , 请返回出现次数前k名的字符串和对应的次数
 返回的答案应该按字符串出现频率由高到低排序, 如果不同的字符串有相同出现频率, 按字典序排序
@@ -27,11 +28,13 @@ public class TopKWords {
     class Pair {
         public String str;
         public int occur;
+
         public Pair(String str, int occur) {
             this.str = str;
             this.occur = occur;
         }
     }
+
     public String[][] solution1(String[] words, int k) {
         HashMap<String, Pair> map = new HashMap<>();
         PriorityQueue<Pair> heap = new PriorityQueue<>(k, new Comparator<Pair>() {
@@ -44,7 +47,7 @@ public class TopKWords {
                 }
             }
         });
-        for (String word: words) {
+        for (String word : words) {
             if (map.containsKey(word)) {
                 map.get(word).occur++;
             } else {
@@ -53,7 +56,7 @@ public class TopKWords {
             }
         }
 
-        for (Pair pair: map.values()) {
+        for (Pair pair : map.values()) {
             heap.add(pair);
         }
 

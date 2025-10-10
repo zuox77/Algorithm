@@ -22,7 +22,9 @@ https://www.jiuzhang.com/problem/longest-substring-without-repeating-characters/
 时间复杂度: O(N), 遍历一次
 空间复杂度: O(N), 哈希表消耗
  */
+
 import java.util.HashMap;
+
 public class LongestSubstringWithoutDuplicate {
     public int solution1(String s) {
         HashMap<Character, Integer> map = new HashMap<>();

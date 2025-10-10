@@ -49,6 +49,7 @@ public class MedianOfTwoSortedArrays {
         }
 
     }
+
     public static int findKth(int[] nums1, int startFirst, int[] nums2, int startSecond, int k) {
         // recursion exit
         if (startFirst >= nums1.length) { // nums1已经遍历完了
@@ -100,7 +101,7 @@ public class MedianOfTwoSortedArrays {
         // (第median个数 + 第median+1个数) / 2.0, 所以这里多遍历一次为了找到后一个数, 然后后面通过if判断就行了
         for (int i = 0; i < median + 1; i++) {
             left = right; // 每次更新是因为, 当找到了第median个数以后, 会去找第median+1个数, 这时候用left取保存, 而median+1找到后
-                          // 因为for的次数到了, 会自动退出, 所以left保留median个数, right保留median+1个数
+            // 因为for的次数到了, 会自动退出, 所以left保留median个数, right保留median+1个数
             // 下面条件表示: 
             // 如果nums1已经遍历完了 || nums2还没有遍历完 && nums2[second]是更小的, 即合并数组里面从小到大排列的下一个数
             if (first >= nums1.length || second < nums2.length && nums2[second] < nums1[first]) {

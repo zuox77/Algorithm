@@ -1,5 +1,6 @@
 package Array;
-import java.util.*;
+
+import java.util.HashSet;
 /*
 刷题次数: 2
 
@@ -29,13 +30,13 @@ public class LongestConsecutiveSequence {
     public int longestConsecutive(int[] nums) {
         // add all numbers to a HashSet to deduplicate
         HashSet<Integer> set = new HashSet<>();
-        for (int num: nums) {
+        for (int num : nums) {
             set.add(num);
         }
 
         // iterate the HashSet to calculate the maximum sequence
         int result = 0;
-        for (int num: set) {
+        for (int num : set) {
             int len = 1; // 初始化为1
             // 如果这个数有sequence, 且这个数不是sequence中最小的, 
             // 那么说明这个数在之前或者之后会被重复计算

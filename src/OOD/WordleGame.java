@@ -89,11 +89,11 @@ public class WordleGame {
         }
 
         // iterate duplicate character
-        for (int index: remaining) {
+        for (int index : remaining) {
             char remainChar = guess.charAt(index);
             if (mapCopy.get(remainChar) > 0) {
                 result[index] = "Yellow";
-                mapCopy.put(remainChar, mapCopy.get(remainChar) -  1);
+                mapCopy.put(remainChar, mapCopy.get(remainChar) - 1);
             } else {
                 result[index] = "Black";
             }

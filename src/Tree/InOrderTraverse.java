@@ -1,5 +1,9 @@
 package Tree;
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
 
 /*
 刷题次数: 2
@@ -43,7 +47,9 @@ public class InOrderTraverse {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         // corner case, 也是递归的出口
-        if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 分治的分
         List<Integer> left = solution2(root.left);
         List<Integer> right = solution2(root.right);
@@ -61,7 +67,9 @@ public class InOrderTraverse {
         List<Integer> result = new ArrayList<>();
         Deque<Node> stack = new ArrayDeque<>();
         // 先检查root是否是null, 不然放入stack会报错
-        if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 设置一个新指针, 指向root
         Node node = root;
         // root != null是因为最开始没有讲root添加进stack, 如果单写!stack.isEmpty()就会
@@ -88,22 +96,26 @@ public class InOrderTraverse {
         // 返回结果
         return result;
     }
-    
+
     // stack2
     class State {
         Node node;
         int indicator;
+
         public State(Node node, int indicator) {
             this.node = node;
             this.indicator = indicator;
         }
     }
+
     public List<Integer> solution4(Node root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         Deque<State> stack = new ArrayDeque<>();
         // 先检查是否是null, 不然加进stack会报错
-        if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 将root放入stack
         stack.push(new State(root, 0));
         // 开始遍历
@@ -113,7 +125,9 @@ public class InOrderTraverse {
             Node node = now.node;
             int indicator = now.indicator;
             // 先检查null, 避免后续node.left/node.right出错
-            if (node == null) { continue; }
+            if (node == null) {
+                continue;
+            }
             // 这是一个通用template, 其本质就是逆向添加进stack, 再一一弹出
             // 对于前序遍历, 其实下面的代码就够了: 
             // stack.push(new State(node.right, 0));

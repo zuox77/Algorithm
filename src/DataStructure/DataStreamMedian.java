@@ -1,5 +1,7 @@
 package DataStructure;
+
 import java.util.PriorityQueue;
+
 /*
 https://leetcode.cn/problems/find-median-from-data-stream/description/?orderBy=most_votes
 https://www.lintcode.com/problem/81/
@@ -51,7 +53,9 @@ getMedian时间复杂度: O(1)
 public class DataStreamMedian {
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
-    public DataStreamMedian() {}
+
+    public DataStreamMedian() {
+    }
 
     public void addNum(int num) {
         int minSize = minHeap.size();
@@ -59,7 +63,7 @@ public class DataStreamMedian {
         // first element add to maxHeap
         if (maxSize == 0) {
             maxHeap.add(num);
-        } else if (maxSize - minSize == 1){ // total length is odd
+        } else if (maxSize - minSize == 1) { // total length is odd
             if (num < maxHeap.peek()) { // means num should belong to maxHeap, but maxHeap already has 1 element more
                 minHeap.add(maxHeap.poll());
                 maxHeap.add(num);
@@ -80,7 +84,7 @@ public class DataStreamMedian {
         int minSize = minHeap.size();
         int maxSize = maxHeap.size();
         if (maxSize - minSize == 1) {
-            return (double)maxHeap.peek();
+            return (double) maxHeap.peek();
         }
         return (maxHeap.peek() + minHeap.peek()) / 2.0;
     }

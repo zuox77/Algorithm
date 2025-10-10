@@ -77,7 +77,7 @@ public class FindMinimumInRotatedSortedArray {
             // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
             if (nums[mid] > xAxis) {
                 left = mid;
-            // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
+                // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
             } else {
                 right = mid;
             }
@@ -100,7 +100,7 @@ public class FindMinimumInRotatedSortedArray {
             // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
             if (nums[mid] > xAxie) {
                 left = mid + 1;
-            // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
+                // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
             } else {
                 right = mid;
             }

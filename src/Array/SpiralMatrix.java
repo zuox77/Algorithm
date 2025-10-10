@@ -1,5 +1,7 @@
 package Array;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 /*
 https://leetcode.cn/problems/spiral-matrix/description/
 
@@ -71,7 +73,7 @@ public class SpiralMatrix {
         // 遍历
         while (matrix.length > 0) {
             // 把第一层全部加入result
-            for (int num: matrix[0]) {
+            for (int num : matrix[0]) {
                 result.add(num);
             }
             // matrix逆时针旋转90度
@@ -88,7 +90,7 @@ public class SpiralMatrix {
         // 因为每次旋转90度, 所以这里长和宽要交换一下
         int[][] matrixNew = new int[len][width]; // 不是 int[width][len] => int[有几行][有几列]
         // 将数字一一放到新矩阵里面
-        for(int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             for (int j = 0; j < width; j++) {
                 matrixNew[i][j] = matrix[j + 1][len - i - 1];
             }

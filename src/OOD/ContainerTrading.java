@@ -1,4 +1,5 @@
 package OOD;
+
 /*
 https://www.1point3acres.com/bbs/thread-970148-1-1.html
 Given a shipping yard with infinite capacity for containers and has clients who would like to store their containers.
@@ -10,5 +11,5 @@ Design a system which can manage the operations of the yard.
 Was asked to explain complexity of the solution as well as where I could have improved.
  */
 public class ContainerTrading {
-    
+
 }

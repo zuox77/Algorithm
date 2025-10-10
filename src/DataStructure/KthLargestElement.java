@@ -20,7 +20,7 @@ public class KthLargestElement {
             return result;
         }
 
-        for (int num: nums) {
+        for (int num : nums) {
             if (heap.size() < k) {
                 heap.add(num);
             } else if (heap.peek() < num) {

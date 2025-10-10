@@ -1,5 +1,10 @@
 package DataStructure;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 /*
 刷题次数: 2
 
@@ -75,7 +80,7 @@ public class GroupAnagrams {
         // 创建哈希表
         HashMap<String, List<String>> map = new HashMap<>();
         // 遍历strs
-        for (String str: strs) {
+        for (String str : strs) {
             // 因为Java只有toCharArray()函数, 所以只能通过这个方式把String变成一个可排序的集合
             char[] ch = str.toCharArray();
             // 将单词排序
@@ -98,12 +103,12 @@ public class GroupAnagrams {
         // 创建哈希表
         HashMap<String, List<String>> map = new HashMap<>();
         // 遍历
-        for (String str: strs) {
+        for (String str : strs) {
             // 创建字母出现频率的数组, 
             int[] alphabet = new int[26];
             // 因为小写字母'a'对应的ASCII数字是97, 所以直接减去97, 即可将其变成0-26的数字, 然后对应数组的下标
             // 但更好的办法是, 既然我们想以 0 -> a,1 -> b,... 去一一对应, 那么直接用字母减去'a'即可
-            for (char ch: str.toCharArray()) {
+            for (char ch : str.toCharArray()) {
                 alphabet[ch - 'a']++;
             }
             // 遍历字母出现频率的数组

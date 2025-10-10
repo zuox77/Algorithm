@@ -1,5 +1,4 @@
 package Array;
-import java.util.*;
 
 /*
 刷题次数: 2
@@ -73,7 +72,7 @@ public class RotateImage {
             right++;
         }
     }
-    
+
     public void solution2(int[][] matrix) {
         int n = matrix.length;
         // 沿对角线遍历

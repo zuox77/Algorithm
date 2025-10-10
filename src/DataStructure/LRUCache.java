@@ -1,4 +1,5 @@
 package DataStructure;
+
 import java.util.HashMap;
 /*
 https://leetcode.cn/problems/lru-cache/description/
@@ -36,7 +37,10 @@ class Node {
     int key;
     Node next;
     Node prev;
-    public Node() {}
+
+    public Node() {
+    }
+
     public Node(int val, int key) {
         this.val = val;
         this.key = key;

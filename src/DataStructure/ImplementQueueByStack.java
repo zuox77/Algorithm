@@ -1,5 +1,7 @@
 package DataStructure;
+
 import java.util.Stack;
+
 /*
 https://leetcode.cn/problems/implement-queue-using-stacks/description/
 https://www.lintcode.com/problem/40/
@@ -19,7 +21,7 @@ public class ImplementQueueByStack {
     private Stack<Integer> stack1;
     private Stack<Integer> stack2;
 
-    public ImplementQueueByStack () {
+    public ImplementQueueByStack() {
         stack1 = new Stack<>();
         stack2 = new Stack<>();
     }

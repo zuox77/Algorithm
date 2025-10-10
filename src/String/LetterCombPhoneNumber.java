@@ -2,6 +2,7 @@ package String;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /*
 https://leetcode.cn/problems/letter-combinations-of-a-phone-number/description/
 
@@ -37,7 +38,7 @@ public class LetterCombPhoneNumber {
 
             // iterate
             // char/string都可以直接相减变成int
-            for (Character ch: map[digits.charAt(curIndex) - '0'].toCharArray()) {
+            for (Character ch : map[digits.charAt(curIndex) - '0'].toCharArray()) {
                 tmpResult.append(ch);
                 recursion(digits, curIndex + 1, n, result, tmpResult);
                 tmpResult.deleteCharAt(tmpResult.length() - 1);

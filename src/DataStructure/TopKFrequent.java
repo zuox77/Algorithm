@@ -38,6 +38,7 @@ public class TopKFrequent {
     class Pair {
         int val;
         int freq;
+
         public Pair(int val, int freq) {
             this.val = val;
             this.freq = freq;
@@ -68,7 +69,7 @@ public class TopKFrequent {
         });
         HashMap<Integer, Integer> map = new HashMap<>();
 
-        for (int num: nums) {
+        for (int num : nums) {
             if (!map.containsKey(num)) {
                 map.put(num, 1);
             } else {
@@ -76,7 +77,7 @@ public class TopKFrequent {
             }
         }
 
-        for (int key: map.keySet()) {
+        for (int key : map.keySet()) {
             maxHeap.add(new Pair(key, map.get(key)));
         }
 

@@ -1,4 +1,5 @@
 package String;
+
 /*
 刷题次数: 2
 
@@ -40,6 +41,6 @@ public class LongestPalindromicSubstring {
             end++;
         }
         // 结果是substring的左端下标和长度
-        return new int[] {start + 1, end - start - 1};
+        return new int[]{start + 1, end - start - 1};
     }
 }

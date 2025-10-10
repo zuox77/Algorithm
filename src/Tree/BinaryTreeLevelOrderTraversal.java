@@ -1,5 +1,9 @@
 package Tree;
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 /*
 刷题次数：2
 第二次：记得
@@ -24,13 +28,15 @@ public class BinaryTreeLevelOrderTraversal {
         Queue<Node> queue = new ArrayDeque<>();
         List<List<Integer>> result = new ArrayList<>();
         // corner case
-            if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 将root添加进queue
-            queue.offer(root);
+        queue.offer(root);
         // 定义变量count去计算每一层有多少个节点
         int count = 1; // 初始化为1因为root就1个节点,root为null已经被排除掉了
         // 通过BFS遍历
-            while (!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             // 用另一个变量记录上次的count
             int prevCount = count;
             // 重置count
@@ -57,7 +63,7 @@ public class BinaryTreeLevelOrderTraversal {
             result.add(level);
         }
         // 返回
-            return result;
+        return result;
     }
 
     public List<List<Integer>> levelOrder(Node root) {
@@ -67,7 +73,9 @@ public class BinaryTreeLevelOrderTraversal {
         // 定义一个变量记录每一层的值
         List<Integer> level = new ArrayList<>();
         // corner case
-        if (root == null) { return result; }
+        if (root == null) {
+            return result;
+        }
         // 将root添加进queue
         queue.offer(root);
         // 通过BFS遍历

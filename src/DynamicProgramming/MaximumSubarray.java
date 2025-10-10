@@ -124,7 +124,7 @@ public class MaximumSubarray {
          */
         int minSum = 0;
 
-        for (int num: nums) {
+        for (int num : nums) {
             sum += num;
             res = Math.max(res, sum - minSum);
             minSum = Math.min(minSum, sum);

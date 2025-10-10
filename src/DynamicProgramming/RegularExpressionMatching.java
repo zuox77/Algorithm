@@ -1,4 +1,5 @@
 package DynamicProgramming;
+
 /*
 https://leetcode.cn/problems/regular-expression-matching/description/?favorite=2cktkvj
 https://leetcode.cn/problems/regular-expression-matching/solutions/296114/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/?orderBy=most_votes
@@ -42,7 +43,7 @@ public class RegularExpressionMatching {
         // 当s为""时, 因为*能表示0个或者多个, 所以如果p里面全是"a*b*c*", 可以将他们全部看作0个, 此时也可能是true
         // 所以下面就是为了判断这个: 
         for (int j = 1; j < pLen + 1; j++) {
-            if (p.charAt(j - 1)== '*') { // j - 1即是第j个字符, 即想要判断的是dp[0][j]的状态如何被先前的数据转化的
+            if (p.charAt(j - 1) == '*') { // j - 1即是第j个字符, 即想要判断的是dp[0][j]的状态如何被先前的数据转化的
                 dp[0][j] = dp[0][j - 2];
             }
         }
@@ -62,7 +63,7 @@ public class RegularExpressionMatching {
                     // i往前挪一位, 看看前面如果有多个a, 是否也能一起匹配
                     if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.') {
                         dp[i][j] = dp[i][j - 2]      // 即情况1, 但是是能匹配上, 也故意不匹配
-                            || dp[i - 1][j]; // 即情况2
+                                || dp[i - 1][j]; // 即情况2
                     } else { // 即情况1
                         dp[i][j] = dp[i][j - 2];
                     }

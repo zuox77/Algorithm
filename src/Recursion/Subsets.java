@@ -45,7 +45,7 @@ public class Subsets {
         for (int i = begin; i < nums.length; i++) {
             path.add(nums[i]);
             dfs(nums, path, result, i + 1);
-            path.remove(path.size() -  1);
+            path.remove(path.size() - 1);
         }
     }
 }

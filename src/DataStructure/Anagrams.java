@@ -1,5 +1,8 @@
 package DataStructure;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 /*
 刷题次数: 2
 
@@ -24,7 +27,7 @@ public class Anagrams {
         List<String> result = new ArrayList<>();
         HashMap<String, List<String>> map = new HashMap<>();
         // 遍历每个单词
-        for (String str: strs) {
+        for (String str : strs) {
             // 遍历m单词的每个字母, 放入字母表数组中
             int[] alphabet = new int[26];
             for (int i = 0; i < str.length(); i++) {
@@ -47,7 +50,7 @@ public class Anagrams {
             map.put(key, value);
         }
         // 遍历map, 找到键值对中数量大于1的, 加入result
-        for (List<String> value: map.values()) {
+        for (List<String> value : map.values()) {
             if (value.size() > 1) {
                 result.addAll(value);
             }

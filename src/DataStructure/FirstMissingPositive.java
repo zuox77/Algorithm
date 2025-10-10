@@ -1,5 +1,7 @@
 package DataStructure;
-import java.util.*;
+
+import java.util.HashSet;
+import java.util.Set;
 /*
 https://leetcode.cn/problems/first-missing-positive/description/
 Given an unsorted integer array nums, return the smallest missing positive integer.
@@ -76,7 +78,7 @@ public class FirstMissingPositive {
 
     public int solution2(int[] nums) {
         Set<Integer> set = new HashSet<>();
-        for (int num: nums) {
+        for (int num : nums) {
             set.add(num);
         }
 

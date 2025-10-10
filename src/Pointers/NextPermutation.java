@@ -56,13 +56,13 @@ public class NextPermutation {
         reverse(nums, right, n - 1);
     }
 
-    public void swap (int[]nums, int left, int right) {
+    public void swap(int[] nums, int left, int right) {
         int tmp = nums[left];
         nums[left] = nums[right];
         nums[right] = tmp;
     }
 
-    public void reverse (int[]nums, int left, int right) {
+    public void reverse(int[] nums, int left, int right) {
         while (left < right) {
             swap(nums, left, right);
             left++;

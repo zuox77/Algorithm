@@ -26,6 +26,7 @@ public class KClosestPointsToOrigin {
     class Pair {
         int dist;
         int index;
+
         public Pair(int dist, int index) {
             this.dist = dist;
             this.index = index;
