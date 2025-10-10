@@ -24,7 +24,7 @@ Output: 114
    但如果是最长的数, 就可以找到答案, 且最长的数包含了最短的数的所有结果, 所以选最长的数最多就是在二分里面多循环几次
 5. 判断条件为, 如果以mid为长度, 计算能切几块, 如果比k大, 则说明长度太短了, 需要增加长度, 所以左指针移动
    如果比k小, 则说明长度太长了, 需要减少长度, 所以右指针移动
-6. 额外检查时，一定要先检查right，因为题目要求最大长度，有可能left和right都可以，但right更大
+6. 额外检查时, 一定要先检查right, 因为题目要求最大长度, 有可能left和right都可以, 但right更大
 
 时间复杂度: O(NlogMaxLength), 其中N是给定数组的长度, MaxLength是给定数组的最长的数
 空间复杂度: O(1)
@@ -33,7 +33,7 @@ Output: 114
 public class WoodCut {
     public int solution1(int[] woods, int k) {
         // 定义指针, 且找到右侧最大值, 即右边界
-        int left = 1, right = -1; // 注意：左指针left一定是从1开始
+        int left = 1, right = -1; // 注意: 左指针left一定是从1开始
         for (int wood: woods) {
             right = Math.max(wood, right);
         }
@@ -55,7 +55,7 @@ public class WoodCut {
             }
         }
         // 额外检查一次left和right
-        // 一定要先检查right，因为题目要求最大长度，有可能left和right都可以，但right更大
+        // 一定要先检查right, 因为题目要求最大长度, 有可能left和right都可以, 但right更大
         if (getCutNum(woods, right) >= k) { return right; }
         if (getCutNum(woods, left) >= k) { return left; }
         return 0;
