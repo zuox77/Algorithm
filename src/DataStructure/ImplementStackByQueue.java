@@ -2,6 +2,7 @@ package DataStructure;
 
 import java.util.LinkedList;
 import java.util.Queue;
+
 /*
 https://leetcode.cn/problems/implement-stack-using-queues/description/?orderBy=most_votes
 

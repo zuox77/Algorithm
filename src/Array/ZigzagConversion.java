@@ -2,6 +2,7 @@ package Array;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /*
 刷题次数: 2
 二刷: 忘记考虑rowNums = 1的情况, 解决方案: 要么加一个corner case处理, 要么在更新rowNum的时候, 判断一下numRows - 1 == 0

@@ -1,6 +1,7 @@
 package DataStructure;
 
 import java.util.Stack;
+
 /*
 https://leetcode.cn/problems/largest-rectangle-in-histogram/
 https://www.lintcode.com/problem/122/

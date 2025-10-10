@@ -1,6 +1,7 @@
 package DataStructure;
 
 import java.util.PriorityQueue;
+
 /*
 https://leetcode.cn/problems/k-closest-points-to-origin/description/
 
