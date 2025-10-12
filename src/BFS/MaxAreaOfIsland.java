@@ -41,7 +41,7 @@ Output: 6
 
  */
 public class MaxAreaOfIsland {
-    public int solution1(int[][] grid) {
+    public int maxAreaOfIslands1(int[][] grid) {
         // 声明变量
         int m = grid.length;
         int n = grid[0].length;
@@ -95,7 +95,7 @@ public class MaxAreaOfIsland {
     private int[] yDire = new int[]{1, -1, 0, 0};
     private Set<Integer> visited = new HashSet<>();
 
-    public int solution2(int[][] grid) {
+    public int maxAreaOfIslands2(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
         // 遍历

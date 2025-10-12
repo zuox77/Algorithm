@@ -15,8 +15,11 @@ Output: 3
 
 思路1: BFS
 1. 思路看BFS.md
-2. 需要注意：对于矩阵类的题目，可以使用一个static class，例如Node。这是因为可以改变矩阵的值，所以不需要额外一个HashSet当做visited set去
-避免重复访问。这里也可以使用int[]，详见NumberOfIslands2
+2. 需要注意：对于矩阵类的题目，有三个办法可以用来标记visited。
+    1. 可以使用一个static class，例如Node。这是因为可以改变矩阵的值，所以不需要额外一个HashSet当做visited set去避免重复访问。
+    2. 使用Queue<int[]>，详见NumberOfIslands2。
+    3. 使用数字，将二维矩阵的index转化为数列的index。例如上面的矩阵中，第二行第三列的数，index为[1,2]，但如果按照从左到右，从上到下来数，
+       它排第七位，index为7，即 1 * 5+ 2。所以公式为：[i,j] -> i * 矩阵宽(即grid[0].length) + j。
  */
 
 import java.util.ArrayDeque;
@@ -26,7 +29,7 @@ import java.util.Queue;
 
 public class NumberOfIslands {
 
-    static class Node {
+    public static class Node {
         int row;
         int column;
 
@@ -43,7 +46,7 @@ public class NumberOfIslands {
             new Node(-1, 0)
     );
 
-    public int numIslands(char[][] grid) {
+    public int numberOfIslands1(char[][] grid) {
         int count = 0;
         Queue<Node> queue = new ArrayDeque<>();
 
@@ -72,7 +75,7 @@ public class NumberOfIslands {
         return count;
     }
 
-    public void checkSurroundings(Node node, char[][] grid, Queue queue) {
+    public void checkSurroundings(Node node, char[][] grid, Queue<Node> queue) {
         for (Node direction : directions) {
             int row = node.row + direction.row;
             int column = node.column + direction.column;
@@ -86,13 +89,10 @@ public class NumberOfIslands {
             grid[row][column] = '2';
         }
     }
-}
-
-class NumberOfIslands2 {
 
     private static final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
-    public int numIslands(char[][] grid) {
+    public int numberOfIslands2(char[][] grid) {
         int count = 0;
         Queue<int[]> queue = new ArrayDeque<>();
 
@@ -130,7 +130,7 @@ class NumberOfIslands2 {
             }
             // Add to queue
             queue.offer(new int[]{row, column});
-            // Mark as visted
+            // Mark as visited
             grid[row][column] = '2';
         }
     }
