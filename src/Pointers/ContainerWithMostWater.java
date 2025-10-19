@@ -12,9 +12,10 @@ https://leetcode.cn/problems/container-with-most-water/description/
             2. 下一个更短: 面积减小
     移动长的: 1. 下一个更长: 面积不会增大, 因为短的并没有变, height是由最短的那个决定的
             2. 下一个更短: 面积减小, 面积可能减少(比当前最短的还要短时), 可能不变
+    所以：height[left]和height[right] 谁小 谁往中间移动
  */
 public class ContainerWithMostWater {
-    public int solution1(int[] height) {
+    public int containerWithMostWaterArea(int[] height) {
         int n = height.length;
         int maxWater = 0, left = 0, right = n - 1;
         while (left < right) {
