@@ -31,13 +31,6 @@ Explanation: 9 exists in secret and its index is 4.
  */
 
 public class SearchUnknownSizeSortedArray {
-    // 随便乱写个ArrayReader的类, 避免编译报错
-    class ArrayReader {
-        public int get(int i) {
-            return i;
-        }
-    }
-
     public int solution1(ArrayReader reader, int target) {
         // 定义指针
         int left = 0, right = 1; // 也可以直接right = Integer.MAX_VALUE;
@@ -125,5 +118,12 @@ public class SearchUnknownSizeSortedArray {
         }
         // 最后再判断一次
         return reader.get(left) == target ? left : reader.get(right) == target ? right : -1;
+    }
+
+    // 随便乱写个ArrayReader的类, 避免编译报错
+    class ArrayReader {
+        public int get(int i) {
+            return i;
+        }
     }
 }

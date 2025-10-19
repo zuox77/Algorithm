@@ -1,4 +1,5 @@
 package BFS;
+
 /*
 https://leetcode.cn/problems/rotting-oranges/?envType=study-plan-v2&envId=top-100-liked
 You are given an m x n grid where each cell can have one of three values:
@@ -38,44 +39,48 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class RottingOranges {
-    private static final int[][] DIRECTIONS = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
+  private static final int[][] DIRECTIONS = {{0, -1}, {0, 1}, {1, 0}, {-1, 0}};
 
-    public int orangesRotting(int[][] grid) {
-        int time = 0;
-        int freshOrange = 0;
-        Queue<int[]> queue = new ArrayDeque<>();
+  public int orangesRotting(int[][] grid) {
+    int time = 0;
+    int freshOrange = 0;
+    Queue<int[]> queue = new ArrayDeque<>();
 
-        // Count initial fresh oranges and queue rot oranges
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1) {
-                    freshOrange++;
-                } else if (grid[i][j] == 2) {
-                    queue.offer(new int[]{i, j});
-                }
-            }
+    // Count initial fresh oranges and queue rot oranges
+    for (int i = 0; i < grid.length; i++) {
+      for (int j = 0; j < grid[0].length; j++) {
+        if (grid[i][j] == 1) {
+          freshOrange++;
+        } else if (grid[i][j] == 2) {
+          queue.offer(new int[] {i, j});
         }
-
-        while (freshOrange > 0 && !queue.isEmpty()) {
-            time++;
-            int currentSize = queue.size();
-            // 这里需要通过计算每一层有多少个来限制腐烂橘子的个数，只对当前腐烂橘子周围四个橘子进行处理
-            for (int i = 0; i < currentSize; i++) {
-                int[] current = queue.poll();
-                for (int[] direction: DIRECTIONS) {
-                    int row = current[0] + direction[0];
-                    int column = current[1] + direction[1];
-                    // Filter out invalid index
-                    if (row < 0 || column < 0 || row >= grid.length || column >= grid[0].length || grid[row][column] != 1) {
-                        continue;
-                    }
-                    freshOrange--;
-                    grid[row][column] = 2;
-                    queue.offer(new int[] {row, column});
-                }
-            }
-        }
-
-        return freshOrange > 0 ? -1 : time;
+      }
     }
+
+    while (freshOrange > 0 && !queue.isEmpty()) {
+      time++;
+      int currentSize = queue.size();
+      // 这里需要通过计算每一层有多少个来限制腐烂橘子的个数，只对当前腐烂橘子周围四个橘子进行处理
+      for (int i = 0; i < currentSize; i++) {
+        int[] current = queue.poll();
+        for (int[] direction : DIRECTIONS) {
+          int row = current[0] + direction[0];
+          int column = current[1] + direction[1];
+          // Filter out invalid index
+          if (row < 0
+              || column < 0
+              || row >= grid.length
+              || column >= grid[0].length
+              || grid[row][column] != 1) {
+            continue;
+          }
+          freshOrange--;
+          grid[row][column] = 2;
+          queue.offer(new int[] {row, column});
+        }
+      }
+    }
+
+    return freshOrange > 0 ? -1 : time;
+  }
 }

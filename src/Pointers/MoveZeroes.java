@@ -1,4 +1,5 @@
 package Pointers;
+
 /*
 刷题次数: 1
 
@@ -26,16 +27,16 @@ Output: [0]
  */
 
 public class MoveZeroes {
-    public void moveZeroes(int[] nums) {
-        int firstZero = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0) {
-                // 这里不能因为知道是0，
-                int tmp = nums[i];
-                nums[i] = nums[firstZero];
-                nums[firstZero] = tmp;
-                firstZero++;
-            }
-        }
+  public void moveZeroes(int[] nums) {
+    int firstZero = 0;
+    for (int i = 0; i < nums.length; i++) {
+      if (nums[i] != 0) {
+        // 这里不能因为知道是0，
+        int tmp = nums[i];
+        nums[i] = nums[firstZero];
+        nums[firstZero] = tmp;
+        firstZero++;
+      }
     }
+  }
 }

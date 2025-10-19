@@ -1,4 +1,5 @@
 package DynamicProgramming;
+
 /*
 https://leetcode.cn/problems/decode-ways/description/
 
@@ -26,7 +27,7 @@ Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is di
 思路: DP
 1. state: dp[i]表示, 第0到第i个字符, 最多能组成多少个排列
 2. 根据题意, 先总结所有的可能性, 因为最大的数是26(对应字母z), 所以需要两个字符一起考虑
-   假设现在遍历到下标i的位置, 并假设下标i位置上的字符所对应的数字是current(current = s.charAt(i)), 
+   假设现在遍历到下标i的位置, 并假设下标i位置上的字符所对应的数字是current(current = s.charAt(i)),
    下标i-1位置上的字符所对应的数字是last(last = s.charAt(i-1))
    对于last和current, 有以下几种情况
    last = 0, current = 0-9      -> 因为0和任何数都无法组成合理的数字, 比如00/06等, 都不是合理的数字, 标记为case 4
@@ -37,12 +38,12 @@ Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is di
    last = 2, current = 7-9      -> 2和7-9无法共同组成合理的数字, 因为27/28/29都大于26, 所以他们只能单独表示, 标记为case 3
    last = 3 - 9, current = 0    -> 3-9和0无法组成合理的数字, 比如30/50等, 都不是合理的数字, 标记为case 4
    last = 3 - 9, current = 1-9  -> 3-9和1-9无法共同组成合理的数字, 因为37/56等都大于26, 所以他们只能单独表示, 标记为case 3
-   对于case 1, 即((last == 1 || last == 2) && current == 0): 
+   对于case 1, 即((last == 1 || last == 2) && current == 0):
        此时current只能与前一个数组成字母, 比如[210], 本来1可以与2组成[2,1]和[21], 但由于0加入, 0一定要和1组合, 所以现在只能变成[2,10]
        所以在此情况下, 组合的数量不仅不会增多, 还会减少, 减少到与i - 2的时候一样, 因为i - 1(即last)与i(即current)一定要组合在一起
        所以此时dp[i] = dp[i - 2]
    对于case 2, 即(last == 1 && 1 <= current <= 9 || last == 2 && 1 <= current <= 6)
-       此时current既可以与last合起来组成字母, 也可以单独组成字母, 所以此时组合的数量会增加, 增加的规律如下, 以[1,1,2,3,5]举例: 
+       此时current既可以与last合起来组成字母, 也可以单独组成字母, 所以此时组合的数量会增加, 增加的规律如下, 以[1,1,2,3,5]举例:
        对于[1],         一共有 1 种排列组合: [1]
        对于[1,1],       一共有 2 种排列组合: [1, 1] [11]
        对于[1,1,2],     一共有 3 种排列组合: [1, 1, 2] [1, 12] [11, 2]
@@ -76,78 +77,83 @@ Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is di
  */
 
 public class DecodeWays {
-    public int solution1(String s) {
-        // corner case
-        if (s.charAt(0) == '0') {
-            return 0;
-        }
-        // 声明变量
-        int n = s.length();
-        int[] dp = new int[n];
-        // 初始化
-        dp[0] = 1;
-        // 遍历
-        for (int i = 1; i < n; i++) {
-            int last = s.charAt(i - 1) - '0';
-            int current = s.charAt(i) - '0';
-            // 根据情况写迭代方程
-            // case 1
-            if (current == 0 && (last == 1 || last == 2)) {
-                // 额外判断一下
-                dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
-                // case 2
-            } else if (last == 1 && (1 <= current && current <= 9) || last == 2 && (1 <= current && current <= 6)) {
-                // 额外判断一下
-                dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
-                dp[i] += dp[i - 1];
-                // case 3
-            } else if (last == 2 && (7 <= current && current <= 9) || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
-                dp[i] = dp[i - 1];
-                // case 4
-            } else {
-                return 0;
-            }
-        }
-        // 返回最后一个数
-        return dp[n - 1];
+  public int solution1(String s) {
+    // corner case
+    if (s.charAt(0) == '0') {
+      return 0;
     }
+    // 声明变量
+    int n = s.length();
+    int[] dp = new int[n];
+    // 初始化
+    dp[0] = 1;
+    // 遍历
+    for (int i = 1; i < n; i++) {
+      int last = s.charAt(i - 1) - '0';
+      int current = s.charAt(i) - '0';
+      // 根据情况写迭代方程
+      // case 1
+      if (current == 0 && (last == 1 || last == 2)) {
+        // 额外判断一下
+        dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
+        // case 2
+      } else if (last == 1 && (1 <= current && current <= 9)
+          || last == 2 && (1 <= current && current <= 6)) {
+        // 额外判断一下
+        dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
+        dp[i] += dp[i - 1];
+        // case 3
+      } else if (last == 2 && (7 <= current && current <= 9)
+          || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
+        dp[i] = dp[i - 1];
+        // case 4
+      } else {
+        return 0;
+      }
+    }
+    // 返回最后一个数
+    return dp[n - 1];
+  }
 
-    public int solution2(String s) {
-        // corner case
-        if (s.charAt(0) == '0') {
-            return 0;
-        }
-        // 声明变量
-        int n = s.length();
-        // dpLast是i-2, dpCurrent是i-1, 每次遍历时, 将dpCurrent用tmp存下来, 将dpCurrent更新为i, 最后将tmp赋予dpLast, 这样dpLast就是i-1, dpCurrent就是i, 然后开始遍历i+1
-        int dpLast = 1, dpCurrent = 1;
-        // 遍历
-        for (int i = 1; i < n; i++) {
-            int last = s.charAt(i - 1) - '0';
-            int current = s.charAt(i) - '0';
-            // 用一个变量记录一下dpCurrent, 因为做完所有判断以后, dpLast就会更新为当前的dpCurrent, 而dpCurrent会根据判断更新为新的值
-            int tmp = dpCurrent;
-            // 根据情况写迭代方程
-            // case 1
-            if (current == 0 && (last == 1 || last == 2)) {
-                // 额外判断一下
-                dpCurrent = i - 2 < 0 ? 1 : dpLast;
-                // case 2
-            } else if (last == 1 && (1 <= current && current <= 9) || last == 2 && (1 <= current && current <= 6)) {
-                // 额外判断一下
-                dpCurrent = i - 2 < 0 ? 1 : dpLast;
-                dpCurrent += tmp;
-                // case 3
-            } else if (last == 2 && (7 <= current && current <= 9) || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
-                dpCurrent = tmp;
-                // case 4
-            } else {
-                return 0;
-            }
-            // 更新dpLast
-            dpLast = tmp;
-        }
-        // 返回最后一个数
-        return dpCurrent;
+  public int solution2(String s) {
+    // corner case
+    if (s.charAt(0) == '0') {
+      return 0;
     }
+    // 声明变量
+    int n = s.length();
+    // dpLast是i-2, dpCurrent是i-1, 每次遍历时, 将dpCurrent用tmp存下来, 将dpCurrent更新为i, 最后将tmp赋予dpLast,
+    // 这样dpLast就是i-1, dpCurrent就是i, 然后开始遍历i+1
+    int dpLast = 1, dpCurrent = 1;
+    // 遍历
+    for (int i = 1; i < n; i++) {
+      int last = s.charAt(i - 1) - '0';
+      int current = s.charAt(i) - '0';
+      // 用一个变量记录一下dpCurrent, 因为做完所有判断以后, dpLast就会更新为当前的dpCurrent, 而dpCurrent会根据判断更新为新的值
+      int tmp = dpCurrent;
+      // 根据情况写迭代方程
+      // case 1
+      if (current == 0 && (last == 1 || last == 2)) {
+        // 额外判断一下
+        dpCurrent = i - 2 < 0 ? 1 : dpLast;
+        // case 2
+      } else if (last == 1 && (1 <= current && current <= 9)
+          || last == 2 && (1 <= current && current <= 6)) {
+        // 额外判断一下
+        dpCurrent = i - 2 < 0 ? 1 : dpLast;
+        dpCurrent += tmp;
+        // case 3
+      } else if (last == 2 && (7 <= current && current <= 9)
+          || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
+        dpCurrent = tmp;
+        // case 4
+      } else {
+        return 0;
+      }
+      // 更新dpLast
+      dpLast = tmp;
+    }
+    // 返回最后一个数
+    return dpCurrent;
+  }
 }

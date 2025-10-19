@@ -20,7 +20,7 @@ https://www.jiuzhang.com/solutions/data-stream-median/
 6. 很重要的一点是: 遵循5的规定后, 还要判断新加入的数, 究竟属于哪一边
     比maxHeap的堆顶大, 那么应该属于minHeap, 比maxHeap的堆顶小, 那么应该属于maxHeap
     所以此题最重要的两个条件/关系: 1. 两个堆之间的数量关系 2. 新数和堆顶(无论哪个堆都是一样的)的大小关系
-    将这两个条件加在一起判断, 如下: 
+    将这两个条件加在一起判断, 如下:
 7. 当奇数时加入一个新数num: 奇数时跟maxHeap比大小(或者上面规定数量多的那个堆)
     1. num < maxHeap.peek(): 将maxHeap的堆顶pop出来加入minHeap, 将num加入maxHeap, 这样同时保证了数量关系和大小关系
         maxHeap = [0, 1, 3, 5], minHeap = [8, 9, 11], num = 4, 4应该属于maxHeap, 但我们规定maxHeap只能多一个, 所以
@@ -29,9 +29,9 @@ https://www.jiuzhang.com/solutions/data-stream-median/
     2. num >= maxHeap.peek(): 将num加入minHeap
     3. 按照数量关系, 我们想将num放进minHeap, 所以此时要比较跟maxHeap的堆顶大小, 看它在不在maxHeap里
         此时不能跟minHeap的堆顶比大小, 因为我们无非两种操作: 1. 直接加进minHeap 2. 让minHeap推出堆顶加入maxHeap, num自己再加入minHeap
-        如果跟minHeap堆顶比大小的话: 
+        如果跟minHeap堆顶比大小的话:
         1. 第一种情况: maxHeap = [0, 1, 2, 3, 5], minHeap = [6, 8, 9, 11], num = 4, 4 < 6, 如果直接加进minHeap破坏整体顺序
-        2. 第二种情况: maxHeap = [0, 1, 2, 3, 5], minHeap = [6, 8, 9, 11], num = 4, 4 > 6, 如果让minHeap推出堆顶加入maxHeap, 
+        2. 第二种情况: maxHeap = [0, 1, 2, 3, 5], minHeap = [6, 8, 9, 11], num = 4, 4 > 6, 如果让minHeap推出堆顶加入maxHeap,
             num自己加入minHeap也破坏了顺序
         3. 所以无论哪种情况都需要判断与maxHeap的大小
 8. 当偶数时加入一个新数num: 偶数时跟minHeap比大
@@ -43,7 +43,7 @@ https://www.jiuzhang.com/solutions/data-stream-median/
     3. 按照数量关系, 我们想将num放进maxHeap, 所以此时要比较跟minHeap的堆顶大小, 看它在不在minHeap里
         此时不能跟maxHeap的堆顶比大小, 因为我们无非两种操作: 1. 直接加进maxHeap 2. 让minHeap推出堆顶加入maxHeap, num自己再加入minHeap
         1. 第一种情况: maxHeap = [0, 1, 3, 5], minHeap = [6, 8, 9, 11], num = 7, 7 > 5, 如果直接加进maxHeap破坏顺序了
-        2. 第二种情况: maxHeap = [0, 1, 3, 5], minHeap = [8, 8, 9, 11], num = 7, 7 > 5, 如果让minHeap推出堆顶加入maxHeap, 
+        2. 第二种情况: maxHeap = [0, 1, 3, 5], minHeap = [8, 8, 9, 11], num = 7, 7 > 5, 如果让minHeap推出堆顶加入maxHeap,
             num自己加入minHeap也破坏了顺序
         3. 所以无论哪种情况都需要判断与minHeap的大小
 addNum时间复杂度: O(logN)
@@ -51,41 +51,46 @@ getMedian时间复杂度: O(1)
 空间复杂度: O(N)
  */
 public class DataStreamMedian {
-    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-    PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+  PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+  PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
 
-    public DataStreamMedian() {
-    }
+  public DataStreamMedian() {}
 
-    public void addNum(int num) {
-        int minSize = minHeap.size();
-        int maxSize = maxHeap.size();
-        // first element add to maxHeap
-        if (maxSize == 0) {
-            maxHeap.add(num);
-        } else if (maxSize - minSize == 1) { // total length is odd
-            if (num < maxHeap.peek()) { // means num should belong to maxHeap, but maxHeap already has 1 element more
-                minHeap.add(maxHeap.poll());
-                maxHeap.add(num);
-            } else {
-                minHeap.add(num);
-            }
-        } else {
-            if (num > minHeap.peek()) { // total length is even
-                maxHeap.add(minHeap.poll()); // means num should belong to minHeap, but maxHeap needs to have 1 element more
-                minHeap.add(num);
-            } else {
-                maxHeap.add(num);
-            }
-        }
+  public void addNum(int num) {
+    int minSize = minHeap.size();
+    int maxSize = maxHeap.size();
+    // first element add to maxHeap
+    if (maxSize == 0) {
+      maxHeap.add(num);
+    } else if (maxSize - minSize == 1) { // total length is odd
+      if (num
+          < maxHeap
+              .peek()) { // means num should belong to maxHeap, but maxHeap already has 1 element
+                         // more
+        minHeap.add(maxHeap.poll());
+        maxHeap.add(num);
+      } else {
+        minHeap.add(num);
+      }
+    } else {
+      if (num > minHeap.peek()) { // total length is even
+        maxHeap.add(
+            minHeap
+                .poll()); // means num should belong to minHeap, but maxHeap needs to have 1 element
+                          // more
+        minHeap.add(num);
+      } else {
+        maxHeap.add(num);
+      }
     }
+  }
 
-    public double getMedian() {
-        int minSize = minHeap.size();
-        int maxSize = maxHeap.size();
-        if (maxSize - minSize == 1) {
-            return (double) maxHeap.peek();
-        }
-        return (maxHeap.peek() + minHeap.peek()) / 2.0;
+  public double getMedian() {
+    int minSize = minHeap.size();
+    int maxSize = maxHeap.size();
+    if (maxSize - minSize == 1) {
+      return (double) maxHeap.peek();
     }
+    return (maxHeap.peek() + minHeap.peek()) / 2.0;
+  }
 }

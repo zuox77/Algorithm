@@ -29,16 +29,7 @@ import java.util.Queue;
 
 public class NumberOfIslands {
 
-    public static class Node {
-        int row;
-        int column;
-
-        Node(int row, int column) {
-            this.row = row;
-            this.column = column;
-        }
-    }
-
+    private static final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     List<Node> directions = Arrays.asList(
             new Node(0, -1),
             new Node(0, 1),
@@ -90,8 +81,6 @@ public class NumberOfIslands {
         }
     }
 
-    private static final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-
     public int numberOfIslands2(char[][] grid) {
         int count = 0;
         Queue<int[]> queue = new ArrayDeque<>();
@@ -132,6 +121,16 @@ public class NumberOfIslands {
             queue.offer(new int[]{row, column});
             // Mark as visited
             grid[row][column] = '2';
+        }
+    }
+
+    public static class Node {
+        int row;
+        int column;
+
+        Node(int row, int column) {
+            this.row = row;
+            this.column = column;
         }
     }
 }

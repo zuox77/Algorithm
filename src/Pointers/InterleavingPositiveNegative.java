@@ -1,4 +1,5 @@
 package Pointers;
+
 /*
 https://www.lintcode.com/problem/144/
 https://www.jiuzhang.com/problem/interleaving-positive-and-negative-numbers/
@@ -12,5 +13,4 @@ https://www.jiuzhang.com/problem/interleaving-positive-and-negative-numbers/
 2. 用正常的快排方式先遍历一遍(没有递归的遍历一遍), 将正负数分割开
  */
 
-public class InterleavingPositiveNegative {
-}
+public class InterleavingPositiveNegative {}

@@ -68,17 +68,6 @@ public class PostOrderTraverse {
 
     // stack
 
-    // stack2
-    class State {
-        Node node;
-        int indicator;
-
-        public State(Node node, int indicator) {
-            this.node = node;
-            this.indicator = indicator;
-        }
-    }
-
     public List<Integer> solution4(Node root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
@@ -118,6 +107,17 @@ public class PostOrderTraverse {
             }
         }
         return result;
+    }
+
+    // stack2
+    class State {
+        Node node;
+        int indicator;
+
+        public State(Node node, int indicator) {
+            this.node = node;
+            this.indicator = indicator;
+        }
     }
 
     // morris

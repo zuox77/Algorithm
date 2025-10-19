@@ -1,4 +1,5 @@
 package Array;
+
 /*
 刷题次数: 2
 
@@ -24,22 +25,22 @@ Note that buying on day 2 and selling on day 1 is not allowed because you must b
  */
 
 public class BestTimeStock {
-    public int solution1(int[] prices) {
-        // corner case
-        if (prices == null || prices.length == 0) {
-            return 0;
-        }
-
-        // define params
-        int minPrice = Integer.MAX_VALUE;
-        int maxProfit = 0;
-
-        // iterate
-        for (int price : prices) {
-            minPrice = Math.min(minPrice, price);
-            maxProfit = Math.max(price - minPrice, maxProfit);
-        }
-
-        return maxProfit;
+  public int solution1(int[] prices) {
+    // corner case
+    if (prices == null || prices.length == 0) {
+      return 0;
     }
+
+    // define params
+    int minPrice = Integer.MAX_VALUE;
+    int maxProfit = 0;
+
+    // iterate
+    for (int price : prices) {
+      minPrice = Math.min(minPrice, price);
+      maxProfit = Math.max(price - minPrice, maxProfit);
+    }
+
+    return maxProfit;
+  }
 }

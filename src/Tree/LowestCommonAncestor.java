@@ -1,4 +1,5 @@
 package Tree;
+
 /*
 刷题次数：2
 第二次：基本忘了
@@ -18,5 +19,4 @@ Explanation: The LCA of nodes 5 and 1 is 3.
 1. 这道题最主要要想清楚怎么找,其本质是找p或者q
  */
 
-public class LowestCommonAncestor {
-}
+public class LowestCommonAncestor {}

@@ -53,6 +53,21 @@ Output: ["/a"]
  */
 
 public class RemoveSubFolder {
+    public List<String> solution1(String[] folders) {
+        // 定义变量
+        List<String> result = new ArrayList<>();
+        Trie trie = new Trie();
+        // 遍历添加进Trie
+        for (int i = 0; i < folders.length; i++) {
+            trie.add(folders[i], i);
+        }
+        // 通过search得到一个答案的index的列表, 然后通过对应到folders中找到真正的目录
+        for (int i : trie.search()) {
+            result.add(folders[i]);
+        }
+        return result;
+    }
+
     // 定义一个前缀树
     class Trie {
         // 定义一个字典来存储映射关系
@@ -64,7 +79,7 @@ public class RemoveSubFolder {
         // 定义一个添加的方法
         public void add(String str, int i) {
             // 因为我们想用一个Trie作为根节点, 且每次都是用同样的这个根节点对象, 为了保证对象一致, 所以用一个变量表示自己
-            // 比如对于folders = ["/a/c", "/b/d"], 则有结构: 
+            // 比如对于folders = ["/a/c", "/b/d"], 则有结构:
             // trie(this)) -> children:{"a": trie(a的trie), "b": trie(b的trie)}
             // 再往下
             // trie(a的trie) -> children:{"c": trie(c的trie)}
@@ -83,7 +98,7 @@ public class RemoveSubFolder {
                     trie.children.put(path, new Trie());
                 }
                 // 如果在, 则说明已经创建过了, 那么就更新trie达到遍历的效果, 类似于node = node.next一样
-                // 比如"/a/b"和"/a/c", 在添加"/a/b"时, 已经将a和b都添加进去了, 所以第二次遍历"/a/c"时, 
+                // 比如"/a/b"和"/a/c", 在添加"/a/b"时, 已经将a和b都添加进去了, 所以第二次遍历"/a/c"时,
                 // 直接更新trie为a的children, 然后在a的children里面找b, 如果没有就创建
                 // 直到遍历到不存在于children中的字符串, 或者遍历结束
                 trie = trie.children.get(path);
@@ -115,20 +130,5 @@ public class RemoveSubFolder {
                 dfs(child, resultIdx);
             }
         }
-    }
-
-    public List<String> solution1(String[] folders) {
-        // 定义变量
-        List<String> result = new ArrayList<>();
-        Trie trie = new Trie();
-        // 遍历添加进Trie
-        for (int i = 0; i < folders.length; i++) {
-            trie.add(folders[i], i);
-        }
-        // 通过search得到一个答案的index的列表, 然后通过对应到folders中找到真正的目录
-        for (int i : trie.search()) {
-            result.add(folders[i]);
-        }
-        return result;
     }
 }

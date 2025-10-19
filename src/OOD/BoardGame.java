@@ -17,19 +17,6 @@ public class BoardGame {
         this.winLength = winLength;
     }
 
-    enum Player {
-        PLAYER_WHITE('W'), PLAYER_RED('R');
-        char symbol;
-
-        Player(char symbol) {
-            this.symbol = symbol;
-        }
-
-        public Character toChar() {
-            return this.symbol;
-        }
-    }
-
     public void makeMove(Player player, int column) {
         if (board.containsKey(column)) {
             board.get(column).append(player.toChar());
@@ -83,5 +70,18 @@ public class BoardGame {
             }
         }
         return player;
+    }
+
+    enum Player {
+        PLAYER_WHITE('W'), PLAYER_RED('R');
+        char symbol;
+
+        Player(char symbol) {
+            this.symbol = symbol;
+        }
+
+        public Character toChar() {
+            return this.symbol;
+        }
     }
 }

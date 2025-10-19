@@ -10,6 +10,4 @@ Design a system which can manage the operations of the yard.
 4. introduce bidding for each buy and sell request, based on the best offer, make the transaction.
 Was asked to explain complexity of the solution as well as where I could have improved.
  */
-public class ContainerTrading {
-
-}
+public class ContainerTrading {}

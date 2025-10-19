@@ -13,34 +13,34 @@ https://leetcode.cn/problems/generate-parentheses/description/
  */
 
 public class GenerateParentheses {
-    public List<String> generateParenthesis(int n) {
-        List<String> result = new ArrayList<>();
-        StringBuilder temp = new StringBuilder();
-        recursion(temp, result, n, n);
-        return result;
+  public List<String> generateParenthesis(int n) {
+    List<String> result = new ArrayList<>();
+    StringBuilder temp = new StringBuilder();
+    recursion(temp, result, n, n);
+    return result;
+  }
+
+  public void recursion(StringBuilder temp, List<String> result, int left, int right) {
+    // recursion exit
+    if (left == 0 && right == 0) {
+      result.add(temp.toString());
+      return;
     }
 
-    public void recursion(StringBuilder temp, List<String> result, int left, int right) {
-        // recursion exit
-        if (left == 0 && right == 0) {
-            result.add(temp.toString());
-            return;
-        }
-
-        // iterate
-        if (left > right) {
-            return;
-        }
-
-        if (left > 0) {
-            temp.append("(");
-            recursion(temp, result, left - 1, right);
-            temp.deleteCharAt(temp.length() - 1);
-        }
-        if (right > 0) {
-            temp.append(")");
-            recursion(temp, result, left, right - 1);
-            temp.deleteCharAt(temp.length() - 1);
-        }
+    // iterate
+    if (left > right) {
+      return;
     }
+
+    if (left > 0) {
+      temp.append("(");
+      recursion(temp, result, left - 1, right);
+      temp.deleteCharAt(temp.length() - 1);
+    }
+    if (right > 0) {
+      temp.append(")");
+      recursion(temp, result, left, right - 1);
+      temp.deleteCharAt(temp.length() - 1);
+    }
+  }
 }

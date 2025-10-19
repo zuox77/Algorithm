@@ -24,16 +24,6 @@ https://leetcode.cn/problems/k-closest-points-to-origin/description/
  */
 
 public class KClosestPointsToOrigin {
-    class Pair {
-        int dist;
-        int index;
-
-        public Pair(int dist, int index) {
-            this.dist = dist;
-            this.index = index;
-        }
-    }
-
     public int[][] solution1(int[][] points, int k) {
         PriorityQueue<Pair> heap = new PriorityQueue<>((a, b) -> a.dist - b.dist);
         int[][] res = new int[k][2];
@@ -53,5 +43,15 @@ public class KClosestPointsToOrigin {
 
     public int distance(int x, int y) {
         return x * x + y * y;
+    }
+
+    class Pair {
+        int dist;
+        int index;
+
+        public Pair(int dist, int index) {
+            this.dist = dist;
+            this.index = index;
+        }
     }
 }

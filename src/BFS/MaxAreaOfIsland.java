@@ -41,6 +41,12 @@ Output: 6
 
  */
 public class MaxAreaOfIsland {
+    private int area;
+    private int result = 0;
+    private int[] xDire = new int[]{0, 0, 1, -1};
+    private int[] yDire = new int[]{1, -1, 0, 0};
+    private Set<Integer> visited = new HashSet<>();
+
     public int maxAreaOfIslands1(int[][] grid) {
         // 声明变量
         int m = grid.length;
@@ -88,12 +94,6 @@ public class MaxAreaOfIsland {
     public boolean inRange(int m, int n, int x, int y) {
         return x >= 0 && x < m && y >= 0 && y < n;
     }
-
-    private int area;
-    private int result = 0;
-    private int[] xDire = new int[]{0, 0, 1, -1};
-    private int[] yDire = new int[]{1, -1, 0, 0};
-    private Set<Integer> visited = new HashSet<>();
 
     public int maxAreaOfIslands2(int[][] grid) {
         int m = grid.length;

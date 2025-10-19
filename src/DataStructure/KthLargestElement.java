@@ -13,23 +13,23 @@ Output: 5
  */
 
 public class KthLargestElement {
-    public int solution1(int[] nums, int k) {
-        PriorityQueue<Integer> heap = new PriorityQueue<>(k);
-        int result = -1;
-        // corner case
-        if (k < 1) {
-            return result;
-        }
-
-        for (int num : nums) {
-            if (heap.size() < k) {
-                heap.add(num);
-            } else if (heap.peek() < num) {
-                heap.poll();
-                heap.add(num);
-            }
-        }
-
-        return heap.poll();
+  public int solution1(int[] nums, int k) {
+    PriorityQueue<Integer> heap = new PriorityQueue<>(k);
+    int result = -1;
+    // corner case
+    if (k < 1) {
+      return result;
     }
+
+    for (int num : nums) {
+      if (heap.size() < k) {
+        heap.add(num);
+      } else if (heap.peek() < num) {
+        heap.poll();
+        heap.add(num);
+      }
+    }
+
+    return heap.poll();
+  }
 }

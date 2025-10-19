@@ -44,32 +44,32 @@ bSTIterator.hasNext(); // return False
  */
 
 public class BinaryTreeIterator {
-    private Deque<Node> stack = new ArrayDeque<>();
-    private Node current;
+  private Deque<Node> stack = new ArrayDeque<>();
+  private Node current;
 
-    public BinaryTreeIterator(Node root) {
-        // 添加新的指针
-        this.current = root;
-    }
+  public BinaryTreeIterator(Node root) {
+    // 添加新的指针
+    this.current = root;
+  }
 
-    public int next() {
-        // 与InOrderTraverse的stack解法类似
-        // 先遍历到最左边的节点,并将所有节点push到stack里面
-        while (this.current != null) {
-            this.stack.push(current);
-            current = current.left;
-        }
-        // 这里需要一个新的指针用来返回结果,因为在返回之前要把current移动到current.right
-        Node node = stack.pop();
-        current = node.right;
-        return node.val;
+  public int next() {
+    // 与InOrderTraverse的stack解法类似
+    // 先遍历到最左边的节点,并将所有节点push到stack里面
+    while (this.current != null) {
+      this.stack.push(current);
+      current = current.left;
     }
+    // 这里需要一个新的指针用来返回结果,因为在返回之前要把current移动到current.right
+    Node node = stack.pop();
+    current = node.right;
+    return node.val;
+  }
 
-    public boolean hasNext() {
-        // 如果stack非空或者current非空
-        if (current != null || !stack.isEmpty()) {
-            return true;
-        }
-        return false;
+  public boolean hasNext() {
+    // 如果stack非空或者current非空
+    if (current != null || !stack.isEmpty()) {
+      return true;
     }
+    return false;
+  }
 }

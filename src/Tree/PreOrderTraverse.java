@@ -155,17 +155,6 @@ public class PreOrderTraverse {
         return result;
     }
 
-    // stack2
-    class State {
-        Node node;
-        int indicator;
-
-        public State(Node node, int indicator) {
-            this.node = node;
-            this.indicator = indicator;
-        }
-    }
-
     public List<Integer> solution4(Node root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
@@ -187,7 +176,7 @@ public class PreOrderTraverse {
                 continue;
             }
             // 这是一个通用template, 其本质就是逆向添加进stack, 再一一弹出
-            // 对于前序遍历, 其实下面的代码就够了: 
+            // 对于前序遍历, 其实下面的代码就够了:
             // stack.push(new State(node.right, 0));
             // stack.push(new State(node.left, 0));
             // stack.push(new State(node, 1));
@@ -244,5 +233,16 @@ public class PreOrderTraverse {
             }
         }
         return result;
+    }
+
+    // stack2
+    class State {
+        Node node;
+        int indicator;
+
+        public State(Node node, int indicator) {
+            this.node = node;
+            this.indicator = indicator;
+        }
     }
 }

@@ -24,30 +24,30 @@ Output: 2
 
  */
 public class SearchInsertPosition {
-    public int searchInsert(int[] nums, int target) {
-        // 定义指针
-        int len = nums.length;
-        int left = 0, right = len - 1;
-        // while循环遍历
-        while (left <= right) {
-            // 找到mid
-            int mid = left + (right - left) / 2;
-            // 如果找到了直接返回
-            if (nums[mid] == target) {
-                return mid;
-                // 如果比target大, 说明target在左侧, 所以right指针往左移动
-            } else if (nums[mid] > target) {
-                right = mid;
-                // 如果比target小, 说明target在右侧, 所以left指针往右移动
-            } else {
-                left = mid + 1;
-            }
-        }
-        // 根据题意, 如果[1, 3, 5, 6], target = 2, 答案是1, 说明插入的位置在比target大的第一个数所在的位置
-        // 而用left <= right的话, 退出循环时, left应该和right是同一个数, 所以比较哪个都可以
-        if (nums[left] >= target) {
-            return left;
-        }
-        return len;
+  public int searchInsert(int[] nums, int target) {
+    // 定义指针
+    int len = nums.length;
+    int left = 0, right = len - 1;
+    // while循环遍历
+    while (left <= right) {
+      // 找到mid
+      int mid = left + (right - left) / 2;
+      // 如果找到了直接返回
+      if (nums[mid] == target) {
+        return mid;
+        // 如果比target大, 说明target在左侧, 所以right指针往左移动
+      } else if (nums[mid] > target) {
+        right = mid;
+        // 如果比target小, 说明target在右侧, 所以left指针往右移动
+      } else {
+        left = mid + 1;
+      }
     }
+    // 根据题意, 如果[1, 3, 5, 6], target = 2, 答案是1, 说明插入的位置在比target大的第一个数所在的位置
+    // 而用left <= right的话, 退出循环时, left应该和right是同一个数, 所以比较哪个都可以
+    if (nums[left] >= target) {
+      return left;
+    }
+    return len;
+  }
 }

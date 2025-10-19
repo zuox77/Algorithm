@@ -21,14 +21,14 @@ Output: 0
 2. 因为是找的整个数组的最小值, 所以最后只需要判断一下left和right所在位置的值哪个小, 就返回那个
 3. 再一次强调, 用二分的本质是将范围缩小到两个数, 即退出循环后的left和right, 所以需要额外判断一次
 4. 在此题中, 其实可以理解为, 找到旋转的那个竖轴, 具体看下面的解释
-5. 首先理解旋转其实就是把一条斜线, 变成了两条, 如下: 
+5. 首先理解旋转其实就是把一条斜线, 变成了两条, 如下:
          23
         11
        9
       4
      3
     1
-    变为: 
+    变为:
        23|
       11 |
      9   |
@@ -63,49 +63,49 @@ Output: 0
  */
 
 public class FindMinimumInRotatedSortedArray {
-    public int solution1(int[] nums) {
-        // 定义指针
-        int n = nums.length;
-        int left = 0, right = n - 1;
-        // 以最后一位数作为横轴
-        int xAxis = nums[n - 1];
-        // 二分法遍历
-        while (left + 1 < right) {
-            // 找到中点
-            int mid = left + (right - left) / 2;
-            // 根据情况做判断
-            // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
-            if (nums[mid] > xAxis) {
-                left = mid;
-                // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
-            } else {
-                right = mid;
-            }
-        }
-        // 最后判断一下left和right
-        return nums[left] < nums[right] ? nums[left] : nums[right];
+  public int solution1(int[] nums) {
+    // 定义指针
+    int n = nums.length;
+    int left = 0, right = n - 1;
+    // 以最后一位数作为横轴
+    int xAxis = nums[n - 1];
+    // 二分法遍历
+    while (left + 1 < right) {
+      // 找到中点
+      int mid = left + (right - left) / 2;
+      // 根据情况做判断
+      // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
+      if (nums[mid] > xAxis) {
+        left = mid;
+        // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
+      } else {
+        right = mid;
+      }
     }
+    // 最后判断一下left和right
+    return nums[left] < nums[right] ? nums[left] : nums[right];
+  }
 
-    public int solution2(int[] nums) {
-        // 定义指针
-        int n = nums.length;
-        int left = 0, right = n - 1;
-        // 以最后一位数作为横轴
-        int xAxie = nums[n - 1];
-        // 二分法遍历
-        while (left < right) {
-            // 找到中点
-            int mid = left + (right - left) / 2;
-            // 根据情况做判断
-            // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
-            if (nums[mid] > xAxie) {
-                left = mid + 1;
-                // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
-            } else {
-                right = mid;
-            }
-        }
-        // 由于循环条件是left < right, 所以退出循环时, left和right肯定是在同一个点, 即最小的点, 所以直接返回任意一个就行
-        return nums[left]; // return nums[right]也可以
+  public int solution2(int[] nums) {
+    // 定义指针
+    int n = nums.length;
+    int left = 0, right = n - 1;
+    // 以最后一位数作为横轴
+    int xAxie = nums[n - 1];
+    // 二分法遍历
+    while (left < right) {
+      // 找到中点
+      int mid = left + (right - left) / 2;
+      // 根据情况做判断
+      // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
+      if (nums[mid] > xAxie) {
+        left = mid + 1;
+        // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
+      } else {
+        right = mid;
+      }
     }
+    // 由于循环条件是left < right, 所以退出循环时, left和right肯定是在同一个点, 即最小的点, 所以直接返回任意一个就行
+    return nums[left]; // return nums[right]也可以
+  }
 }

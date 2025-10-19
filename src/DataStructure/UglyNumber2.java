@@ -25,25 +25,25 @@ PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(new Comparator<Integ
  */
 
 public class UglyNumber2 {
-    public int nthUglyNumber(int n) {
-        PriorityQueue<Long> heap = new PriorityQueue<>();
-        HashSet<Long> visited = new HashSet<>();
-        final int[] factors = new int[]{2, 3, 5};
+  public int nthUglyNumber(int n) {
+    PriorityQueue<Long> heap = new PriorityQueue<>();
+    HashSet<Long> visited = new HashSet<>();
+    final int[] factors = new int[] {2, 3, 5};
 
-        heap.add(1L);
-        long curUgly = 1;
-        long newUgly;
+    heap.add(1L);
+    long curUgly = 1;
+    long newUgly;
 
-        for (int i = 0; i < n; i++) {
-            curUgly = heap.poll();
-            for (int factor : factors) {
-                newUgly = curUgly * factor;
-                if (!visited.contains(newUgly)) {
-                    visited.add(newUgly);
-                    heap.add(newUgly);
-                }
-            }
+    for (int i = 0; i < n; i++) {
+      curUgly = heap.poll();
+      for (int factor : factors) {
+        newUgly = curUgly * factor;
+        if (!visited.contains(newUgly)) {
+          visited.add(newUgly);
+          heap.add(newUgly);
         }
-        return (int) curUgly;
+      }
     }
+    return (int) curUgly;
+  }
 }
