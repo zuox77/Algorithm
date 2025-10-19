@@ -40,11 +40,11 @@ Explanation: The smallest positive integer 1 is missing.
    但4又会被交换到下标4, 但4应该是在下标3的位置, 所以如果此时停止, 4可能永远无法处于正确的位置
    所以我们要用一个while, 不仅是将当前数交换到正确的位置, 且要继续判断交换过来的数, 并将其交换到正确的位置, 类似于一个小的DFS
    因为for循环一旦走过这个位置, 就不会再回来
-9. 除了while循环, 还要考虑到一个问题, 就是无限循环, 假设[3, 2, 3, 6, 1], 那么第一个3因为应该在下标2的位置, 所以第一个3会与第二个3交换, 
+9. 除了while循环, 还要考虑到一个问题, 就是无限循环, 假设[3, 2, 3, 6, 1], 那么第一个3因为应该在下标2的位置, 所以第一个3会与第二个3交换,
    但交换过来, 数值是一样的, 所以第二个3又会与第一个3交换, 导致无限循环
-   所以在判断是否交换时: 
+   所以在判断是否交换时:
    1. 条件nums[i] - 1 != i表示: 当前位置i的数的数值不等于其下标时, 交换, 即当前位置i的数不在正确的位置
-   2. 条件nums[i] != nums[nums[i] - 1]表示: nums[i] != nums[(nums[i]这个数应该在的位置)], 
+   2. 条件nums[i] != nums[nums[i] - 1]表示: nums[i] != nums[(nums[i]这个数应该在的位置)],
       即nums[i]这个数应该在的位置上的数, 已经是正确的了
    判断即将交换的位置上的数是否已经是正确的数 和 判断当前数是否在正确的位置上 都可以满足第4步的规定
    但如果用条件1, 则无法排除无限循环, 所以要用条件2
@@ -57,37 +57,37 @@ Explanation: The smallest positive integer 1 is missing.
  */
 
 public class FirstMissingPositive {
-    public int solution1(int[] nums) {
-        int n = nums.length;
-        for (int i = 0; i < n; i++) {
-            while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) { //用第9步的条件2而不是条件1
-                swap(nums, i, nums[i] - 1);
-            }
-        }
-
-        for (int j = 0; j < n; j++) {
-            if (nums[j] - 1 != j) return j + 1;
-        }
-        return n + 1;
+  public int solution1(int[] nums) {
+    int n = nums.length;
+    for (int i = 0; i < n; i++) {
+      while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) { // 用第9步的条件2而不是条件1
+        swap(nums, i, nums[i] - 1);
+      }
     }
 
-    public void swap(int[] nums, int start, int end) {
-        int temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp;
+    for (int j = 0; j < n; j++) {
+      if (nums[j] - 1 != j) return j + 1;
+    }
+    return n + 1;
+  }
+
+  public void swap(int[] nums, int start, int end) {
+    int temp = nums[start];
+    nums[start] = nums[end];
+    nums[end] = temp;
+  }
+
+  public int solution2(int[] nums) {
+    Set<Integer> set = new HashSet<>();
+    for (int num : nums) {
+      set.add(num);
     }
 
-    public int solution2(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for (int num : nums) {
-            set.add(num);
-        }
-
-        for (int i = 1; i < Integer.MAX_VALUE; i++) {
-            if (!set.contains(i)) {
-                return i;
-            }
-        }
-        return 0;
+    for (int i = 1; i < Integer.MAX_VALUE; i++) {
+      if (!set.contains(i)) {
+        return i;
+      }
     }
+    return 0;
+  }
 }
