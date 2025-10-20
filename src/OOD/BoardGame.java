@@ -73,7 +73,8 @@ public class BoardGame {
     }
 
     enum Player {
-        PLAYER_WHITE('W'), PLAYER_RED('R');
+        PLAYER_WHITE('W'),
+        PLAYER_RED('R');
         char symbol;
 
         Player(char symbol) {

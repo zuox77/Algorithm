@@ -39,84 +39,88 @@ https://www.jiuzhang.com/problem/median-of-two-sorted-arrays/
  */
 
 public class MedianOfTwoSortedArrays {
-  // 分治法
-  public static double solution1(int[] nums1, int[] nums2) {
-    int totalLength = nums1.length + nums2.length;
-    // check odd or even
-    if (totalLength % 2 == 0) {
-      return (findKth(nums1, 0, nums2, 0, totalLength / 2)
-              + findKth(nums1, 0, nums2, 0, totalLength / 2 + 1))
-          / 2.0;
-    } else {
-      return findKth(nums1, 0, nums2, 0, totalLength / 2 + 1);
-    }
-  }
-
-  public static int findKth(int[] nums1, int startFirst, int[] nums2, int startSecond, int k) {
-    // recursion exit
-    if (startFirst >= nums1.length) { // nums1已经遍历完了
-      return nums2[startSecond + k - 1]; // k - 1表示的是下标, 字面意思是找第k个数
-    }
-    if (startSecond >= nums2.length) { // nums2已经遍历完了
-      return nums1[startFirst + k - 1]; // k - 1表示的是下标, 字面意思是找第k个数
-    }
-    if (k == 1) { // 因为每次排除了k/2个数, 所以后面递归的时候, k也会相应减少k/2, 最后为1的时候表示找到了
-      return Math.min(nums1[startFirst], nums2[startSecond]);
+    // 分治法
+    public static double solution1(int[] nums1, int[] nums2) {
+        int totalLength = nums1.length + nums2.length;
+        // check odd or even
+        if (totalLength % 2 == 0) {
+            return (findKth(nums1, 0, nums2, 0, totalLength / 2)
+                            + findKth(nums1, 0, nums2, 0, totalLength / 2 + 1))
+                    / 2.0;
+        } else {
+            return findKth(nums1, 0, nums2, 0, totalLength / 2 + 1);
+        }
     }
 
-    // get the value of k/2
-    // 如果取不出值, 比如某个数组已经遍历完了, 那么就赋一个最大值来代替繁琐的if
-    int halfKthOfFirst =
-        startFirst + k / 2 - 1 < nums1.length ? nums1[startFirst + k / 2 - 1] : Integer.MAX_VALUE;
-    int halfKthOfSecond =
-        startSecond + k / 2 - 1 < nums2.length ? nums2[startSecond + k / 2 - 1] : Integer.MAX_VALUE;
+    public static int findKth(int[] nums1, int startFirst, int[] nums2, int startSecond, int k) {
+        // recursion exit
+        if (startFirst >= nums1.length) { // nums1已经遍历完了
+            return nums2[startSecond + k - 1]; // k - 1表示的是下标, 字面意思是找第k个数
+        }
+        if (startSecond >= nums2.length) { // nums2已经遍历完了
+            return nums1[startFirst + k - 1]; // k - 1表示的是下标, 字面意思是找第k个数
+        }
+        if (k == 1) { // 因为每次排除了k/2个数, 所以后面递归的时候, k也会相应减少k/2, 最后为1的时候表示找到了
+            return Math.min(nums1[startFirst], nums2[startSecond]);
+        }
 
-    // compare to determine recursion
-    if (halfKthOfFirst
-        < halfKthOfSecond) { // 如果nums1的k/2小于nums2的k/2, 那么结果大概率在nums2中, 所以排除nums1的前k/2个数
-      return findKth(nums1, startFirst + k / 2, nums2, startSecond, k - k / 2);
-    } else {
-      return findKth(nums1, startFirst, nums2, startSecond + k / 2, k - k / 2);
-    }
-  }
+        // get the value of k/2
+        // 如果取不出值, 比如某个数组已经遍历完了, 那么就赋一个最大值来代替繁琐的if
+        int halfKthOfFirst =
+                startFirst + k / 2 - 1 < nums1.length
+                        ? nums1[startFirst + k / 2 - 1]
+                        : Integer.MAX_VALUE;
+        int halfKthOfSecond =
+                startSecond + k / 2 - 1 < nums2.length
+                        ? nums2[startSecond + k / 2 - 1]
+                        : Integer.MAX_VALUE;
 
-  // 归并法, 但并不真正归并成一个新的数组, 只是通过归并来找
-  public static double solution2(int[] nums1, int[] nums2) {
-    /* 不需要corner case的判断, 因为如果nums1 = [], nums2 = [1], 就不能简单的return0
-    // corner case
-    if (nums1 == null || nums1.length == 0) {
-        return 0;
-    }
-    if (nums2 == null || nums2.length == 0) {
-        return 0;
-    }
-    */
-
-    // define
-    int first = 0;
-    int second = 0;
-    int left = -1; // left和right不是指针, 是第median个数和第median+1个数的value
-    int right = -1;
-    int totalLength = nums1.length + nums2.length;
-    int median = totalLength / 2;
-
-    // iterate both array
-    // 这里用for比while好, 因为知道median是多少, 所以一定要遍历那么多次才能找到
-    // 之所以是median + 1是因为, 遍历median次能刚好找到median, 但如果totalLength是偶数, 那么根据题目要求, 结果是
-    // (第median个数 + 第median+1个数) / 2.0, 所以这里多遍历一次为了找到后一个数, 然后后面通过if判断就行了
-    for (int i = 0; i < median + 1; i++) {
-      left = right; // 每次更新是因为, 当找到了第median个数以后, 会去找第median+1个数, 这时候用left取保存, 而median+1找到后
-      // 因为for的次数到了, 会自动退出, 所以left保留median个数, right保留median+1个数
-      // 下面条件表示:
-      // 如果nums1已经遍历完了 || nums2还没有遍历完 && nums2[second]是更小的, 即合并数组里面从小到大排列的下一个数
-      if (first >= nums1.length || second < nums2.length && nums2[second] < nums1[first]) {
-        right = nums2[second++];
-      } else {
-        right = nums1[first++];
-      }
+        // compare to determine recursion
+        if (halfKthOfFirst
+                < halfKthOfSecond) { // 如果nums1的k/2小于nums2的k/2, 那么结果大概率在nums2中, 所以排除nums1的前k/2个数
+            return findKth(nums1, startFirst + k / 2, nums2, startSecond, k - k / 2);
+        } else {
+            return findKth(nums1, startFirst, nums2, startSecond + k / 2, k - k / 2);
+        }
     }
 
-    // check odd or even
-    return totalLength % 2 == 1 ? right : (left + right) / 2.0;
-  }
+    // 归并法, 但并不真正归并成一个新的数组, 只是通过归并来找
+    public static double solution2(int[] nums1, int[] nums2) {
+        /* 不需要corner case的判断, 因为如果nums1 = [], nums2 = [1], 就不能简单的return0
+        // corner case
+        if (nums1 == null || nums1.length == 0) {
+            return 0;
+        }
+        if (nums2 == null || nums2.length == 0) {
+            return 0;
+        }
+        */
+
+        // define
+        int first = 0;
+        int second = 0;
+        int left = -1; // left和right不是指针, 是第median个数和第median+1个数的value
+        int right = -1;
+        int totalLength = nums1.length + nums2.length;
+        int median = totalLength / 2;
+
+        // iterate both array
+        // 这里用for比while好, 因为知道median是多少, 所以一定要遍历那么多次才能找到
+        // 之所以是median + 1是因为, 遍历median次能刚好找到median, 但如果totalLength是偶数, 那么根据题目要求, 结果是
+        // (第median个数 + 第median+1个数) / 2.0, 所以这里多遍历一次为了找到后一个数, 然后后面通过if判断就行了
+        for (int i = 0; i < median + 1; i++) {
+            left = right; // 每次更新是因为, 当找到了第median个数以后, 会去找第median+1个数, 这时候用left取保存, 而median+1找到后
+            // 因为for的次数到了, 会自动退出, 所以left保留median个数, right保留median+1个数
+            // 下面条件表示:
+            // 如果nums1已经遍历完了 || nums2还没有遍历完 && nums2[second]是更小的, 即合并数组里面从小到大排列的下一个数
+            if (first >= nums1.length || second < nums2.length && nums2[second] < nums1[first]) {
+                right = nums2[second++];
+            } else {
+                right = nums1[first++];
+            }
+        }
+
+        // check odd or even
+        return totalLength % 2 == 1 ? right : (left + right) / 2.0;
+    }
 }

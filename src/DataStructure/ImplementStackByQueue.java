@@ -13,35 +13,35 @@ https://leetcode.cn/problems/implement-stack-using-queues/description/?orderBy=m
  */
 
 public class ImplementStackByQueue {
-  class MyStack {
-    private Queue<Integer> queue1;
-    private Queue<Integer> queue2;
+    class MyStack {
+        private Queue<Integer> queue1;
+        private Queue<Integer> queue2;
 
-    public MyStack() {
-      queue1 = new LinkedList<>();
-      queue2 = new LinkedList<>();
-    }
+        public MyStack() {
+            queue1 = new LinkedList<>();
+            queue2 = new LinkedList<>();
+        }
 
-    public void push(int x) {
-      queue2.add(x);
-      while (!queue1.isEmpty()) {
-        queue2.add(queue1.poll());
-      }
-      Queue<Integer> tmp = queue1;
-      queue1 = queue2;
-      queue2 = tmp;
-    }
+        public void push(int x) {
+            queue2.add(x);
+            while (!queue1.isEmpty()) {
+                queue2.add(queue1.poll());
+            }
+            Queue<Integer> tmp = queue1;
+            queue1 = queue2;
+            queue2 = tmp;
+        }
 
-    public int pop() {
-      return queue1.poll();
-    }
+        public int pop() {
+            return queue1.poll();
+        }
 
-    public int top() {
-      return queue1.peek();
-    }
+        public int top() {
+            return queue1.peek();
+        }
 
-    public boolean empty() {
-      return queue1.isEmpty();
+        public boolean empty() {
+            return queue1.isEmpty();
+        }
     }
-  }
 }

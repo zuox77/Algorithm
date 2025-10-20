@@ -1,4 +1,5 @@
 package BFS;
+
 /*
 https://leetcode.cn/problems/number-of-islands/description/
 Given an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands.
@@ -30,12 +31,8 @@ import java.util.Queue;
 public class NumberOfIslands {
 
     private static final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-    List<Node> directions = Arrays.asList(
-            new Node(0, -1),
-            new Node(0, 1),
-            new Node(1, 0),
-            new Node(-1, 0)
-    );
+    List<Node> directions =
+            Arrays.asList(new Node(0, -1), new Node(0, 1), new Node(1, 0), new Node(-1, 0));
 
     public int numberOfIslands1(char[][] grid) {
         int count = 0;
@@ -71,7 +68,11 @@ public class NumberOfIslands {
             int row = node.row + direction.row;
             int column = node.column + direction.column;
             // Check validation
-            if (row < 0 || column < 0 || row >= grid.length || column >= grid[0].length || grid[row][column] != '1') {
+            if (row < 0
+                    || column < 0
+                    || row >= grid.length
+                    || column >= grid[0].length
+                    || grid[row][column] != '1') {
                 continue;
             }
             // Add to queue
@@ -92,7 +93,7 @@ public class NumberOfIslands {
                     continue;
                 }
                 // Add to queue
-                queue.offer(new int[]{i, j});
+                queue.offer(new int[] {i, j});
                 // Mark as visited
                 grid[i][j] = '2';
                 // BFS
@@ -110,15 +111,19 @@ public class NumberOfIslands {
     public void bfs(char[][] grid, Queue<int[]> queue) {
         // Pop out first
         int[] coordinates = queue.poll();
-        for (int[] direction: DIRECTIONS) {
+        for (int[] direction : DIRECTIONS) {
             int row = coordinates[0] + direction[0];
             int column = coordinates[1] + direction[1];
             // Validate
-            if (row < 0 || column < 0 || row >= grid.length || column >= grid[0].length || grid[row][column] != '1') {
+            if (row < 0
+                    || column < 0
+                    || row >= grid.length
+                    || column >= grid[0].length
+                    || grid[row][column] != '1') {
                 continue;
             }
             // Add to queue
-            queue.offer(new int[]{row, column});
+            queue.offer(new int[] {row, column});
             // Mark as visited
             grid[row][column] = '2';
         }

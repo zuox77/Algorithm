@@ -17,3 +17,7 @@
 
 1. Completed `TrappingRainWater.java`
 
+### 2025/10/20
+
+1. Completed `SubarraySumEqualsK.java`
+

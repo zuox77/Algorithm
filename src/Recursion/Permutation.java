@@ -18,38 +18,38 @@ https://leetcode.cn/problems/permutations/description/
  */
 
 public class Permutation {
-  public List<List<Integer>> solution1(int[] nums) {
-    int n = nums.length;
-    List<List<Integer>> result = new ArrayList<>();
-    HashSet<Integer> visited = new HashSet<>();
-    List<Integer> path = new ArrayList<>();
+    public List<List<Integer>> solution1(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        HashSet<Integer> visited = new HashSet<>();
+        List<Integer> path = new ArrayList<>();
 
-    recursion(nums, 0, n, visited, path, result);
-    return result;
-  }
-
-  public void recursion(
-      int[] nums,
-      int depth,
-      int n,
-      HashSet<Integer> visited,
-      List<Integer> path,
-      List<List<Integer>> result) {
-    // recursion exit
-    if (depth >= n) {
-      result.add(new ArrayList<>(path)); // 要深度拷贝
-      return;
+        recursion(nums, 0, n, visited, path, result);
+        return result;
     }
 
-    for (int i = 0; i < n; i++) {
-      if (visited.contains(nums[i])) {
-        continue;
-      }
-      visited.add(nums[i]);
-      path.add(nums[i]);
-      recursion(nums, depth + 1, n, visited, path, result);
-      visited.remove(nums[i]);
-      path.remove(path.size() - 1); // 记住List/ArrayList里的remove是根据index来的
+    public void recursion(
+            int[] nums,
+            int depth,
+            int n,
+            HashSet<Integer> visited,
+            List<Integer> path,
+            List<List<Integer>> result) {
+        // recursion exit
+        if (depth >= n) {
+            result.add(new ArrayList<>(path)); // 要深度拷贝
+            return;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (visited.contains(nums[i])) {
+                continue;
+            }
+            visited.add(nums[i]);
+            path.add(nums[i]);
+            recursion(nums, depth + 1, n, visited, path, result);
+            visited.remove(nums[i]);
+            path.remove(path.size() - 1); // 记住List/ArrayList里的remove是根据index来的
+        }
     }
-  }
 }

@@ -18,39 +18,39 @@ https://www.jiuzhang.com/problem/implement-queue-by-two-stacks/
     stack1里不为空, 那么就说明所有元素都进去了
  */
 public class ImplementQueueByStack {
-  private Stack<Integer> stack1;
-  private Stack<Integer> stack2;
+    private Stack<Integer> stack1;
+    private Stack<Integer> stack2;
 
-  public ImplementQueueByStack() {
-    stack1 = new Stack<>();
-    stack2 = new Stack<>();
-  }
-
-  public void push(int x) {
-    stack2.push(x);
-  }
-
-  public int pop() {
-    if (stack1.isEmpty()) {
-      convert();
+    public ImplementQueueByStack() {
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
     }
-    return stack1.pop();
-  }
 
-  public int peek() {
-    if (stack1.isEmpty()) {
-      convert();
+    public void push(int x) {
+        stack2.push(x);
     }
-    return stack1.peek();
-  }
 
-  public void convert() {
-    while (!stack2.isEmpty()) {
-      stack1.push(stack2.pop());
+    public int pop() {
+        if (stack1.isEmpty()) {
+            convert();
+        }
+        return stack1.pop();
     }
-  }
 
-  public boolean empty() {
-    return stack1.isEmpty() && stack2.isEmpty();
-  }
+    public int peek() {
+        if (stack1.isEmpty()) {
+            convert();
+        }
+        return stack1.peek();
+    }
+
+    public void convert() {
+        while (!stack2.isEmpty()) {
+            stack1.push(stack2.pop());
+        }
+    }
+
+    public boolean empty() {
+        return stack1.isEmpty() && stack2.isEmpty();
+    }
 }

@@ -20,32 +20,32 @@ https://leetcode.cn/problems/zigzag-conversion/description/?orderBy=most_votes
  */
 
 public class ZigzagConversion {
-  public String solution1(String s, int numRows) {
-    if (numRows < 2) {
-      return s;
-    }
+    public String solution1(String s, int numRows) {
+        if (numRows < 2) {
+            return s;
+        }
 
-    List<StringBuilder> result = new ArrayList<>();
-    for (int i = 0; i < numRows; i++) {
-      result.add(new StringBuilder());
-    }
+        List<StringBuilder> result = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            result.add(new StringBuilder());
+        }
 
-    // iterate and use a counter to decide direction
-    int rowNum = 0;
-    int direction = -1;
-    for (char c : s.toCharArray()) {
-      result.get(rowNum).append(c);
-      if (rowNum == 0 || rowNum == numRows - 1) {
-        direction = -direction;
-      }
-      rowNum += direction;
-    }
+        // iterate and use a counter to decide direction
+        int rowNum = 0;
+        int direction = -1;
+        for (char c : s.toCharArray()) {
+            result.get(rowNum).append(c);
+            if (rowNum == 0 || rowNum == numRows - 1) {
+                direction = -direction;
+            }
+            rowNum += direction;
+        }
 
-    // iterate to get final answer
-    StringBuilder resultString = new StringBuilder();
-    for (StringBuilder row : result) {
-      resultString.append(row);
+        // iterate to get final answer
+        StringBuilder resultString = new StringBuilder();
+        for (StringBuilder row : result) {
+            resultString.append(row);
+        }
+        return resultString.toString();
     }
-    return resultString.toString();
-  }
 }

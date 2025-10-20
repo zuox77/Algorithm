@@ -23,39 +23,39 @@ Output: ["ab", "ba", "cd", "dc"]
  */
 
 public class Anagrams {
-  public List<String> solution(String[] strs) {
-    // 声明变量
-    List<String> result = new ArrayList<>();
-    HashMap<String, List<String>> map = new HashMap<>();
-    // 遍历每个单词
-    for (String str : strs) {
-      // 遍历m单词的每个字母, 放入字母表数组中
-      int[] alphabet = new int[26];
-      for (int i = 0; i < str.length(); i++) {
-        alphabet[str.charAt(i) - 'a'] = alphabet[str.charAt(i) - 'a'] + 1;
-      }
-      // 遍历字母表数组, 将出现过的字母以及其频率组成字符串
-      StringBuilder sb = new StringBuilder();
-      for (int i = 0; i < 26; i++) {
-        // 只把出现过的字母加入字符串
-        if (alphabet[i] > 0) {
-          sb.append((char) (i + 'a'));
-          sb.append(alphabet[i]);
+    public List<String> solution(String[] strs) {
+        // 声明变量
+        List<String> result = new ArrayList<>();
+        HashMap<String, List<String>> map = new HashMap<>();
+        // 遍历每个单词
+        for (String str : strs) {
+            // 遍历m单词的每个字母, 放入字母表数组中
+            int[] alphabet = new int[26];
+            for (int i = 0; i < str.length(); i++) {
+                alphabet[str.charAt(i) - 'a'] = alphabet[str.charAt(i) - 'a'] + 1;
+            }
+            // 遍历字母表数组, 将出现过的字母以及其频率组成字符串
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 26; i++) {
+                // 只把出现过的字母加入字符串
+                if (alphabet[i] > 0) {
+                    sb.append((char) (i + 'a'));
+                    sb.append(alphabet[i]);
+                }
+            }
+            // 将字符串转成String类型
+            String key = sb.toString();
+            // 将字符串和对应的原字符串放入HashMap中
+            List<String> value = map.getOrDefault(key, new ArrayList<String>());
+            value.add(str);
+            map.put(key, value);
         }
-      }
-      // 将字符串转成String类型
-      String key = sb.toString();
-      // 将字符串和对应的原字符串放入HashMap中
-      List<String> value = map.getOrDefault(key, new ArrayList<String>());
-      value.add(str);
-      map.put(key, value);
+        // 遍历map, 找到键值对中数量大于1的, 加入result
+        for (List<String> value : map.values()) {
+            if (value.size() > 1) {
+                result.addAll(value);
+            }
+        }
+        return result;
     }
-    // 遍历map, 找到键值对中数量大于1的, 加入result
-    for (List<String> value : map.values()) {
-      if (value.size() > 1) {
-        result.addAll(value);
-      }
-    }
-    return result;
-  }
 }

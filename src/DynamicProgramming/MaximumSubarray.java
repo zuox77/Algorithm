@@ -49,88 +49,88 @@ Explanation: The subarray [4,-1,2,1] has the largest sum 6.
  */
 
 public class MaximumSubarray {
-  // DP
-  public int solution1(int[] nums) {
-    // corner case
-    if (nums == null || nums.length == 0) {
-      return 0;
+    // DP
+    public int solution1(int[] nums) {
+        // corner case
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        // define state function
+        int len = nums.length;
+        int[] dp = new int[len];
+        dp[0] = nums[0];
+
+        // iterate to get dp
+        for (int i = 1; i < len; i++) {
+            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
+        }
+
+        // iterate dp to get maximum
+        int res = dp[0];
+        for (int i = 1; i < len; i++) {
+            res = Math.max(res, dp[i]);
+        }
+
+        return res;
     }
 
-    // define state function
-    int len = nums.length;
-    int[] dp = new int[len];
-    dp[0] = nums[0];
+    // 写法优化版DP
+    public int solution1Improved(int[] nums) {
+        // corner case
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
 
-    // iterate to get dp
-    for (int i = 1; i < len; i++) {
-      dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
+        // define state function
+        int len = nums.length;
+        int dp = nums[0];
+        int res = nums[0]; // res的初始化也必须是第0个数, 因为下方是从下标1开始, 等于是已经遍历了i = 0
+        /*
+        如果for循环直接从0开始的话, 那么dp和res的初始化就必须是一个理论最小值
+        因为如果从0开始, 那么dp和res的初始化就是下标0之前的数, 假设是下标-1, 这个下标-1要保证遍历到下标0时,
+        在max函数中, 一定是nums[0]大, 才能保证整个解法的正确性
+        但如果设为Integer.MIN_VALUE的话, 假设第一个数是负数, 虽然确实是理论最小了, 但由于max里其中一个变量是dp + nums[0],
+        此时一个负数+理论最小值, 就会超出内存, 反而变成Integer.MAX_VALUE, 所以最好初始化, 然后从1开始
+         */
+        // iterate
+        for (int i = 1; i < len; i++) {
+            dp = Math.max(nums[i], dp + nums[i]);
+            res = Math.max(res, dp);
+        }
+
+        return res;
     }
 
-    // iterate dp to get maximum
-    int res = dp[0];
-    for (int i = 1; i < len; i++) {
-      res = Math.max(res, dp[i]);
+    // Prefix Sum
+    public int solution2(int[] nums) {
+        // corner case
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        // define state function
+        int res = Integer.MIN_VALUE;
+        int sum = 0; // nums的累加的和, 等于sum(nums[:i])
+        /*
+         minSum是sum的全局最小值
+         minSum的含义其实也和sum一样, 隐含前i个数的和的意思, 不过是多了一个前i个数的和的最小值
+         理论来讲, 暴力解法需要双循环遍历N^2次, 不然sum永远只能计算从0开始到i的和, 怎么知道比如从3到5的连续子数组的和呢？
+         这里的minSum其实通过取巧的方式节省了一个循环, sum - minSum其实就是
+         for i < n:
+           sum_1 += i
+           for j < n:
+             sum_2 += j
+             max(sum_1 - sum_2)
+        */
+        int minSum = 0;
+
+        for (int num : nums) {
+            sum += num;
+            res = Math.max(res, sum - minSum);
+            minSum = Math.min(minSum, sum);
+        }
+
+        return res;
     }
-
-    return res;
-  }
-
-  // 写法优化版DP
-  public int solution1Improved(int[] nums) {
-    // corner case
-    if (nums == null || nums.length == 0) {
-      return 0;
-    }
-
-    // define state function
-    int len = nums.length;
-    int dp = nums[0];
-    int res = nums[0]; // res的初始化也必须是第0个数, 因为下方是从下标1开始, 等于是已经遍历了i = 0
-    /*
-    如果for循环直接从0开始的话, 那么dp和res的初始化就必须是一个理论最小值
-    因为如果从0开始, 那么dp和res的初始化就是下标0之前的数, 假设是下标-1, 这个下标-1要保证遍历到下标0时,
-    在max函数中, 一定是nums[0]大, 才能保证整个解法的正确性
-    但如果设为Integer.MIN_VALUE的话, 假设第一个数是负数, 虽然确实是理论最小了, 但由于max里其中一个变量是dp + nums[0],
-    此时一个负数+理论最小值, 就会超出内存, 反而变成Integer.MAX_VALUE, 所以最好初始化, 然后从1开始
-     */
-    // iterate
-    for (int i = 1; i < len; i++) {
-      dp = Math.max(nums[i], dp + nums[i]);
-      res = Math.max(res, dp);
-    }
-
-    return res;
-  }
-
-  // Prefix Sum
-  public int solution2(int[] nums) {
-    // corner case
-    if (nums == null || nums.length == 0) {
-      return 0;
-    }
-
-    // define state function
-    int res = Integer.MIN_VALUE;
-    int sum = 0; // nums的累加的和, 等于sum(nums[:i])
-    /*
-     minSum是sum的全局最小值
-     minSum的含义其实也和sum一样, 隐含前i个数的和的意思, 不过是多了一个前i个数的和的最小值
-     理论来讲, 暴力解法需要双循环遍历N^2次, 不然sum永远只能计算从0开始到i的和, 怎么知道比如从3到5的连续子数组的和呢？
-     这里的minSum其实通过取巧的方式节省了一个循环, sum - minSum其实就是
-     for i < n:
-       sum_1 += i
-       for j < n:
-         sum_2 += j
-         max(sum_1 - sum_2)
-    */
-    int minSum = 0;
-
-    for (int num : nums) {
-      sum += num;
-      res = Math.max(res, sum - minSum);
-      minSum = Math.min(minSum, sum);
-    }
-
-    return res;
-  }
 }

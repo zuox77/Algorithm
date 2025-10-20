@@ -44,48 +44,50 @@ Output: true
  */
 
 public class SearchMatrixII {
-  public boolean solution1(int[][] matrix, int target) {
-    // 找到长宽
-    int len = matrix[0].length, width = matrix.length;
-    // 用递归来做
-    return recursion(matrix, 0, width, 0, len, target);
-  }
+    public boolean solution1(int[][] matrix, int target) {
+        // 找到长宽
+        int len = matrix[0].length, width = matrix.length;
+        // 用递归来做
+        return recursion(matrix, 0, width, 0, len, target);
+    }
 
-  public boolean recursion(
-      int[][] matrix, int rowLeft, int rowRight, int colLeft, int colRight, int target) {
-    // 递归出口
-    if (rowLeft == rowRight || colLeft == colRight) {
-      return false;
+    public boolean recursion(
+            int[][] matrix, int rowLeft, int rowRight, int colLeft, int colRight, int target) {
+        // 递归出口
+        if (rowLeft == rowRight || colLeft == colRight) {
+            return false;
+        }
+        // 找到中点
+        int rowMid = rowLeft + (rowRight - rowLeft) / 2;
+        int colMid = colLeft + (colRight - colLeft) / 2;
+        int num = matrix[rowMid][colMid];
+        // 根据情况判断
+        // 找到答案, 则直接返回
+        if (num == target) {
+            return true;
+            // 如果比target大, 那么说明右下角的所有数都比target大, 所以排除左下角
+        } else if (num > target) {
+            // if (recursion(matrix, rowLeft, rowMid, colLeft, colRight, target)) {return true;}
+            // if (recursion(matrix, rowMid, rowRight, colLeft, colMid, target)) {return true;}
+            if (recursion(matrix, rowLeft, rowMid, colMid, colRight, target)) {
+                return true;
+            }
+            if (recursion(matrix, rowLeft, rowRight, colLeft, colMid, target)) {
+                return true;
+            }
+            // 如果比target小, 那么说明左上角的所有数都比target小, 所以排除左上角
+        } else {
+            // if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {return
+            // true;}
+            // if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {return
+            // true;}
+            if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {
+                return true;
+            }
+            if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {
+                return true;
+            }
+        }
+        return false;
     }
-    // 找到中点
-    int rowMid = rowLeft + (rowRight - rowLeft) / 2;
-    int colMid = colLeft + (colRight - colLeft) / 2;
-    int num = matrix[rowMid][colMid];
-    // 根据情况判断
-    // 找到答案, 则直接返回
-    if (num == target) {
-      return true;
-      // 如果比target大, 那么说明右下角的所有数都比target大, 所以排除左下角
-    } else if (num > target) {
-      // if (recursion(matrix, rowLeft, rowMid, colLeft, colRight, target)) {return true;}
-      // if (recursion(matrix, rowMid, rowRight, colLeft, colMid, target)) {return true;}
-      if (recursion(matrix, rowLeft, rowMid, colMid, colRight, target)) {
-        return true;
-      }
-      if (recursion(matrix, rowLeft, rowRight, colLeft, colMid, target)) {
-        return true;
-      }
-      // 如果比target小, 那么说明左上角的所有数都比target小, 所以排除左上角
-    } else {
-      // if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {return true;}
-      // if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {return true;}
-      if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {
-        return true;
-      }
-      if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {
-        return true;
-      }
-    }
-    return false;
-  }
 }

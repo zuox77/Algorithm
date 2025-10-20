@@ -15,35 +15,35 @@ https://leetcode.cn/problems/letter-combinations-of-a-phone-number/description/
     4. char相减可以直接变成int
  */
 public class LetterCombPhoneNumber {
-  class solution {
-    private String[] map = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    class solution {
+        private String[] map = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
-    public List<String> letterCombinations(String digits) {
-      int n = digits.length();
-      List<String> result = new ArrayList<>();
-      if (n < 1) {
-        return result;
-      }
-      StringBuilder tmpResult = new StringBuilder();
-      recursion(digits, 0, n, result, tmpResult);
-      return result;
+        public List<String> letterCombinations(String digits) {
+            int n = digits.length();
+            List<String> result = new ArrayList<>();
+            if (n < 1) {
+                return result;
+            }
+            StringBuilder tmpResult = new StringBuilder();
+            recursion(digits, 0, n, result, tmpResult);
+            return result;
+        }
+
+        public void recursion(
+                String digits, int curIndex, int n, List<String> result, StringBuilder tmpResult) {
+            // recursion exit
+            if (curIndex >= n) {
+                result.add(tmpResult.toString());
+                return;
+            }
+
+            // iterate
+            // char/string都可以直接相减变成int
+            for (Character ch : map[digits.charAt(curIndex) - '0'].toCharArray()) {
+                tmpResult.append(ch);
+                recursion(digits, curIndex + 1, n, result, tmpResult);
+                tmpResult.deleteCharAt(tmpResult.length() - 1);
+            }
+        }
     }
-
-    public void recursion(
-        String digits, int curIndex, int n, List<String> result, StringBuilder tmpResult) {
-      // recursion exit
-      if (curIndex >= n) {
-        result.add(tmpResult.toString());
-        return;
-      }
-
-      // iterate
-      // char/string都可以直接相减变成int
-      for (Character ch : map[digits.charAt(curIndex) - '0'].toCharArray()) {
-        tmpResult.append(ch);
-        recursion(digits, curIndex + 1, n, result, tmpResult);
-        tmpResult.deleteCharAt(tmpResult.length() - 1);
-      }
-    }
-  }
 }

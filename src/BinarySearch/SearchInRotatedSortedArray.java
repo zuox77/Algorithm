@@ -81,45 +81,45 @@ Output: 4
  */
 
 public class SearchInRotatedSortedArray {
-  public int search(int[] nums, int target) {
-    // 定义指针
-    int n = nums.length;
-    int left = 0, right = n - 1;
-    // 定义横轴, 以nums[n - 1]作为横轴
-    if (target == nums[n - 1]) {
-      return n - 1;
-    }
-    // 判断target在竖轴左侧还是右侧
-    boolean targetInLeft = target < nums[n - 1] ? false : true;
-    while (left + 1 < right) {
-      // 找到中点
-      int mid = left + (right - left) / 2;
-      // 找到直接返回
-      if (nums[mid] == target) {
-        return mid;
-      }
-      // 判断中点在竖轴左侧还是右侧
-      boolean midInLeft = nums[mid] < nums[n - 1] ? false : true;
-      // 如果target在左侧
-      if (targetInLeft) {
-        // 看上面 -> 5.1.1.2.1
-        if (nums[mid] < target && midInLeft) {
-          left = mid;
-          // 其余的所有可能
-        } else {
-          right = mid;
+    public int search(int[] nums, int target) {
+        // 定义指针
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        // 定义横轴, 以nums[n - 1]作为横轴
+        if (target == nums[n - 1]) {
+            return n - 1;
         }
-        // 如果target在右侧
-      } else {
-        // 看上面 -> 5.2.1.2.2
-        if (nums[mid] > target && !midInLeft) {
-          right = mid;
-        } else {
-          left = mid;
+        // 判断target在竖轴左侧还是右侧
+        boolean targetInLeft = target < nums[n - 1] ? false : true;
+        while (left + 1 < right) {
+            // 找到中点
+            int mid = left + (right - left) / 2;
+            // 找到直接返回
+            if (nums[mid] == target) {
+                return mid;
+            }
+            // 判断中点在竖轴左侧还是右侧
+            boolean midInLeft = nums[mid] < nums[n - 1] ? false : true;
+            // 如果target在左侧
+            if (targetInLeft) {
+                // 看上面 -> 5.1.1.2.1
+                if (nums[mid] < target && midInLeft) {
+                    left = mid;
+                    // 其余的所有可能
+                } else {
+                    right = mid;
+                }
+                // 如果target在右侧
+            } else {
+                // 看上面 -> 5.2.1.2.2
+                if (nums[mid] > target && !midInLeft) {
+                    right = mid;
+                } else {
+                    left = mid;
+                }
+            }
         }
-      }
+        // 最后额外检查一次
+        return nums[left] == target ? left : nums[right] == target ? right : -1;
     }
-    // 最后额外检查一次
-    return nums[left] == target ? left : nums[right] == target ? right : -1;
-  }
 }

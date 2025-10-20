@@ -57,37 +57,37 @@ Explanation: The smallest positive integer 1 is missing.
  */
 
 public class FirstMissingPositive {
-  public int solution1(int[] nums) {
-    int n = nums.length;
-    for (int i = 0; i < n; i++) {
-      while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) { // 用第9步的条件2而不是条件1
-        swap(nums, i, nums[i] - 1);
-      }
+    public int solution1(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) { // 用第9步的条件2而不是条件1
+                swap(nums, i, nums[i] - 1);
+            }
+        }
+
+        for (int j = 0; j < n; j++) {
+            if (nums[j] - 1 != j) return j + 1;
+        }
+        return n + 1;
     }
 
-    for (int j = 0; j < n; j++) {
-      if (nums[j] - 1 != j) return j + 1;
-    }
-    return n + 1;
-  }
-
-  public void swap(int[] nums, int start, int end) {
-    int temp = nums[start];
-    nums[start] = nums[end];
-    nums[end] = temp;
-  }
-
-  public int solution2(int[] nums) {
-    Set<Integer> set = new HashSet<>();
-    for (int num : nums) {
-      set.add(num);
+    public void swap(int[] nums, int start, int end) {
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
     }
 
-    for (int i = 1; i < Integer.MAX_VALUE; i++) {
-      if (!set.contains(i)) {
-        return i;
-      }
+    public int solution2(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        for (int i = 1; i < Integer.MAX_VALUE; i++) {
+            if (!set.contains(i)) {
+                return i;
+            }
+        }
+        return 0;
     }
-    return 0;
-  }
 }

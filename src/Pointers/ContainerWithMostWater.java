@@ -15,17 +15,17 @@ https://leetcode.cn/problems/container-with-most-water/description/
     所以：height[left]和height[right] 谁小 谁往中间移动
  */
 public class ContainerWithMostWater {
-  public int containerWithMostWaterArea(int[] height) {
-    int n = height.length;
-    int maxWater = 0, left = 0, right = n - 1;
-    while (left < right) {
-      maxWater = Math.max((right - left) * Math.min(height[left], height[right]), maxWater);
-      if (height[left] <= height[right]) {
-        left++;
-      } else {
-        right--;
-      }
+    public int containerWithMostWaterArea(int[] height) {
+        int n = height.length;
+        int maxWater = 0, left = 0, right = n - 1;
+        while (left < right) {
+            maxWater = Math.max((right - left) * Math.min(height[left], height[right]), maxWater);
+            if (height[left] <= height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxWater;
     }
-    return maxWater;
-  }
 }

@@ -49,42 +49,42 @@ Explanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptab
  */
 
 class FindAnyPeakII {
-  public int[] solution1(int[][] mat) {
-    // 找到长和宽
-    int len = mat[0].length;
-    int width = mat.length;
-    // 二分法遍历找到中点列
-    int left = 0, right = len - 1;
-    while (left <= right) {
-      // 找到中点列
-      int mid = left + (right - left) / 2;
-      // 遍历中点列找到该列的最大值
-      int colMax = mat[0][mid];
-      int colMaxIndex = 0;
-      for (int i = 1; i < width; i++) {
-        if (colMax < mat[i][mid]) {
-          colMax = mat[i][mid];
-          colMaxIndex = i;
+    public int[] solution1(int[][] mat) {
+        // 找到长和宽
+        int len = mat[0].length;
+        int width = mat.length;
+        // 二分法遍历找到中点列
+        int left = 0, right = len - 1;
+        while (left <= right) {
+            // 找到中点列
+            int mid = left + (right - left) / 2;
+            // 遍历中点列找到该列的最大值
+            int colMax = mat[0][mid];
+            int colMaxIndex = 0;
+            for (int i = 1; i < width; i++) {
+                if (colMax < mat[i][mid]) {
+                    colMax = mat[i][mid];
+                    colMaxIndex = i;
+                }
+            }
+            // 比较mat[colMaxIndex][mid]左右找到最大值
+            boolean leftLarger = mid - 1 >= left && mat[colMaxIndex][mid - 1] > colMax;
+            boolean rightLarger = mid + 1 <= right && mat[colMaxIndex][mid + 1] > colMax;
+            // 分情况判断
+            // 当前点比左右都大, 则说明是峰顶, 找到答案直接返回即可
+            if (!leftLarger && !rightLarger) {
+                return new int[] {colMaxIndex, mid};
+                // 当前点处于向右递增, 则右边更有可能有峰顶, 所以left指针向右移动
+            } else if (!leftLarger && rightLarger) {
+                // 注意这里一定要是mid+1, 详情可以看BinarySearch.md
+                left = mid + 1;
+                // 当前点处于向左递增, 则左边更有可能有峰顶, 所以right指针向左移动
+                // 同时这还包含了峰谷的情况, 即当前点比左右两边都小, 这个情况下, 往哪边移动都可以
+            } else {
+                right = mid;
+            }
         }
-      }
-      // 比较mat[colMaxIndex][mid]左右找到最大值
-      boolean leftLarger = mid - 1 >= left && mat[colMaxIndex][mid - 1] > colMax;
-      boolean rightLarger = mid + 1 <= right && mat[colMaxIndex][mid + 1] > colMax;
-      // 分情况判断
-      // 当前点比左右都大, 则说明是峰顶, 找到答案直接返回即可
-      if (!leftLarger && !rightLarger) {
-        return new int[] {colMaxIndex, mid};
-        // 当前点处于向右递增, 则右边更有可能有峰顶, 所以left指针向右移动
-      } else if (!leftLarger && rightLarger) {
-        // 注意这里一定要是mid+1, 详情可以看BinarySearch.md
-        left = mid + 1;
-        // 当前点处于向左递增, 则左边更有可能有峰顶, 所以right指针向左移动
-        // 同时这还包含了峰谷的情况, 即当前点比左右两边都小, 这个情况下, 往哪边移动都可以
-      } else {
-        right = mid;
-      }
+        // 如果while循环退出了都没找到, 则说明可能没有峰值
+        return new int[] {-1, -1};
     }
-    // 如果while循环退出了都没找到, 则说明可能没有峰值
-    return new int[] {-1, -1};
-  }
 }

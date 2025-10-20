@@ -35,61 +35,61 @@ https://www.jiuzhang.com/problem/partition-array/
 
 public class QuickSort_PartitionArray {
 
-  // quick sort template
-  public void quickSortTemplate(int[] nums, int start, int end) {
-    // recursion exit
-    if (start >= end) {
-      return;
+    // quick sort template
+    public void quickSortTemplate(int[] nums, int start, int end) {
+        // recursion exit
+        if (start >= end) {
+            return;
+        }
+
+        // iterate
+        int left = start, right = end;
+        int pivotIndex = (start + end) / 2;
+        int pivot = nums[pivotIndex];
+        while (left <= right) { // 记住left和right的比较都是小于等于, 因为指针有可能重叠
+            // find the first element which is > pivot and on the left side of pivot
+            while (left <= right && nums[left] < pivot) {
+                left++;
+            }
+            // find the first element which is < pivot and on the right side of pivot
+            while (left <= right && nums[right] > pivot) {
+                right--;
+            }
+
+            if (left <= right) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+                right--;
+            }
+
+            // recursion
+            quickSortTemplate(nums, start, right);
+            quickSortTemplate(nums, left, end);
+        }
     }
 
-    // iterate
-    int left = start, right = end;
-    int pivotIndex = (start + end) / 2;
-    int pivot = nums[pivotIndex];
-    while (left <= right) { // 记住left和right的比较都是小于等于, 因为指针有可能重叠
-      // find the first element which is > pivot and on the left side of pivot
-      while (left <= right && nums[left] < pivot) {
-        left++;
-      }
-      // find the first element which is < pivot and on the right side of pivot
-      while (left <= right && nums[right] > pivot) {
-        right--;
-      }
-
-      if (left <= right) {
-        int temp = nums[left];
-        nums[left] = nums[right];
-        nums[right] = temp;
-        left++;
-        right--;
-      }
-
-      // recursion
-      quickSortTemplate(nums, start, right);
-      quickSortTemplate(nums, left, end);
+    // partition array
+    public int[] solution1(int[] nums, int k) {
+        int left = 0, right = nums.length - 1;
+        int pivotIndex = (left + right) / 2;
+        k = nums[pivotIndex];
+        while (left <= right) {
+            while (left <= right && nums[left] < k) {
+                left++;
+            }
+            while (left <= right && nums[right] >= k) {
+                right--;
+            }
+            if (left <= right) {
+                int temp = nums[left];
+                nums[left] = nums[right];
+                nums[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        return nums;
     }
-  }
-
-  // partition array
-  public int[] solution1(int[] nums, int k) {
-    int left = 0, right = nums.length - 1;
-    int pivotIndex = (left + right) / 2;
-    k = nums[pivotIndex];
-    while (left <= right) {
-      while (left <= right && nums[left] < k) {
-        left++;
-      }
-      while (left <= right && nums[right] >= k) {
-        right--;
-      }
-      if (left <= right) {
-        int temp = nums[left];
-        nums[left] = nums[right];
-        nums[right] = temp;
-        left++;
-        right--;
-      }
-    }
-    return nums;
-  }
 }

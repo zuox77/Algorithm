@@ -24,85 +24,85 @@ Output: [[3],[9,20],[15,7]]
  */
 
 public class BinaryTreeLevelOrderTraversal {
-  public List<List<Integer>> solution1(Node root) {
-    // 定义变量
-    Queue<Node> queue = new ArrayDeque<>();
-    List<List<Integer>> result = new ArrayList<>();
-    // corner case
-    if (root == null) {
-      return result;
-    }
-    // 将root添加进queue
-    queue.offer(root);
-    // 定义变量count去计算每一层有多少个节点
-    int count = 1; // 初始化为1因为root就1个节点,root为null已经被排除掉了
-    // 通过BFS遍历
-    while (!queue.isEmpty()) {
-      // 用另一个变量记录上次的count
-      int prevCount = count;
-      // 重置count
-      count = 0;
-      // 定义一个变量记录每一层的值
-      List<Integer> level = new ArrayList<>();
-      for (int i = 0; i < prevCount; i++) {
-        // poll出第一个数
-        Node node = queue.poll();
-        // 将根节点添加进level
-        level.add(node.val);
-        // 左子节点
-        if (node.left != null) {
-          queue.offer(node.left);
-          count++;
+    public List<List<Integer>> solution1(Node root) {
+        // 定义变量
+        Queue<Node> queue = new ArrayDeque<>();
+        List<List<Integer>> result = new ArrayList<>();
+        // corner case
+        if (root == null) {
+            return result;
         }
-        // 右子节点
-        if (node.right != null) {
-          queue.offer(node.right);
-          count++;
+        // 将root添加进queue
+        queue.offer(root);
+        // 定义变量count去计算每一层有多少个节点
+        int count = 1; // 初始化为1因为root就1个节点,root为null已经被排除掉了
+        // 通过BFS遍历
+        while (!queue.isEmpty()) {
+            // 用另一个变量记录上次的count
+            int prevCount = count;
+            // 重置count
+            count = 0;
+            // 定义一个变量记录每一层的值
+            List<Integer> level = new ArrayList<>();
+            for (int i = 0; i < prevCount; i++) {
+                // poll出第一个数
+                Node node = queue.poll();
+                // 将根节点添加进level
+                level.add(node.val);
+                // 左子节点
+                if (node.left != null) {
+                    queue.offer(node.left);
+                    count++;
+                }
+                // 右子节点
+                if (node.right != null) {
+                    queue.offer(node.right);
+                    count++;
+                }
+            }
+            // 将level添加进result
+            result.add(level);
         }
-      }
-      // 将level添加进result
-      result.add(level);
+        // 返回
+        return result;
     }
-    // 返回
-    return result;
-  }
 
-  public List<List<Integer>> levelOrder(Node root) {
-    // 定义变量
-    Queue<Node> queue = new ArrayDeque<>();
-    List<List<Integer>> result = new ArrayList<>();
-    // 定义一个变量记录每一层的值
-    List<Integer> level = new ArrayList<>();
-    // corner case
-    if (root == null) {
-      return result;
-    }
-    // 将root添加进queue
-    queue.offer(root);
-    // 通过BFS遍历
-    while (!queue.isEmpty()) {
-      // 用一个变量记录上层有多少个
-      int count = queue.size();
-      // 每一次去重置level,也是为什么添加进result的时候,不需要新建一个level
-      level = new ArrayList<>();
-      for (int i = 0; i < count; i++) {
-        // poll出第一个数
-        Node node = queue.poll();
-        // 将根节点添加进level
-        level.add(node.val);
-        // 左子节点
-        if (node.left != null) {
-          queue.offer(node.left);
+    public List<List<Integer>> levelOrder(Node root) {
+        // 定义变量
+        Queue<Node> queue = new ArrayDeque<>();
+        List<List<Integer>> result = new ArrayList<>();
+        // 定义一个变量记录每一层的值
+        List<Integer> level = new ArrayList<>();
+        // corner case
+        if (root == null) {
+            return result;
         }
-        // 右子节点
-        if (node.right != null) {
-          queue.offer(node.right);
+        // 将root添加进queue
+        queue.offer(root);
+        // 通过BFS遍历
+        while (!queue.isEmpty()) {
+            // 用一个变量记录上层有多少个
+            int count = queue.size();
+            // 每一次去重置level,也是为什么添加进result的时候,不需要新建一个level
+            level = new ArrayList<>();
+            for (int i = 0; i < count; i++) {
+                // poll出第一个数
+                Node node = queue.poll();
+                // 将根节点添加进level
+                level.add(node.val);
+                // 左子节点
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                // 右子节点
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            // 将level添加进result
+            result.add(level);
         }
-      }
-      // 将level添加进result
-      result.add(level);
+        // 返回
+        return result;
     }
-    // 返回
-    return result;
-  }
 }

@@ -30,36 +30,36 @@ These are the only two combinations.
    比如下一层如果从2开始遍历, 那么path=[2,3,6,2],这一定与已经遍历过的[2,2,3,6]重复
  */
 public class CombinationSum {
-  public List<List<Integer>> solution1(int[] candidates, int target) {
-    List<List<Integer>> result = new ArrayList<>();
-    Arrays.sort(candidates);
-    dfs(candidates, target, 0, new ArrayList<Integer>(), 0, result);
-    return result;
-  }
-
-  public void dfs(
-      int[] candidates,
-      int target,
-      int begin,
-      List<Integer> path,
-      int curSum,
-      List<List<Integer>> result) {
-    // exit
-    if (curSum == target) {
-      result.add(new ArrayList<>(path));
-      return;
+    public List<List<Integer>> solution1(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(candidates);
+        dfs(candidates, target, 0, new ArrayList<Integer>(), 0, result);
+        return result;
     }
 
-    for (int i = begin; i < candidates.length; i++) {
-      int num = candidates[i];
-      if (curSum + num > target) {
-        continue;
-      }
-      path.add(num);
-      curSum += num;
-      dfs(candidates, target, i, path, curSum, result);
-      curSum -= num;
-      path.remove(path.size() - 1);
+    public void dfs(
+            int[] candidates,
+            int target,
+            int begin,
+            List<Integer> path,
+            int curSum,
+            List<List<Integer>> result) {
+        // exit
+        if (curSum == target) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = begin; i < candidates.length; i++) {
+            int num = candidates[i];
+            if (curSum + num > target) {
+                continue;
+            }
+            path.add(num);
+            curSum += num;
+            dfs(candidates, target, i, path, curSum, result);
+            curSum -= num;
+            path.remove(path.size() - 1);
+        }
     }
-  }
 }

@@ -29,51 +29,51 @@ return the values of the nodes you can see ordered from top to bottom
  */
 
 public class RightView {
-  // BFS
-  public List<Integer> solution1(Node root) {
-    Queue<Node> queue = new LinkedList<>();
-    List<Integer> result = new ArrayList<>();
-    if (root == null) {
-      return result;
-    }
-
-    queue.add(root);
-    while (!queue.isEmpty()) {
-      int len = queue.size();
-      for (int i = 0; i < len; i++) {
-        Node node = queue.poll();
-        if (i == len - 1) {
-          result.add(node.val);
+    // BFS
+    public List<Integer> solution1(Node root) {
+        Queue<Node> queue = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
         }
-        if (node.left != null) {
-          queue.add(node.left);
+
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            for (int i = 0; i < len; i++) {
+                Node node = queue.poll();
+                if (i == len - 1) {
+                    result.add(node.val);
+                }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
         }
-        if (node.right != null) {
-          queue.add(node.right);
+
+        return result;
+    }
+
+    // DFS
+    public List<Integer> solution2(Node root) {
+        List<Integer> result = new ArrayList<>();
+        dfs(root, 0, result);
+        return result;
+    }
+
+    public void dfs(Node root, int depth, List<Integer> result) {
+        // recursion exit
+        if (root == null) {
+            return;
         }
-      }
+        // check layer
+        if (depth == result.size()) {
+            result.add(root.val);
+        }
+        dfs(root.right, depth, result);
+        dfs(root.left, depth, result);
     }
-
-    return result;
-  }
-
-  // DFS
-  public List<Integer> solution2(Node root) {
-    List<Integer> result = new ArrayList<>();
-    dfs(root, 0, result);
-    return result;
-  }
-
-  public void dfs(Node root, int depth, List<Integer> result) {
-    // recursion exit
-    if (root == null) {
-      return;
-    }
-    // check layer
-    if (depth == result.size()) {
-      result.add(root.val);
-    }
-    dfs(root.right, depth, result);
-    dfs(root.left, depth, result);
-  }
 }

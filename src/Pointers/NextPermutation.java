@@ -27,47 +27,47 @@ https://leetcode.cn/problems/next-permutation/solutions/80560/xia-yi-ge-pai-lie-
  */
 
 public class NextPermutation {
-  public void nextPermutation(int[] nums) {
-    int n = nums.length;
-    if (n < 2) {
-      return;
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        if (n < 2) {
+            return;
+        }
+        int left = -1, right = -1, firstLarge = -1;
+        // find first ascending pair
+        for (int i = n - 2; i >= 0; i--) {
+            if (nums[i] < nums[i + 1]) {
+                left = i;
+                right = i + 1;
+                break;
+            }
+        }
+        // the whole array is already a descending array
+        if (left == -1) {
+            reverse(nums, 0, n - 1);
+            return;
+        }
+        // find the first element within range right and n - 1 and larger than left
+        for (int i = n - 1; i >= right; i--) {
+            if (nums[i] > nums[left]) {
+                firstLarge = i;
+                break;
+            }
+        }
+        swap(nums, left, firstLarge);
+        reverse(nums, right, n - 1);
     }
-    int left = -1, right = -1, firstLarge = -1;
-    // find first ascending pair
-    for (int i = n - 2; i >= 0; i--) {
-      if (nums[i] < nums[i + 1]) {
-        left = i;
-        right = i + 1;
-        break;
-      }
-    }
-    // the whole array is already a descending array
-    if (left == -1) {
-      reverse(nums, 0, n - 1);
-      return;
-    }
-    // find the first element within range right and n - 1 and larger than left
-    for (int i = n - 1; i >= right; i--) {
-      if (nums[i] > nums[left]) {
-        firstLarge = i;
-        break;
-      }
-    }
-    swap(nums, left, firstLarge);
-    reverse(nums, right, n - 1);
-  }
 
-  public void swap(int[] nums, int left, int right) {
-    int tmp = nums[left];
-    nums[left] = nums[right];
-    nums[right] = tmp;
-  }
-
-  public void reverse(int[] nums, int left, int right) {
-    while (left < right) {
-      swap(nums, left, right);
-      left++;
-      right--;
+    public void swap(int[] nums, int left, int right) {
+        int tmp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = tmp;
     }
-  }
+
+    public void reverse(int[] nums, int left, int right) {
+        while (left < right) {
+            swap(nums, left, right);
+            left++;
+            right--;
+        }
+    }
 }

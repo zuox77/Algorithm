@@ -24,29 +24,29 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
  */
 
 public class Subsets {
-  public List<List<Integer>> solution1(int[] nums) {
-    List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> solution1(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
 
-    // dfs
-    dfs(nums, new ArrayList<>(), result, 0);
+        // dfs
+        dfs(nums, new ArrayList<>(), result, 0);
 
-    // result
-    return result;
-  }
-
-  public void dfs(int[] nums, List<Integer> path, List<List<Integer>> result, int begin) {
-    // exit
-    if (begin <= nums.length) {
-      result.add(new ArrayList<>(path));
-    } else {
-      return;
+        // result
+        return result;
     }
 
-    // traverse
-    for (int i = begin; i < nums.length; i++) {
-      path.add(nums[i]);
-      dfs(nums, path, result, i + 1);
-      path.remove(path.size() - 1);
+    public void dfs(int[] nums, List<Integer> path, List<List<Integer>> result, int begin) {
+        // exit
+        if (begin <= nums.length) {
+            result.add(new ArrayList<>(path));
+        } else {
+            return;
+        }
+
+        // traverse
+        for (int i = begin; i < nums.length; i++) {
+            path.add(nums[i]);
+            dfs(nums, path, result, i + 1);
+            path.remove(path.size() - 1);
+        }
     }
-  }
 }

@@ -36,60 +36,60 @@ https://www.lintcode.com/problem/471/
  */
 
 public class TopKFrequent {
-  public int[] solution1(int[] nums, int k) {
-    // define a max heap and override its compare method
-    PriorityQueue<Pair> maxHeap =
-        new PriorityQueue<>(
-            new Comparator<Pair>() {
-              @Override
-              public int compare(Pair p1, Pair p2) {
-                return p2.freq - p1.freq; // 第二个参数减去第一个参数 = 最大堆, 反之最小堆, 默认也是最小堆
-              }
-            });
-    HashMap<Integer, Integer> map = new HashMap<>();
+    public int[] solution1(int[] nums, int k) {
+        // define a max heap and override its compare method
+        PriorityQueue<Pair> maxHeap =
+                new PriorityQueue<>(
+                        new Comparator<Pair>() {
+                            @Override
+                            public int compare(Pair p1, Pair p2) {
+                                return p2.freq - p1.freq; // 第二个参数减去第一个参数 = 最大堆, 反之最小堆, 默认也是最小堆
+                            }
+                        });
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-    for (int num : nums) {
-      if (!map.containsKey(num)) {
-        map.put(num, 1);
-      } else {
-        map.put(num, map.get(num) + 1);
-      }
+        for (int num : nums) {
+            if (!map.containsKey(num)) {
+                map.put(num, 1);
+            } else {
+                map.put(num, map.get(num) + 1);
+            }
+        }
+
+        for (int key : map.keySet()) {
+            maxHeap.add(new Pair(key, map.get(key)));
+        }
+
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            Pair curElement = maxHeap.poll();
+            res[i] = curElement.val;
+        }
+
+        return res;
     }
 
-    for (int key : map.keySet()) {
-      maxHeap.add(new Pair(key, map.get(key)));
+    /*
+    如果是找top k frequent文字, 可以用下面的Comparator:
+    private Comparator<Pair> pairComparator = new Comparator<Pair>() {
+        public int compare(Pair p1, Pair p2) {
+            if (p1.val != p2.val) {
+                return p1.val - p2.val;
+            }
+            return p2.key.compareTo(p1.key); // compareTo函数比较的是两个string的词典顺序 lexicographical
+        }
+    };
+    用的时候直接:
+    pairComparator.compare(pair1, pair2) > 0: 表示pair1比pair2大
+     */
+
+    class Pair {
+        int val;
+        int freq;
+
+        public Pair(int val, int freq) {
+            this.val = val;
+            this.freq = freq;
+        }
     }
-
-    int[] res = new int[k];
-    for (int i = 0; i < k; i++) {
-      Pair curElement = maxHeap.poll();
-      res[i] = curElement.val;
-    }
-
-    return res;
-  }
-
-  /*
-  如果是找top k frequent文字, 可以用下面的Comparator:
-  private Comparator<Pair> pairComparator = new Comparator<Pair>() {
-      public int compare(Pair p1, Pair p2) {
-          if (p1.val != p2.val) {
-              return p1.val - p2.val;
-          }
-          return p2.key.compareTo(p1.key); // compareTo函数比较的是两个string的词典顺序 lexicographical
-      }
-  };
-  用的时候直接:
-  pairComparator.compare(pair1, pair2) > 0: 表示pair1比pair2大
-   */
-
-  class Pair {
-    int val;
-    int freq;
-
-    public Pair(int val, int freq) {
-      this.val = val;
-      this.freq = freq;
-    }
-  }
 }

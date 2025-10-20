@@ -75,57 +75,57 @@ Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 
  */
 public class GroupAnagrams {
-  // 思路1
-  public List<List<String>> solution1(String[] strs) {
-    // 创建哈希表
-    HashMap<String, List<String>> map = new HashMap<>();
-    // 遍历strs
-    for (String str : strs) {
-      // 因为Java只有toCharArray()函数, 所以只能通过这个方式把String变成一个可排序的集合
-      char[] ch = str.toCharArray();
-      // 将单词排序
-      Arrays.sort(ch);
-      // 创建新的String去存储排好序的值, 原因在上面解释过了
-      String key = new String(ch);
-      // 用key来查哈希表, 这里利用了getOrDefault()简化代码
-      List<String> list = map.getOrDefault(key, new ArrayList<String>());
-      // 将新的单词str加入list
-      list.add(str);
-      // 将更新后的list重新加入哈希表, 即更新哈希表
-      map.put(key, list);
-    }
-    // 根据题目要求, 需要返回List<List<String>>, 而map.values()的类型是: Collection<List<String>>, 所以要转化一次
-    return new ArrayList<List<String>>(map.values());
-  }
-
-  // 思路2
-  public List<List<String>> solution2(String[] strs) {
-    // 创建哈希表
-    HashMap<String, List<String>> map = new HashMap<>();
-    // 遍历
-    for (String str : strs) {
-      // 创建字母出现频率的数组,
-      int[] alphabet = new int[26];
-      // 因为小写字母'a'对应的ASCII数字是97, 所以直接减去97, 即可将其变成0-26的数字, 然后对应数组的下标
-      // 但更好的办法是, 既然我们想以 0 -> a,1 -> b,... 去一一对应, 那么直接用字母减去'a'即可
-      for (char ch : str.toCharArray()) {
-        alphabet[ch - 'a']++;
-      }
-      // 遍历字母出现频率的数组
-      StringBuilder sb = new StringBuilder();
-      for (int i = 0; i < 26; i++) {
-        if (alphabet[i] != 0) {
-          sb.append((char) ('a' + i));
-          sb.append(alphabet[i]);
-          // sb例子: "a1b2d3"
+    // 思路1
+    public List<List<String>> solution1(String[] strs) {
+        // 创建哈希表
+        HashMap<String, List<String>> map = new HashMap<>();
+        // 遍历strs
+        for (String str : strs) {
+            // 因为Java只有toCharArray()函数, 所以只能通过这个方式把String变成一个可排序的集合
+            char[] ch = str.toCharArray();
+            // 将单词排序
+            Arrays.sort(ch);
+            // 创建新的String去存储排好序的值, 原因在上面解释过了
+            String key = new String(ch);
+            // 用key来查哈希表, 这里利用了getOrDefault()简化代码
+            List<String> list = map.getOrDefault(key, new ArrayList<String>());
+            // 将新的单词str加入list
+            list.add(str);
+            // 将更新后的list重新加入哈希表, 即更新哈希表
+            map.put(key, list);
         }
-      }
-      // 加入哈希表
-      String key = sb.toString(); // 同样要转化成String, 解释看上面的思路
-      List<String> list = map.getOrDefault(key, new ArrayList<String>());
-      list.add(str);
-      map.put(key, list);
+        // 根据题目要求, 需要返回List<List<String>>, 而map.values()的类型是: Collection<List<String>>, 所以要转化一次
+        return new ArrayList<List<String>>(map.values());
     }
-    return new ArrayList<List<String>>(map.values());
-  }
+
+    // 思路2
+    public List<List<String>> solution2(String[] strs) {
+        // 创建哈希表
+        HashMap<String, List<String>> map = new HashMap<>();
+        // 遍历
+        for (String str : strs) {
+            // 创建字母出现频率的数组,
+            int[] alphabet = new int[26];
+            // 因为小写字母'a'对应的ASCII数字是97, 所以直接减去97, 即可将其变成0-26的数字, 然后对应数组的下标
+            // 但更好的办法是, 既然我们想以 0 -> a,1 -> b,... 去一一对应, 那么直接用字母减去'a'即可
+            for (char ch : str.toCharArray()) {
+                alphabet[ch - 'a']++;
+            }
+            // 遍历字母出现频率的数组
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 26; i++) {
+                if (alphabet[i] != 0) {
+                    sb.append((char) ('a' + i));
+                    sb.append(alphabet[i]);
+                    // sb例子: "a1b2d3"
+                }
+            }
+            // 加入哈希表
+            String key = sb.toString(); // 同样要转化成String, 解释看上面的思路
+            List<String> list = map.getOrDefault(key, new ArrayList<String>());
+            list.add(str);
+            map.put(key, list);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
 }

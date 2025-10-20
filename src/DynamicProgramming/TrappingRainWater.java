@@ -83,124 +83,124 @@ import java.util.Deque;
 
 public class TrappingRainWater {
 
-  public int trap(int[] height) {
-    int water = 0;
-    int left = 0;
-    int right = height.length - 1;
-    int leftMax = height[left];
-    int rightMax = height[right];
+    public int trap(int[] height) {
+        int water = 0;
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = height[left];
+        int rightMax = height[right];
 
-    while (left < right) {
-      // Move left
-      while (height[left] <= height[right] && left < right) { // 一定要记得 left < right
-        // 先移动一次，因为是从index 0开始的，而index 0的高度已经作为leftMax，在变量声明和初始化时保存了
-        // 相当于先把i = 0保存，然后从i = 1开始
-        left++;
-        // leftMax表示当前已遍历过的最大高度，在新的最大高度出现之前，可以直接计算当前水量
-        // 再次重申，如果疑惑：为什么在不知道右侧高度的情况下可以这么计算，请看上方解答
-        // 简而言之：height[left] <= height[right]条件会保证：在此循环中，只有左侧的高度会决定水量，跟右侧无关
-        if (leftMax > height[left]) {
-          water += leftMax - height[left];
-          // 更新左侧最大值
-        } else {
-          leftMax = height[left];
+        while (left < right) {
+            // Move left
+            while (height[left] <= height[right] && left < right) { // 一定要记得 left < right
+                // 先移动一次，因为是从index 0开始的，而index 0的高度已经作为leftMax，在变量声明和初始化时保存了
+                // 相当于先把i = 0保存，然后从i = 1开始
+                left++;
+                // leftMax表示当前已遍历过的最大高度，在新的最大高度出现之前，可以直接计算当前水量
+                // 再次重申，如果疑惑：为什么在不知道右侧高度的情况下可以这么计算，请看上方解答
+                // 简而言之：height[left] <= height[right]条件会保证：在此循环中，只有左侧的高度会决定水量，跟右侧无关
+                if (leftMax > height[left]) {
+                    water += leftMax - height[left];
+                    // 更新左侧最大值
+                } else {
+                    leftMax = height[left];
+                }
+            }
+            // Move right
+            while (height[left] > height[right] && left < right) { // 一定要记得 left < right
+                // 先移动一次，因为是从index n-1开始的，而index n-1的高度已经作为rightMax，在变量声明和初始化时保存了
+                // 相当于先把i = n-1保存，然后从i = n-2开始
+                right--;
+                // 同理上方
+                if (rightMax > height[right]) {
+                    water += rightMax - height[right];
+                    // 更新右侧最大值
+                } else {
+                    rightMax = height[right];
+                }
+            }
         }
-      }
-      // Move right
-      while (height[left] > height[right] && left < right) { // 一定要记得 left < right
-        // 先移动一次，因为是从index n-1开始的，而index n-1的高度已经作为rightMax，在变量声明和初始化时保存了
-        // 相当于先把i = n-1保存，然后从i = n-2开始
-        right--;
-        // 同理上方
-        if (rightMax > height[right]) {
-          water += rightMax - height[right];
-          // 更新右侧最大值
-        } else {
-          rightMax = height[right];
+        return water;
+    }
+
+    public int trap2(int[] height) {
+        int n = height.length;
+
+        // 计算从左往右的最大值
+        int[] leftMax = new int[n];
+        leftMax[0] = height[0];
+        for (int i = 1; i < n; i++) {
+            leftMax[i] = Math.max(leftMax[i - 1], height[i]);
         }
-      }
-    }
-    return water;
-  }
 
-  public int trap2(int[] height) {
-    int n = height.length;
-
-    // 计算从左往右的最大值
-    int[] leftMax = new int[n];
-    leftMax[0] = height[0];
-    for (int i = 1; i < n; i++) {
-      leftMax[i] = Math.max(leftMax[i - 1], height[i]);
-    }
-
-    // 计算从右往左的最大值
-    int[] rightMax = new int[n];
-    rightMax[n - 1] = height[n - 1];
-    for (int i = n - 2; i >= 0; i--) {
-      rightMax[i] = Math.max(rightMax[i + 1], height[i]);
-    }
-
-    // 从左往右遍历，每次取两个最大值中最小的，再减去当前高度
-    int water = 0;
-    for (int i = 0; i < n; i++) {
-      water += Math.min(leftMax[i], rightMax[i]) - height[i];
-    }
-    return water;
-  }
-
-  public int trap3(int[] height) {
-    int water = 0;
-    Deque<Integer> stack = new ArrayDeque<>();
-
-    for (int i = 0; i < height.length; i++) {
-      // 当栈顶元素（在此题中，即为上一个位置）的高度如果小于等于当前高度，即为解析中提到的上升时，开始计算
-      /*
-      为什么等于也要包括进来？
-      当等于时，height[stack.peek()] = height[i]，所以prevHeight = height[stack.pop()] = height[i]
-      所以在计算waterHeight时：
-         1. 如果 Math.min(height[prevPrevIndex], height[i]) = height[i] 时
-             那么waterHeight = height[i] - prevHeight = 0，不会计算水量
-         2. 如果 Math.min(height[prevPrevIndex], height[i]) = height[prevPrevIndex] 时
-             而已知我们通过条件强行将stack变量变成了一个单调栈，所以单调栈里面的元素的高度一定是递增的，即栈顶元素所对应的高度最小
-             所以height[prevPrevIndex]一定大于prevHeight，那也没问题，该计算就计算，该增加水量就增加
-       所以当等于时，有点类似于计算[4,2,2,2,3,...]这种情况，当遍历到中间那几个2时，会发生等于的情况。
-       具体发生了什么：
-       1. 当遍历到第一个2时，会直接压进栈，此时stack = [0, 1]（再次提醒：stack存储的是高度的index，而不是高度本身，因为我们需要index来计算宽度）
-       2. 当遍历到第二个2时，会进入循环，把第一个2 pop出来，此时相当于我们在计算[4, 2, 2]的第一个2，可以装多少水
-             可以明显看出，左侧高度4，右侧高度2，中间高度2，所以waterHeight = 0，不能装水
-             最后，把第二个的2 push进去
-       3. 当遍历到第三个2时，同理第二个2，记住：每次都会把上一个2 pop出来，然后把当前的2 push进去
-       4. 当遍历到3时，注意，虽然前面遍历了三个2，但是此时stack里面只有最后一个2还保留着，即stack = [0, 3]（0代表4，3代表最后一个2）。
-             此时相当于我们在计算[4, 2, 3]的2可以装多少水，
-             与之前情况不同，此时能装水了，因为waterHeight = 3（左侧高度4，右侧高度3，二者取最小） - 2 = 1
-             但是宽度上，是 4（高度3所代表的index）- 0（高度4所代表的index）- 1 = 3，所以能装水 = 3 * 1 = 3
-      */
-      while (!stack.isEmpty() && height[stack.peek()] <= height[i]) {
-        /*
-        注意此时：
-        栈顶（stack.pop()） = 需要计算水量的位置
-        栈顶的下一个元素（stack.pop().peek(，即prevPrevIndex）：左侧的位置
-        当前元素（i）：右侧的位置
-         */
-        // 之所以这里直接将其pop出来而不是peek，因为这个index并不重要，我们已经有左侧位置和右侧位置了，
-        // 利用左右侧位置差就可以算出宽度，所以这里只需要pop出来，记录一个最低高度
-        // 为什么是最低？因为这个循环的条件就是高度持续下降时，一直压进栈，所以栈顶一定是高度最低的
-        int prevHeight = height[stack.pop()];
-        // 这里千万别忘了这个if，因为后续需要peek左侧位置，如果栈里已经没有元素了，我们无法得知左侧位置，也就不需要计算了
-        if (stack.isEmpty()) {
-          break;
+        // 计算从右往左的最大值
+        int[] rightMax = new int[n];
+        rightMax[n - 1] = height[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            rightMax[i] = Math.max(rightMax[i + 1], height[i]);
         }
-        // 找到左侧位置
-        int prevPrevIndex = stack.peek();
-        // 左侧位置和右侧位置的高度取最小值，减去需要计算水量的位置的高度，即为水量高度
-        int waterHeight = Math.min(height[prevPrevIndex], height[i]) - prevHeight;
-        // 宽度就是右侧位置-左侧位置-1
-        water += waterHeight * (i - prevPrevIndex - 1);
-      }
-      // 当栈顶元素（在此题中，即为上一个位置）的高度如果小于等于当前高度（即为解析中提到的持续下降时），直接压进栈
-      // 或者当前面的计算都结束以后，把当前index压进栈
-      stack.push(i);
+
+        // 从左往右遍历，每次取两个最大值中最小的，再减去当前高度
+        int water = 0;
+        for (int i = 0; i < n; i++) {
+            water += Math.min(leftMax[i], rightMax[i]) - height[i];
+        }
+        return water;
     }
-    return water;
-  }
+
+    public int trap3(int[] height) {
+        int water = 0;
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for (int i = 0; i < height.length; i++) {
+            // 当栈顶元素（在此题中，即为上一个位置）的高度如果小于等于当前高度，即为解析中提到的上升时，开始计算
+            /*
+            为什么等于也要包括进来？
+            当等于时，height[stack.peek()] = height[i]，所以prevHeight = height[stack.pop()] = height[i]
+            所以在计算waterHeight时：
+               1. 如果 Math.min(height[prevPrevIndex], height[i]) = height[i] 时
+                   那么waterHeight = height[i] - prevHeight = 0，不会计算水量
+               2. 如果 Math.min(height[prevPrevIndex], height[i]) = height[prevPrevIndex] 时
+                   而已知我们通过条件强行将stack变量变成了一个单调栈，所以单调栈里面的元素的高度一定是递增的，即栈顶元素所对应的高度最小
+                   所以height[prevPrevIndex]一定大于prevHeight，那也没问题，该计算就计算，该增加水量就增加
+             所以当等于时，有点类似于计算[4,2,2,2,3,...]这种情况，当遍历到中间那几个2时，会发生等于的情况。
+             具体发生了什么：
+             1. 当遍历到第一个2时，会直接压进栈，此时stack = [0, 1]（再次提醒：stack存储的是高度的index，而不是高度本身，因为我们需要index来计算宽度）
+             2. 当遍历到第二个2时，会进入循环，把第一个2 pop出来，此时相当于我们在计算[4, 2, 2]的第一个2，可以装多少水
+                   可以明显看出，左侧高度4，右侧高度2，中间高度2，所以waterHeight = 0，不能装水
+                   最后，把第二个的2 push进去
+             3. 当遍历到第三个2时，同理第二个2，记住：每次都会把上一个2 pop出来，然后把当前的2 push进去
+             4. 当遍历到3时，注意，虽然前面遍历了三个2，但是此时stack里面只有最后一个2还保留着，即stack = [0, 3]（0代表4，3代表最后一个2）。
+                   此时相当于我们在计算[4, 2, 3]的2可以装多少水，
+                   与之前情况不同，此时能装水了，因为waterHeight = 3（左侧高度4，右侧高度3，二者取最小） - 2 = 1
+                   但是宽度上，是 4（高度3所代表的index）- 0（高度4所代表的index）- 1 = 3，所以能装水 = 3 * 1 = 3
+            */
+            while (!stack.isEmpty() && height[stack.peek()] <= height[i]) {
+                /*
+                注意此时：
+                栈顶（stack.pop()） = 需要计算水量的位置
+                栈顶的下一个元素（stack.pop().peek(，即prevPrevIndex）：左侧的位置
+                当前元素（i）：右侧的位置
+                 */
+                // 之所以这里直接将其pop出来而不是peek，因为这个index并不重要，我们已经有左侧位置和右侧位置了，
+                // 利用左右侧位置差就可以算出宽度，所以这里只需要pop出来，记录一个最低高度
+                // 为什么是最低？因为这个循环的条件就是高度持续下降时，一直压进栈，所以栈顶一定是高度最低的
+                int prevHeight = height[stack.pop()];
+                // 这里千万别忘了这个if，因为后续需要peek左侧位置，如果栈里已经没有元素了，我们无法得知左侧位置，也就不需要计算了
+                if (stack.isEmpty()) {
+                    break;
+                }
+                // 找到左侧位置
+                int prevPrevIndex = stack.peek();
+                // 左侧位置和右侧位置的高度取最小值，减去需要计算水量的位置的高度，即为水量高度
+                int waterHeight = Math.min(height[prevPrevIndex], height[i]) - prevHeight;
+                // 宽度就是右侧位置-左侧位置-1
+                water += waterHeight * (i - prevPrevIndex - 1);
+            }
+            // 当栈顶元素（在此题中，即为上一个位置）的高度如果小于等于当前高度（即为解析中提到的持续下降时），直接压进栈
+            // 或者当前面的计算都结束以后，把当前index压进栈
+            stack.push(i);
+        }
+        return water;
+    }
 }

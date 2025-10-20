@@ -98,7 +98,7 @@ public class CourseSchedule {
         Queue<Integer> queue = new ArrayDeque<>();
 
         // Iterate to get degrees and prerequisites
-        for (int[] cp: prerequisites) {
+        for (int[] cp : prerequisites) {
             degrees[cp[0]]++;
             relationships.get(cp[1]).add(cp[0]);
         }
@@ -114,7 +114,7 @@ public class CourseSchedule {
         while (!queue.isEmpty()) {
             int course = queue.poll();
             numCourses--;
-            for (int nextCourse: relationships.get(course)) {
+            for (int nextCourse : relationships.get(course)) {
                 if (--degrees[nextCourse] == 0) {
                     queue.offer(nextCourse);
                 }

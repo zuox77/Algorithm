@@ -32,36 +32,36 @@ Explanation: One way to reach the maximum distance 4 is to pick 1 in the first o
  */
 
 public class MaxDistance {
-  private List<List<Integer>> arrays;
+    private List<List<Integer>> arrays;
 
-  public int maxDistance(List<List<Integer>> arrays) {
-    this.arrays = arrays; // 懒得一直把arrays做为参数传入各种函数
-    int m = arrays.size();
-    // 初始化历史最小值和历史最大值
-    int minNum = getValue(0, 0);
-    int maxNum = getValue(0, colSize(0));
-    int result = 0;
+    public int maxDistance(List<List<Integer>> arrays) {
+        this.arrays = arrays; // 懒得一直把arrays做为参数传入各种函数
+        int m = arrays.size();
+        // 初始化历史最小值和历史最大值
+        int minNum = getValue(0, 0);
+        int maxNum = getValue(0, colSize(0));
+        int result = 0;
 
-    for (int i = 1; i < m; i++) {
-      // 获得当前array的最小值和最大值, 即第0个数和最后一个数
-      int newMin = getValue(i, 0);
-      int newMax = getValue(i, colSize(i));
-      // 交叉相减, 具体看第6步
-      int maxDiff = Math.max(Math.abs(newMax - minNum), Math.abs(newMin - maxNum));
-      result = Math.max(result, maxDiff);
-      // 更新历史最小值和历史最大值
-      minNum = Math.min(minNum, newMin);
-      maxNum = Math.max(maxNum, newMax);
+        for (int i = 1; i < m; i++) {
+            // 获得当前array的最小值和最大值, 即第0个数和最后一个数
+            int newMin = getValue(i, 0);
+            int newMax = getValue(i, colSize(i));
+            // 交叉相减, 具体看第6步
+            int maxDiff = Math.max(Math.abs(newMax - minNum), Math.abs(newMin - maxNum));
+            result = Math.max(result, maxDiff);
+            // 更新历史最小值和历史最大值
+            minNum = Math.min(minNum, newMin);
+            maxNum = Math.max(maxNum, newMax);
+        }
+
+        return result;
     }
 
-    return result;
-  }
+    public int colSize(int i) {
+        return arrays.get(i).size() - 1;
+    }
 
-  public int colSize(int i) {
-    return arrays.get(i).size() - 1;
-  }
-
-  public int getValue(int i, int j) {
-    return arrays.get(i).get(j);
-  }
+    public int getValue(int i, int j) {
+        return arrays.get(i).get(j);
+    }
 }

@@ -12,7 +12,7 @@ https://leetcode.cn/problems/k-closest-points-to-origin/description/
 时间复杂度: O(NlogK)
 空间复杂度: O(N)
 
-需要注意的点: 
+需要注意的点:
 1. 题目有两个关键信息要在遍历的时候保存, 1. 距离 2. 当前数组的下标, 因为要求返回的是具体的坐标, 所以要知道它在原数组里的index
 2. 开始我用哈希表去反应距离和下标的关系, 然后发现如果有距离相等的坐标(比如[1, 0]和[0, 1]), 那么第二个坐标就会被覆盖
 3. 所以如果要用哈希表, 记得是HashMap<Integer, List>

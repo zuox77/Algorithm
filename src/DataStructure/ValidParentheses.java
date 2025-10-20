@@ -16,23 +16,23 @@ https://leetcode.cn/problems/valid-parentheses/
  */
 
 public class ValidParentheses {
-  public boolean solution1(String s) {
-    HashMap<Character, Character> charMap = new HashMap<>();
-    charMap.put('(', ')');
-    charMap.put('{', '}');
-    charMap.put('[', ']');
-    // 加入一个dummy
-    charMap.put('?', '?');
-    Deque<Character> stack = new LinkedList<>();
-    for (char ch : s.toCharArray()) {
-      if (charMap.containsKey(ch)) {
-        stack.addFirst(charMap.get(ch));
-      } else if (stack.peek() != null && stack.peek() == ch) {
-        stack.removeFirst();
-      } else {
-        stack.addFirst(charMap.get('?'));
-      }
+    public boolean solution1(String s) {
+        HashMap<Character, Character> charMap = new HashMap<>();
+        charMap.put('(', ')');
+        charMap.put('{', '}');
+        charMap.put('[', ']');
+        // 加入一个dummy
+        charMap.put('?', '?');
+        Deque<Character> stack = new LinkedList<>();
+        for (char ch : s.toCharArray()) {
+            if (charMap.containsKey(ch)) {
+                stack.addFirst(charMap.get(ch));
+            } else if (stack.peek() != null && stack.peek() == ch) {
+                stack.removeFirst();
+            } else {
+                stack.addFirst(charMap.get('?'));
+            }
+        }
+        return stack.isEmpty();
     }
-    return stack.isEmpty();
-  }
 }

@@ -34,79 +34,79 @@ https://www.jiuzhang.com/problem/lru-cache/
  */
 
 class Node {
-  int val;
-  int key;
-  Node next;
-  Node prev;
+    int val;
+    int key;
+    Node next;
+    Node prev;
 
-  public Node() {}
+    public Node() {}
 
-  public Node(int val, int key) {
-    this.val = val;
-    this.key = key;
-    this.next = null;
-    this.prev = null;
-  }
+    public Node(int val, int key) {
+        this.val = val;
+        this.key = key;
+        this.next = null;
+        this.prev = null;
+    }
 }
 
 class LRUCache {
-  private int capcacity;
-  private Node head = new Node();
-  private Node tail = new Node();
-  private HashMap<Integer, Node> map = new HashMap<>();
+    private int capcacity;
+    private Node head = new Node();
+    private Node tail = new Node();
+    private HashMap<Integer, Node> map = new HashMap<>();
 
-  public LRUCache(int capacity) {
-    this.capcacity = capacity;
-    head.next = tail;
-    tail.prev = head;
-  }
-
-  public int get(int key) {
-    if (map.containsKey(key)) {
-      Node node = map.get(key);
-      removeFromList(node);
-      addToHead(node);
-      return node.val;
+    public LRUCache(int capacity) {
+        this.capcacity = capacity;
+        head.next = tail;
+        tail.prev = head;
     }
-    return -1;
-  }
 
-  public void put(int key, int value) {
-    if (map.containsKey(key)) {
-      Node node = map.get(key);
-      node.val = value;
-      removeFromList(node);
-      addToHead(node);
-    } else {
-      Node node = new Node(value, key);
-      if (map.size() == capcacity) {
-        removeFromList(tail.prev);
-      }
-      addToHead(node);
+    public int get(int key) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            removeFromList(node);
+            addToHead(node);
+            return node.val;
+        }
+        return -1;
     }
-  }
 
-  public void addToHead(Node node) {
-    Node tmp = head.next;
-    head.next = node;
-    node.prev = head;
-    node.next = tmp;
-    tmp.prev = node;
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            Node node = map.get(key);
+            node.val = value;
+            removeFromList(node);
+            addToHead(node);
+        } else {
+            Node node = new Node(value, key);
+            if (map.size() == capcacity) {
+                removeFromList(tail.prev);
+            }
+            addToHead(node);
+        }
+    }
 
-    int key = node.key;
-    map.put(key, node);
-  }
+    public void addToHead(Node node) {
+        Node tmp = head.next;
+        head.next = node;
+        node.prev = head;
+        node.next = tmp;
+        tmp.prev = node;
 
-  public void removeFromList(Node node) {
-    /*
-    这里不能写成:
-    tail.prev = node.prev;
-    node.prev.next = tail;
-    因为不是从tail移除！是从链表任意位置移除！
-     */
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
-    int key = node.key;
-    map.remove(key);
-  }
+        int key = node.key;
+        map.put(key, node);
+    }
+
+    public void removeFromList(Node node) {
+        /*
+        这里不能写成:
+        tail.prev = node.prev;
+        node.prev.next = tail;
+        因为不是从tail移除！是从链表任意位置移除！
+         */
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        int key = node.key;
+        map.remove(key);
+    }
 }

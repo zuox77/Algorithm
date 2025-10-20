@@ -58,21 +58,21 @@ https://www.jiuzhang.com/problem/largest-rectangle-in-histogram/
  */
 
 public class LargestRectangleInHistogram {
-  public int solution1(int[] heights) {
-    Stack<Integer> stack = new Stack<>();
-    int maxArea = 0;
+    public int solution1(int[] heights) {
+        Stack<Integer> stack = new Stack<>();
+        int maxArea = 0;
 
-    for (int i = 0; i <= heights.length; i++) {
-      // if it's the last element,
-      // assign a negative number to squeeze out remaining numbers in stack
-      int curNum = i == heights.length ? -1 : heights[i];
-      while (!stack.isEmpty() && curNum <= heights[stack.peek()]) {
-        int height = heights[stack.pop()];
-        int weight = stack.isEmpty() ? i : i - stack.peek() - 1;
-        maxArea = Math.max(maxArea, height * weight);
-      }
-      stack.push(i);
+        for (int i = 0; i <= heights.length; i++) {
+            // if it's the last element,
+            // assign a negative number to squeeze out remaining numbers in stack
+            int curNum = i == heights.length ? -1 : heights[i];
+            while (!stack.isEmpty() && curNum <= heights[stack.peek()]) {
+                int height = heights[stack.pop()];
+                int weight = stack.isEmpty() ? i : i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, height * weight);
+            }
+            stack.push(i);
+        }
+        return maxArea;
     }
-    return maxArea;
-  }
 }

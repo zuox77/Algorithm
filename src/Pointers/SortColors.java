@@ -34,30 +34,30 @@ https://www.jiuzhang.com/problem/sort-colors/
  */
 
 public class SortColors {
-  // 双指针
-  public int[] solution1(int[] nums) {
-    int n = nums.length;
-    int left = 0, mid = 0, right = n - 1;
+    // 双指针
+    public int[] solution1(int[] nums) {
+        int n = nums.length;
+        int left = 0, mid = 0, right = n - 1;
 
-    while (mid <= right) {
-      if (nums[mid] == 0) { // 等于0, 放在left左边
-        swap(nums, left, mid);
-        mid++;
-        left++;
-      } else if (nums[mid] == 2) { // 等于2, 放在right右边
-        swap(nums, right, mid);
-        right--;
-      } else {
-        mid++;
-      }
+        while (mid <= right) {
+            if (nums[mid] == 0) { // 等于0, 放在left左边
+                swap(nums, left, mid);
+                mid++;
+                left++;
+            } else if (nums[mid] == 2) { // 等于2, 放在right右边
+                swap(nums, right, mid);
+                right--;
+            } else {
+                mid++;
+            }
+        }
+
+        return nums;
     }
 
-    return nums;
-  }
-
-  public void swap(int[] nums, int start, int end) {
-    int temp = nums[start];
-    nums[start] = nums[end];
-    nums[end] = temp;
-  }
+    public void swap(int[] nums, int start, int end) {
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+    }
 }

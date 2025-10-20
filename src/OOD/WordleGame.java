@@ -27,78 +27,78 @@ https://www.1point3acres.com/bbs/thread-970148-1-1.html
  */
 
 public class WordleGame {
-  private int n;
-  private String target;
-  private HashMap<Character, Integer> mapDup;
-  private Scanner reader;
+    private int n;
+    private String target;
+    private HashMap<Character, Integer> mapDup;
+    private Scanner reader;
 
-  //    public void main() {
-  //        WordleGame test = new WordleGame();
-  //        try {
-  //            this.reader = new Scanner(System.in);
-  //            System.out.println("Please input target");
-  //            wordGuess(this.reader.nextLine());
-  //            for (int i = 0; i < 5; i++) {
-  //                System.out.println("Please guess");
-  //                tryItWithDup();
-  //            }
-  //        } finally {
-  //            reader.close();
-  //        }
-  //    }
+    //    public void main() {
+    //        WordleGame test = new WordleGame();
+    //        try {
+    //            this.reader = new Scanner(System.in);
+    //            System.out.println("Please input target");
+    //            wordGuess(this.reader.nextLine());
+    //            for (int i = 0; i < 5; i++) {
+    //                System.out.println("Please guess");
+    //                tryItWithDup();
+    //            }
+    //        } finally {
+    //            reader.close();
+    //        }
+    //    }
 
-  public WordleGame(String target) {
-    // initialize
-    this.target = target;
-    this.n = target.length();
+    public WordleGame(String target) {
+        // initialize
+        this.target = target;
+        this.n = target.length();
 
-    // load all characters into map with dup
-    this.mapDup = new HashMap<>();
-    for (int i = 0; i < n; i++) {
-      char ch = target.charAt(i);
-      if (mapDup.containsKey(ch)) {
-        mapDup.put(ch, mapDup.get(ch) + 1);
-      } else {
-        mapDup.put(ch, 1);
-      }
-    }
-  }
-
-  //    public String getInput() {
-  //        return this.reader.nextLine();
-  //    }
-
-  public String[] tryItWithDup(String guess) {
-    // initialize
-    // String guess = getInput();
-    String[] result = new String[this.n];
-    HashMap<Character, Integer> mapCopy = new HashMap<>(this.mapDup);
-    ArrayList<Integer> remaining = new ArrayList<>();
-
-    // iterate first to finalize Greens and Blacks
-    for (int i = 0; i < n; i++) {
-      char curChar = guess.charAt(i);
-      if (curChar == this.target.charAt(i)) {
-        result[i] = "Green";
-        mapCopy.put(curChar, mapCopy.get(curChar) - 1);
-      } else if (mapCopy.get(curChar) != null && mapCopy.get(curChar) > 0) {
-        // 之所以要先将其放入一个list中保存, 因为在4.2.1的情况中, 要先分配Green, 剩下的再分配Yellow的
-        remaining.add(i);
-      } else {
-        result[i] = "Black";
-      }
+        // load all characters into map with dup
+        this.mapDup = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            char ch = target.charAt(i);
+            if (mapDup.containsKey(ch)) {
+                mapDup.put(ch, mapDup.get(ch) + 1);
+            } else {
+                mapDup.put(ch, 1);
+            }
+        }
     }
 
-    // iterate duplicate character
-    for (int index : remaining) {
-      char remainChar = guess.charAt(index);
-      if (mapCopy.get(remainChar) > 0) {
-        result[index] = "Yellow";
-        mapCopy.put(remainChar, mapCopy.get(remainChar) - 1);
-      } else {
-        result[index] = "Black";
-      }
+    //    public String getInput() {
+    //        return this.reader.nextLine();
+    //    }
+
+    public String[] tryItWithDup(String guess) {
+        // initialize
+        // String guess = getInput();
+        String[] result = new String[this.n];
+        HashMap<Character, Integer> mapCopy = new HashMap<>(this.mapDup);
+        ArrayList<Integer> remaining = new ArrayList<>();
+
+        // iterate first to finalize Greens and Blacks
+        for (int i = 0; i < n; i++) {
+            char curChar = guess.charAt(i);
+            if (curChar == this.target.charAt(i)) {
+                result[i] = "Green";
+                mapCopy.put(curChar, mapCopy.get(curChar) - 1);
+            } else if (mapCopy.get(curChar) != null && mapCopy.get(curChar) > 0) {
+                // 之所以要先将其放入一个list中保存, 因为在4.2.1的情况中, 要先分配Green, 剩下的再分配Yellow的
+                remaining.add(i);
+            } else {
+                result[i] = "Black";
+            }
+        }
+
+        // iterate duplicate character
+        for (int index : remaining) {
+            char remainChar = guess.charAt(index);
+            if (mapCopy.get(remainChar) > 0) {
+                result[index] = "Yellow";
+                mapCopy.put(remainChar, mapCopy.get(remainChar) - 1);
+            } else {
+                result[index] = "Black";
+            }
+        }
+        return result;
     }
-    return result;
-  }
 }

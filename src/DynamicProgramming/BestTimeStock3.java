@@ -78,50 +78,50 @@ Then buy on day 7 (price = 1) and sell on day 8 (price = 4), profit = 4-1 = 3.
  */
 
 public class BestTimeStock3 {
-  // DP巧妙解法
-  public int solution1(int[] prices) {
-    int n = prices.length;
-    // corner case
-    if (n <= 1) {
-      return 0;
+    // DP巧妙解法
+    public int solution1(int[] prices) {
+        int n = prices.length;
+        // corner case
+        if (n <= 1) {
+            return 0;
+        }
+
+        int buy1 = -prices[0], sell1 = 0, buy2 = -prices[0], sell2 = 0;
+        for (int price : prices) {
+            buy1 = Math.max(buy1, -price);
+            sell1 = Math.max(sell1, buy1 + price);
+            buy2 = Math.max(buy2, sell1 - price);
+            sell2 = Math.max(sell2, buy2 + price);
+        }
+
+        return sell2;
     }
 
-    int buy1 = -prices[0], sell1 = 0, buy2 = -prices[0], sell2 = 0;
-    for (int price : prices) {
-      buy1 = Math.max(buy1, -price);
-      sell1 = Math.max(sell1, buy1 + price);
-      buy2 = Math.max(buy2, sell1 - price);
-      sell2 = Math.max(sell2, buy2 + price);
+    // DP正常解法
+    public int solution2(int[] prices) {
+        int n = prices.length;
+        int k = 2;
+        // corner case
+        if (n <= 1 || k == 0) {
+            return 0;
+        }
+
+        // params
+        int[][] dp = new int[k + 1][n];
+
+        // iterate
+        // i必须从1开始, 因为0的话代表没有发生过任何一次完整的买卖交易, 那么肯定是0
+        // 也可以理解为, 转移方程是跟i-1有关, 所以必须从1开始
+        for (int i = 1; i < dp.length; i++) {
+            int maxDiff = -prices[0];
+            // j也必须从1开始, 因为0的话代表在第0天卖出, 第0天卖出也只能在第0天买入, 那么利润无论如何都是0
+            // 也可以理解为, 转移方程是跟j-1有关, 所以必须从1开始
+            for (int j = 1; j < dp[0].length; j++) {
+                maxDiff = Math.max(maxDiff, dp[i - 1][j - 1] - prices[j - 1]);
+                dp[i][j] = Math.max(dp[i][j - 1], prices[j] + maxDiff);
+            }
+        }
+
+        return dp[k][n - 1];
     }
-
-    return sell2;
-  }
-
-  // DP正常解法
-  public int solution2(int[] prices) {
-    int n = prices.length;
-    int k = 2;
-    // corner case
-    if (n <= 1 || k == 0) {
-      return 0;
-    }
-
-    // params
-    int[][] dp = new int[k + 1][n];
-
-    // iterate
-    // i必须从1开始, 因为0的话代表没有发生过任何一次完整的买卖交易, 那么肯定是0
-    // 也可以理解为, 转移方程是跟i-1有关, 所以必须从1开始
-    for (int i = 1; i < dp.length; i++) {
-      int maxDiff = -prices[0];
-      // j也必须从1开始, 因为0的话代表在第0天卖出, 第0天卖出也只能在第0天买入, 那么利润无论如何都是0
-      // 也可以理解为, 转移方程是跟j-1有关, 所以必须从1开始
-      for (int j = 1; j < dp[0].length; j++) {
-        maxDiff = Math.max(maxDiff, dp[i - 1][j - 1] - prices[j - 1]);
-        dp[i][j] = Math.max(dp[i][j - 1], prices[j] + maxDiff);
-      }
-    }
-
-    return dp[k][n - 1];
-  }
 }

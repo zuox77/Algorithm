@@ -43,8 +43,8 @@ Output: 6
 public class MaxAreaOfIsland {
     private int area;
     private int result = 0;
-    private int[] xDire = new int[]{0, 0, 1, -1};
-    private int[] yDire = new int[]{1, -1, 0, 0};
+    private int[] xDire = new int[] {0, 0, 1, -1};
+    private int[] yDire = new int[] {1, -1, 0, 0};
     private Set<Integer> visited = new HashSet<>();
 
     public int maxAreaOfIslands1(int[][] grid) {
@@ -53,8 +53,8 @@ public class MaxAreaOfIsland {
         int n = grid[0].length;
         Queue<int[]> queue = new LinkedList<>();
         int result = 0;
-        int[] xDirections = new int[]{-1, 1, 0, 0};
-        int[] yDirections = new int[]{0, 0, 1, -1};
+        int[] xDirections = new int[] {-1, 1, 0, 0};
+        int[] yDirections = new int[] {0, 0, 1, -1};
         // 遍历整个矩阵
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -63,7 +63,7 @@ public class MaxAreaOfIsland {
                     continue;
                 }
                 // 找到1, 开始BFS
-                queue.offer(new int[]{i, j});
+                queue.offer(new int[] {i, j});
                 // 改变值为-1, 标记为已遍历过
                 grid[i][j] = -1;
                 // 声明变量记录当前岛屿面积
@@ -76,7 +76,7 @@ public class MaxAreaOfIsland {
                         int newY = location[1] + yDirections[k];
                         if (inRange(m, n, newX, newY) && grid[newX][newY] == 1) {
                             // 加入队列
-                            queue.offer(new int[]{newX, newY});
+                            queue.offer(new int[] {newX, newY});
                             // 标记为已遍历过
                             grid[newX][newY] = -1;
                             // 更新岛屿面积

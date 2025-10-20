@@ -30,33 +30,33 @@ Output: 1
 
  */
 public class FindAnyPeak {
-  public static int solution1(int[] a) {
-    // corner case
-    if (a == null) {
-      return 0;
+    public static int solution1(int[] a) {
+        // corner case
+        if (a == null) {
+            return 0;
+        }
+        // 定义指针
+        int left = 0, right = a.length - 1, result = -1;
+        // 二分法标准公式, while循环
+        while (left + 1 < right) {
+            int mid = left + (right - left) / 2;
+            // 如果mid处于递增区间, 因为已知数组末尾一定是递减
+            // 所以移动left指针到mid, 排除mid左侧的区间, 能保证一定能找到峰顶
+            if (a[mid - 1] < a[mid] && a[mid] < a[mid + 1]) {
+                left = mid;
+                // 如果mid处于递减区间, 因为已知数组开头一定是递增
+                // 所以移动right指针到mid, 排除mid右侧的区间, 能保证一定能找到峰顶
+            } else if (a[mid - 1] > a[mid] && a[mid] > a[mid + 1]) {
+                right = mid;
+                // 如果是峰顶, 直接返回
+            } else if (a[mid - 1] < a[mid] && a[mid + 1] < a[mid]) {
+                return mid;
+                // 如果是峰谷, 则随便移动
+            } else {
+                left = mid;
+            }
+        }
+        // 二分法的本质其实是将范围缩小到相邻两个数, 所以这个时候要返回最大值
+        return Math.max(left, right);
     }
-    // 定义指针
-    int left = 0, right = a.length - 1, result = -1;
-    // 二分法标准公式, while循环
-    while (left + 1 < right) {
-      int mid = left + (right - left) / 2;
-      // 如果mid处于递增区间, 因为已知数组末尾一定是递减
-      // 所以移动left指针到mid, 排除mid左侧的区间, 能保证一定能找到峰顶
-      if (a[mid - 1] < a[mid] && a[mid] < a[mid + 1]) {
-        left = mid;
-        // 如果mid处于递减区间, 因为已知数组开头一定是递增
-        // 所以移动right指针到mid, 排除mid右侧的区间, 能保证一定能找到峰顶
-      } else if (a[mid - 1] > a[mid] && a[mid] > a[mid + 1]) {
-        right = mid;
-        // 如果是峰顶, 直接返回
-      } else if (a[mid - 1] < a[mid] && a[mid + 1] < a[mid]) {
-        return mid;
-        // 如果是峰谷, 则随便移动
-      } else {
-        left = mid;
-      }
-    }
-    // 二分法的本质其实是将范围缩小到相邻两个数, 所以这个时候要返回最大值
-    return Math.max(left, right);
-  }
 }

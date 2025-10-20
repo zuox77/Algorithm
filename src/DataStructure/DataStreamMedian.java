@@ -51,46 +51,48 @@ getMedian时间复杂度: O(1)
 空间复杂度: O(N)
  */
 public class DataStreamMedian {
-  PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-  PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
 
-  public DataStreamMedian() {}
+    public DataStreamMedian() {}
 
-  public void addNum(int num) {
-    int minSize = minHeap.size();
-    int maxSize = maxHeap.size();
-    // first element add to maxHeap
-    if (maxSize == 0) {
-      maxHeap.add(num);
-    } else if (maxSize - minSize == 1) { // total length is odd
-      if (num
-          < maxHeap
-              .peek()) { // means num should belong to maxHeap, but maxHeap already has 1 element
-                         // more
-        minHeap.add(maxHeap.poll());
-        maxHeap.add(num);
-      } else {
-        minHeap.add(num);
-      }
-    } else {
-      if (num > minHeap.peek()) { // total length is even
-        maxHeap.add(
-            minHeap
-                .poll()); // means num should belong to minHeap, but maxHeap needs to have 1 element
-                          // more
-        minHeap.add(num);
-      } else {
-        maxHeap.add(num);
-      }
+    public void addNum(int num) {
+        int minSize = minHeap.size();
+        int maxSize = maxHeap.size();
+        // first element add to maxHeap
+        if (maxSize == 0) {
+            maxHeap.add(num);
+        } else if (maxSize - minSize == 1) { // total length is odd
+            if (num
+                    < maxHeap
+                            .peek()) { // means num should belong to maxHeap, but maxHeap already
+                                       // has 1 element
+                // more
+                minHeap.add(maxHeap.poll());
+                maxHeap.add(num);
+            } else {
+                minHeap.add(num);
+            }
+        } else {
+            if (num > minHeap.peek()) { // total length is even
+                maxHeap.add(
+                        minHeap
+                                .poll()); // means num should belong to minHeap, but maxHeap needs
+                                          // to have 1 element
+                // more
+                minHeap.add(num);
+            } else {
+                maxHeap.add(num);
+            }
+        }
     }
-  }
 
-  public double getMedian() {
-    int minSize = minHeap.size();
-    int maxSize = maxHeap.size();
-    if (maxSize - minSize == 1) {
-      return (double) maxHeap.peek();
+    public double getMedian() {
+        int minSize = minHeap.size();
+        int maxSize = maxHeap.size();
+        if (maxSize - minSize == 1) {
+            return (double) maxHeap.peek();
+        }
+        return (maxHeap.peek() + minHeap.peek()) / 2.0;
     }
-    return (maxHeap.peek() + minHeap.peek()) / 2.0;
-  }
 }

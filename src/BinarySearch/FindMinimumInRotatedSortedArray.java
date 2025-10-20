@@ -63,49 +63,49 @@ Output: 0
  */
 
 public class FindMinimumInRotatedSortedArray {
-  public int solution1(int[] nums) {
-    // 定义指针
-    int n = nums.length;
-    int left = 0, right = n - 1;
-    // 以最后一位数作为横轴
-    int xAxis = nums[n - 1];
-    // 二分法遍历
-    while (left + 1 < right) {
-      // 找到中点
-      int mid = left + (right - left) / 2;
-      // 根据情况做判断
-      // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
-      if (nums[mid] > xAxis) {
-        left = mid;
-        // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
-      } else {
-        right = mid;
-      }
+    public int solution1(int[] nums) {
+        // 定义指针
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        // 以最后一位数作为横轴
+        int xAxis = nums[n - 1];
+        // 二分法遍历
+        while (left + 1 < right) {
+            // 找到中点
+            int mid = left + (right - left) / 2;
+            // 根据情况做判断
+            // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
+            if (nums[mid] > xAxis) {
+                left = mid;
+                // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
+            } else {
+                right = mid;
+            }
+        }
+        // 最后判断一下left和right
+        return nums[left] < nums[right] ? nums[left] : nums[right];
     }
-    // 最后判断一下left和right
-    return nums[left] < nums[right] ? nums[left] : nums[right];
-  }
 
-  public int solution2(int[] nums) {
-    // 定义指针
-    int n = nums.length;
-    int left = 0, right = n - 1;
-    // 以最后一位数作为横轴
-    int xAxie = nums[n - 1];
-    // 二分法遍历
-    while (left < right) {
-      // 找到中点
-      int mid = left + (right - left) / 2;
-      // 根据情况做判断
-      // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
-      if (nums[mid] > xAxie) {
-        left = mid + 1;
-        // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
-      } else {
-        right = mid;
-      }
+    public int solution2(int[] nums) {
+        // 定义指针
+        int n = nums.length;
+        int left = 0, right = n - 1;
+        // 以最后一位数作为横轴
+        int xAxie = nums[n - 1];
+        // 二分法遍历
+        while (left < right) {
+            // 找到中点
+            int mid = left + (right - left) / 2;
+            // 根据情况做判断
+            // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
+            if (nums[mid] > xAxie) {
+                left = mid + 1;
+                // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
+            } else {
+                right = mid;
+            }
+        }
+        // 由于循环条件是left < right, 所以退出循环时, left和right肯定是在同一个点, 即最小的点, 所以直接返回任意一个就行
+        return nums[left]; // return nums[right]也可以
     }
-    // 由于循环条件是left < right, 所以退出循环时, left和right肯定是在同一个点, 即最小的点, 所以直接返回任意一个就行
-    return nums[left]; // return nums[right]也可以
-  }
 }

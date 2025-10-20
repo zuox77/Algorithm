@@ -28,27 +28,27 @@ Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefor
  */
 
 public class LongestConsecutiveSequence {
-  public int longestConsecutive(int[] nums) {
-    // add all numbers to a HashSet to deduplicate
-    HashSet<Integer> set = new HashSet<>();
-    for (int num : nums) {
-      set.add(num);
-    }
+    public int longestConsecutive(int[] nums) {
+        // add all numbers to a HashSet to deduplicate
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
 
-    // iterate the HashSet to calculate the maximum sequence
-    int result = 0;
-    for (int num : set) {
-      int len = 1; // 初始化为1
-      // 如果这个数有sequence, 且这个数不是sequence中最小的,
-      // 那么说明这个数在之前或者之后会被重复计算
-      // 我们只考虑如果有sequence且当前的数是sequence中最小的那个, 即起点
-      if (set.contains(num - 1)) continue;
-      while (set.contains(num + 1)) {
-        len++;
-        num++;
-      }
-      result = Math.max(result, len);
+        // iterate the HashSet to calculate the maximum sequence
+        int result = 0;
+        for (int num : set) {
+            int len = 1; // 初始化为1
+            // 如果这个数有sequence, 且这个数不是sequence中最小的,
+            // 那么说明这个数在之前或者之后会被重复计算
+            // 我们只考虑如果有sequence且当前的数是sequence中最小的那个, 即起点
+            if (set.contains(num - 1)) continue;
+            while (set.contains(num + 1)) {
+                len++;
+                num++;
+            }
+            result = Math.max(result, len);
+        }
+        return result;
     }
-    return result;
-  }
 }

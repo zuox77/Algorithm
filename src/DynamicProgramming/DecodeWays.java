@@ -77,83 +77,83 @@ Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is di
  */
 
 public class DecodeWays {
-  public int solution1(String s) {
-    // corner case
-    if (s.charAt(0) == '0') {
-      return 0;
+    public int solution1(String s) {
+        // corner case
+        if (s.charAt(0) == '0') {
+            return 0;
+        }
+        // 声明变量
+        int n = s.length();
+        int[] dp = new int[n];
+        // 初始化
+        dp[0] = 1;
+        // 遍历
+        for (int i = 1; i < n; i++) {
+            int last = s.charAt(i - 1) - '0';
+            int current = s.charAt(i) - '0';
+            // 根据情况写迭代方程
+            // case 1
+            if (current == 0 && (last == 1 || last == 2)) {
+                // 额外判断一下
+                dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
+                // case 2
+            } else if (last == 1 && (1 <= current && current <= 9)
+                    || last == 2 && (1 <= current && current <= 6)) {
+                // 额外判断一下
+                dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
+                dp[i] += dp[i - 1];
+                // case 3
+            } else if (last == 2 && (7 <= current && current <= 9)
+                    || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
+                dp[i] = dp[i - 1];
+                // case 4
+            } else {
+                return 0;
+            }
+        }
+        // 返回最后一个数
+        return dp[n - 1];
     }
-    // 声明变量
-    int n = s.length();
-    int[] dp = new int[n];
-    // 初始化
-    dp[0] = 1;
-    // 遍历
-    for (int i = 1; i < n; i++) {
-      int last = s.charAt(i - 1) - '0';
-      int current = s.charAt(i) - '0';
-      // 根据情况写迭代方程
-      // case 1
-      if (current == 0 && (last == 1 || last == 2)) {
-        // 额外判断一下
-        dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
-        // case 2
-      } else if (last == 1 && (1 <= current && current <= 9)
-          || last == 2 && (1 <= current && current <= 6)) {
-        // 额外判断一下
-        dp[i] = i - 2 < 0 ? 1 : dp[i - 2];
-        dp[i] += dp[i - 1];
-        // case 3
-      } else if (last == 2 && (7 <= current && current <= 9)
-          || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
-        dp[i] = dp[i - 1];
-        // case 4
-      } else {
-        return 0;
-      }
-    }
-    // 返回最后一个数
-    return dp[n - 1];
-  }
 
-  public int solution2(String s) {
-    // corner case
-    if (s.charAt(0) == '0') {
-      return 0;
+    public int solution2(String s) {
+        // corner case
+        if (s.charAt(0) == '0') {
+            return 0;
+        }
+        // 声明变量
+        int n = s.length();
+        // dpLast是i-2, dpCurrent是i-1, 每次遍历时, 将dpCurrent用tmp存下来, 将dpCurrent更新为i, 最后将tmp赋予dpLast,
+        // 这样dpLast就是i-1, dpCurrent就是i, 然后开始遍历i+1
+        int dpLast = 1, dpCurrent = 1;
+        // 遍历
+        for (int i = 1; i < n; i++) {
+            int last = s.charAt(i - 1) - '0';
+            int current = s.charAt(i) - '0';
+            // 用一个变量记录一下dpCurrent, 因为做完所有判断以后, dpLast就会更新为当前的dpCurrent, 而dpCurrent会根据判断更新为新的值
+            int tmp = dpCurrent;
+            // 根据情况写迭代方程
+            // case 1
+            if (current == 0 && (last == 1 || last == 2)) {
+                // 额外判断一下
+                dpCurrent = i - 2 < 0 ? 1 : dpLast;
+                // case 2
+            } else if (last == 1 && (1 <= current && current <= 9)
+                    || last == 2 && (1 <= current && current <= 6)) {
+                // 额外判断一下
+                dpCurrent = i - 2 < 0 ? 1 : dpLast;
+                dpCurrent += tmp;
+                // case 3
+            } else if (last == 2 && (7 <= current && current <= 9)
+                    || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
+                dpCurrent = tmp;
+                // case 4
+            } else {
+                return 0;
+            }
+            // 更新dpLast
+            dpLast = tmp;
+        }
+        // 返回最后一个数
+        return dpCurrent;
     }
-    // 声明变量
-    int n = s.length();
-    // dpLast是i-2, dpCurrent是i-1, 每次遍历时, 将dpCurrent用tmp存下来, 将dpCurrent更新为i, 最后将tmp赋予dpLast,
-    // 这样dpLast就是i-1, dpCurrent就是i, 然后开始遍历i+1
-    int dpLast = 1, dpCurrent = 1;
-    // 遍历
-    for (int i = 1; i < n; i++) {
-      int last = s.charAt(i - 1) - '0';
-      int current = s.charAt(i) - '0';
-      // 用一个变量记录一下dpCurrent, 因为做完所有判断以后, dpLast就会更新为当前的dpCurrent, 而dpCurrent会根据判断更新为新的值
-      int tmp = dpCurrent;
-      // 根据情况写迭代方程
-      // case 1
-      if (current == 0 && (last == 1 || last == 2)) {
-        // 额外判断一下
-        dpCurrent = i - 2 < 0 ? 1 : dpLast;
-        // case 2
-      } else if (last == 1 && (1 <= current && current <= 9)
-          || last == 2 && (1 <= current && current <= 6)) {
-        // 额外判断一下
-        dpCurrent = i - 2 < 0 ? 1 : dpLast;
-        dpCurrent += tmp;
-        // case 3
-      } else if (last == 2 && (7 <= current && current <= 9)
-          || (3 <= last || last <= 9) && (1 <= current && current <= 9)) {
-        dpCurrent = tmp;
-        // case 4
-      } else {
-        return 0;
-      }
-      // 更新dpLast
-      dpLast = tmp;
-    }
-    // 返回最后一个数
-    return dpCurrent;
-  }
 }
