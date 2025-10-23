@@ -63,10 +63,8 @@ public class DataStreamMedian {
         if (maxSize == 0) {
             maxHeap.add(num);
         } else if (maxSize - minSize == 1) { // total length is odd
-            if (num
-                    < maxHeap
-                            .peek()) { // means num should belong to maxHeap, but maxHeap already
-                                       // has 1 element
+            if (num < maxHeap.peek()) { // means num should belong to maxHeap, but maxHeap already
+                // has 1 element
                 // more
                 minHeap.add(maxHeap.poll());
                 maxHeap.add(num);
@@ -76,9 +74,8 @@ public class DataStreamMedian {
         } else {
             if (num > minHeap.peek()) { // total length is even
                 maxHeap.add(
-                        minHeap
-                                .poll()); // means num should belong to minHeap, but maxHeap needs
-                                          // to have 1 element
+                        minHeap.poll()); // means num should belong to minHeap, but maxHeap needs
+                // to have 1 element
                 // more
                 minHeap.add(num);
             } else {

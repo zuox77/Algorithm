@@ -21,3 +21,6 @@
 
 1. Completed `SubarraySumEqualsK.java`
 
+### 2025/10/23
+
+1. Completed `Array.MergeIntervals.java`, `RotateArray.java`, `ProductOfArrayExceptSelf.java`
