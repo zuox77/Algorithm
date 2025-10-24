@@ -36,7 +36,6 @@ rotate 2 steps to the right: [3,99,-1,-100]
 4. 再翻转后k个数组（不包括k） -> flip(nums, k, n - 1)
  */
 
-
 public class RotateArray {
     public void rotate(int[] nums, int k) {
         // 需要先把k % n，一个是避免麻烦，当k大于nums.length时，会报错，比如[1,2,3]，k=5，其实是往右移动2位。所以即k = k % n

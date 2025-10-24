@@ -32,7 +32,6 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
     相当于i = 0的时候的值没有计算，所有循环都在计算下一次的
  */
 
-
 public class MaximumSubarray {
     public int maxSubArray(int[] nums) {
         // 前缀和

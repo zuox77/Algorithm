@@ -48,6 +48,17 @@ Explanation: The smallest positive integer 1 is missing.
       即nums[i]这个数应该在的位置上的数, 已经是正确的了
    判断即将交换的位置上的数是否已经是正确的数 和 判断当前数是否在正确的位置上 都可以满足第4步的规定
    但如果用条件1, 则无法排除无限循环, 所以要用条件2
+   条件1为：判断我（nums[i]）是否坐在我应该坐的位置（nums[i] - 1），或者说：我当前的位置是否是我该坐的位置
+    当前下标（也是我当前的位置）：i
+    当前下标对应的值：nums[i]
+    当前下标对应的值应该在的下标位置（我应该在的位置）：nums[i] - 1
+    判断条件（我当前的位置是否等于我应该在的位置）：nums[i] - 1 ? i
+   条件2为：判断我（nums[i]）该坐的的位置上（nums[i] - 1），是否坐了正确的数
+    （防止[3, 2, 3, 6, 1]中第一个3与第二个3无限循环这种情况，因为第二个3是在正确的位置）
+    当前下标（也是我当前的位置）：i
+    当前下标对应的值：nums[i]
+    当前下标对应的值应该在的下标位置（我应该在的位置）：nums[i] - 1
+    判断条件（我应该在的位置是否对应当前下标的值）：nums[nums[i] - 1] ? nums[i]
 10. 排好序后, 第二次for循环, 此时可以用第9步的条件1来判断了, 第一个不是的, 就是需要的数
 
 思路2: 用哈希集合
@@ -57,27 +68,56 @@ Explanation: The smallest positive integer 1 is missing.
  */
 
 public class FirstMissingPositive {
-    public int solution1(int[] nums) {
+    public int firstMissingPositive(int[] nums) {
         int n = nums.length;
+        // 交换
         for (int i = 0; i < n; i++) {
-            while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) { // 用第9步的条件2而不是条件1
+            // nums[i] > 1 和 nums[i] <= n 是为了排除负数和大于数组长度的数，这两类数都没有交换的必要
+            // i代表当前下标，nums[i]代表当前下标上的值，nums[i] - 1代表当前下标上的值应该在的位置
+            // nums[nums[i] - 1]代表当前下标上的值应该在的位置上，现在的值是多少
+            // 即：当前下标上的值应该在的位置上，现在的值 如果不等于 当前下标上的值
+            // 举例子：[3, 4, -1, 1]，当i=0时
+            // 0：当前下标
+            // nums[0]（即3）：当前下标上的值
+            // nums[0] - 1 （即2）：当前下标上的值应该在的位置
+            // nums[nums[0] - 1]（即-1）：当前下标上的值应该在的位置上，现在的值是多少
+            // nums[nums[i] - 1] != nums[i] --> nums[nums[0] - 1] != nums[0] --> -1 != 3
+            // -1明显不是那个位置上对应的正确的值，所以交换
+            // 举例子：[3, 2, 3, 6, 1]，当i=0时
+            // 0：当前下标
+            // nums[0]（即3）：当前下标上的值
+            // nums[0] - 1 （即2）：当前下标上的值应该在的位置
+            // nums[nums[0] - 1]（即3）：当前下标上的值应该在的位置上，现在的值是多少
+            // 3刚好就在位置2，所以此时不需要交换，避免了无限循环
+            while (nums[i] >= 1 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {
                 swap(nums, i, nums[i] - 1);
             }
         }
 
-        for (int j = 0; j < n; j++) {
-            if (nums[j] - 1 != j) return j + 1;
+        for (int i = 0; i < n; i++) {
+            // i代表当前下标，nums[i]代表当前下标上的值，nums[i] - 1代表当前下标上的值应该在的位置
+            // 即：当前下标上的值应该在的位置 如果不等于 当前下标
+            // 举例子：[3, 4, -1, 1]，当i=0时
+            // 0：当前下标
+            // nums[0]（即3）：当前下标上的值
+            // nums[0] - 1 （即2）：当前下标上的值应该在的位置
+            // nums[i] - 1 != i --> nums[0] - 1 != 0 --> 2 != 0
+            if (nums[i] - 1 != i) {
+                // 注意：返回i + 1，因为i是位置，位置对应的数为i + 1
+                return i + 1;
+            }
         }
+
         return n + 1;
     }
 
-    public void swap(int[] nums, int start, int end) {
-        int temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp;
+    public void swap(int[] nums, int left, int right) {
+        int tmp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = tmp;
     }
 
-    public int solution2(int[] nums) {
+    public int firstMissingPositive2(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num : nums) {
             set.add(num);

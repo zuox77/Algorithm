@@ -14,7 +14,7 @@ Do not modify the linked list.
     而如果a和b不相交，但其最终的节点都会指向null，所以只需要最后等待a和b分别走完自己的链表，他们终会在null相遇，然后返回null即可
 
  */
-public class IntersectioonOfTwoLinkedLists {
+public class IntersectionOfTwoLinkedLists {
     /**
      * Definition for singly-linked list. public class ListNode { int val; ListNode next;
      * ListNode(int x) { val = x; next = null; } }
