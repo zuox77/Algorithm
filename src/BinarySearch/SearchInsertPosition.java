@@ -50,4 +50,30 @@ public class SearchInsertPosition {
         }
         return len;
     }
+
+    public int searchInsert2(int[] nums, int target) {
+        // 双指针
+        int n = nums.length;
+        int left = 0;
+        int right = n - 1;
+        // 遍历
+        while (left + 1 < right) {
+            // 计算mid
+            int mid = (right - left) / 2 + left;
+            // 判断
+            if (nums[mid] == target) {
+                return mid;
+            } else if ((nums[mid] < target)) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        // 用left + 1 < right条件会让left和right停在相邻的位置，所以最后判断一次
+        // 根据题意，插入的位置在比target大的第一个数所在的位置，而left一定比right小，所以先判断left，再判断right
+        // 如果还不行的话，直接返回长度
+        if (nums[left] >= target) return left;
+        if (nums[right] >= target) return right;
+        return n;
+    }
 }

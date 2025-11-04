@@ -40,7 +40,7 @@ Output: [
 空间复杂度: O(1)
  */
 public class RotateImage {
-    public void solution1(int[][] matrix) {
+    public void rotateImage(int[][] matrix) {
         int n = matrix.length;
         // 沿着左上右下对角线交换
         for (int i = 0; i < n; i++) {
@@ -56,24 +56,19 @@ public class RotateImage {
             }
         }
         // 沿着中轴线交换, 要考虑奇偶问题
-        // 用n-1 / 2这样每次都可以得到小的那个数, 将其定义为left
-        int left = (n - 1) / 2;
-        // 通过判断奇偶决定right, 如果是奇数, 则left和right相等, 第一轮的交换相当于自己交换自己,
-        // 这样多跑了一轮, 但是写起来更方便
-        // 如果是偶数则left列和right列交换
-        int right = n % 2 == 1 ? left : left + 1;
-        while (left >= 0) {
-            // 遍历每一行去交换
-            for (int i = 0; i < n; i++) {
-                swap(matrix, i, left, i, right);
+        // 如果是奇数的话，可以将中轴线位置上的数两两交换，这样就可以当成偶数来处理
+        for (int row = 0; row < n; row++) {
+            int left = 0;
+            int right = n - 1;
+            while (left <= right) {
+                swap(matrix, row, left, row, right);
+                left++;
+                right--;
             }
-            // 更新left和right
-            left--;
-            right++;
         }
     }
 
-    public void solution2(int[][] matrix) {
+    public void rotateImage2(int[][] matrix) {
         int n = matrix.length;
         // 沿对角线遍历
         // 顺时针
@@ -84,20 +79,15 @@ public class RotateImage {
         }
 
         // 沿着中轴线交换, 要考虑奇偶问题
-        // 用n-1 / 2这样每次都可以得到小的那个数, 将其定义为left
-        int left = (n - 1) / 2;
-        // 通过判断奇偶决定right, 如果是奇数, 则left和right相等, 第一轮的交换相当于自己交换自己,
-        // 这样多跑了一轮, 但是写起来更方便
-        // 如果是偶数则left列和right列交换
-        int right = n % 2 == 1 ? left : left + 1;
-        while (left >= 0) {
-            // 遍历每一行去交换
-            for (int i = 0; i < n; i++) {
-                swap(matrix, i, left, i, right);
+        // 如果是奇数的话，可以将中轴线位置上的数两两交换，这样就可以当成偶数来处理
+        for (int row = 0; row < n; row++) {
+            int left = 0;
+            int right = n - 1;
+            while (left <= right) {
+                swap(matrix, row, left, row, right);
+                left++;
+                right--;
             }
-            // 更新left和right
-            left--;
-            right++;
         }
     }
 

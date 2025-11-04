@@ -90,7 +90,7 @@ public class SearchInRotatedSortedArray {
             return n - 1;
         }
         // 判断target在竖轴左侧还是右侧
-        boolean targetInLeft = target < nums[n - 1] ? false : true;
+        boolean targetInLeft = target >= nums[n - 1];
         while (left + 1 < right) {
             // 找到中点
             int mid = left + (right - left) / 2;
@@ -99,7 +99,7 @@ public class SearchInRotatedSortedArray {
                 return mid;
             }
             // 判断中点在竖轴左侧还是右侧
-            boolean midInLeft = nums[mid] < nums[n - 1] ? false : true;
+            boolean midInLeft = nums[mid] >= nums[n - 1];
             // 如果target在左侧
             if (targetInLeft) {
                 // 看上面 -> 5.1.1.2.1

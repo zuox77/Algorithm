@@ -16,6 +16,12 @@ Input: matrix = [
 [18,21,23,26,30]], target = 5
 Output: true
 
+思路：双指针
+1. 我们从右上角开始判断，右上角是当前行的最大的数，也是当前列的最小的数
+2. 如果右上角的数小于target，而右上角是当前行的最大的数，所以右上角所在的行都比target小，直接排除当前行
+3. 如果右上角的数大于target，而右上角是当前列的最小的数，所以右上角所在的列都比target大，直接排除当前列
+4. 循环的条件就是当row和col都抵达边界
+
 思路: 递归
 1. 这道题如果用指针来做的话, 可能比较麻烦, 因为最优解的做法是, 每次排除大约四分之一的范围, 所以很难单用指针来判断
 2. 这道题需要用一个隐含条件, 即任意坐标的数, 左上角的数都比它小, 右下角都比他大, 比如:
@@ -44,7 +50,30 @@ Output: true
  */
 
 public class SearchMatrixII {
-    public boolean solution1(int[][] matrix, int target) {
+    public boolean searchMatrixII(int[][] matrix, int target) {
+        // 创建两个指针，一个代表第一行，一个代表最后一列
+        // 第一行最后一列，即右上角，从右上角开始判断：
+        // 如果找到直接返回
+        // 如果比target小，说明最后一列都比target大，排除最后一列
+        // 如果比target大，说明第一行都比target小，排除第一行
+        int row = 0;
+        int col = matrix[0].length - 1;
+
+        while (row < matrix.length && col >= 0) {
+            // 判断右上角
+            int num = matrix[row][col];
+            if (num == target) {
+                return true;
+            } else if (num < target) {
+                row++;
+            } else {
+                col--;
+            }
+        }
+        return false;
+    }
+
+    public boolean searchMatrixII2(int[][] matrix, int target) {
         // 找到长宽
         int len = matrix[0].length, width = matrix.length;
         // 用递归来做
@@ -65,7 +94,7 @@ public class SearchMatrixII {
         // 找到答案, 则直接返回
         if (num == target) {
             return true;
-            // 如果比target大, 那么说明右下角的所有数都比target大, 所以排除左下角
+            // 如果比target大, 那么说明右下角的所有数都比target大, 所以排除右下角
         } else if (num > target) {
             // if (recursion(matrix, rowLeft, rowMid, colLeft, colRight, target)) {return true;}
             // if (recursion(matrix, rowMid, rowRight, colLeft, colMid, target)) {return true;}

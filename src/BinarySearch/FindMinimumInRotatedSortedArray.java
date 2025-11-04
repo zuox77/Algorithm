@@ -83,7 +83,7 @@ public class FindMinimumInRotatedSortedArray {
             }
         }
         // 最后判断一下left和right
-        return nums[left] < nums[right] ? nums[left] : nums[right];
+        return Math.min(nums[left], nums[right]);
     }
 
     public int solution2(int[] nums) {
@@ -91,14 +91,14 @@ public class FindMinimumInRotatedSortedArray {
         int n = nums.length;
         int left = 0, right = n - 1;
         // 以最后一位数作为横轴
-        int xAxie = nums[n - 1];
+        int xAxis = nums[n - 1];
         // 二分法遍历
         while (left < right) {
             // 找到中点
             int mid = left + (right - left) / 2;
             // 根据情况做判断
             // 如果mid大于横轴, 说明mid在竖轴左侧, 那么移动左指针去接近竖轴
-            if (nums[mid] > xAxie) {
+            if (nums[mid] > xAxis) {
                 left = mid + 1;
                 // 如果mid小于横轴, 说明mid在竖轴右侧, 那么移动右指针去接近竖轴
             } else {

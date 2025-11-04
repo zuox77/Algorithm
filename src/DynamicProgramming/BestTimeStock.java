@@ -1,4 +1,4 @@
-package Array;
+package DynamicProgramming;
 
 /*
 刷题次数: 2

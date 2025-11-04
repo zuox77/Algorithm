@@ -30,3 +30,13 @@
 
 * Completed `FirstMissingPositive.java`, `PalindromeLinkedList.java`, `LinkedListCycle.java`, `AddTwoNumbers.java`
 
+### 2025/10/31
+
+* Completed `SlidingWindowMaximum.java`, `DecodeString.java`, `MinStack.java`
+
+### 2025/11/02
+* Completed `SlidingWindowMaximum.java`, `DecodeString.java`, `MinStack.java`, `SearchInsertPosition.java`, `SearchMatrix.java`, `ImplementTrie.java`, `DailyTemperatures.java`
+
+
+### 2025/11/03
+* Completed `SearchMatrixII.java`, `FindFirstAndLastPositionOfElementInSortedArray.java`, `TopKFrequentElements.java`, `SetMatrixZeros.java`, `LargestRectangleHistogram.java`

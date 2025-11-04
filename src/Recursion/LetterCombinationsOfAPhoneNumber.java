@@ -1,7 +1,18 @@
 package Recursion;
 
 /*
-https://leetcode.cn/problems/permutations-ii/submissions/407453339/?orderBy=most_votes
+https://leetcode.cn/problems/letter-combinations-of-a-phone-number/description/?envType=study-plan-v2&envId=top-100-liked
+
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+
+Example 1:
+Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+
+Example 2:
+Input: digits = "2"
+Output: ["a","b","c"]
 
 思路: 递归/dfs
 1. 跟Permutation这道题差不多, 但允许重复元素, 而结果中又不允许重复答案
@@ -26,43 +37,30 @@ https://leetcode.cn/problems/permutations-ii/submissions/407453339/?orderBy=most
 
 import java.util.*;
 
-public class Permutation2 {
-    public List<List<Integer>> permuteUnique(int[] nums) {
-        Arrays.sort(nums);
-        List<List<Integer>> ans = new ArrayList<>();
-        // 这道题需要把index作为key保存进去
-        Set<Integer> visited = new HashSet<>();
-        recursion(nums, ans, new ArrayList<>(), visited);
+public class LetterCombinationsOfAPhoneNumber {
+
+    private static final String[] MAP = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+    public List<String> letterCombinations(String digits) {
+        List<String> ans = new ArrayList<String>();
+        recursion(digits, 0, new StringBuilder(), ans);
         return ans;
     }
 
-    public void recursion(int[] nums, List<List<Integer>> ans, List<Integer> permutation, Set<Integer> visited) {
-        // 退出条件（底部条件）
-        if (visited.size() == nums.length) {
-            ans.add(new ArrayList<>(permutation));
+    public void recursion(String digits, int depth, StringBuilder sb, List<String> ans) {
+        // 退出条件
+        if (depth == digits.length()) {
+            ans.add(new String(sb));
             return;
         }
-        // 每次循环做什么
-        for (int i = 0; i < nums.length; i++) {
-            // 跳过已遍历过的
-            if (visited.contains(i)) continue;
-            // 跳过i=0，因为此时肯定不会重复
-            // 后面两个条件是合在一起看的
-            //
-            if (i != 0 && nums[i - 1] == nums[i] && !visited.contains(i - 1)) {
-                continue;
-            }
-            // 更新visited
-            visited.add(i);
-            // 更新permutation
-            permutation.add(nums[i]);
+        // 每次循环
+        for (char c: MAP[digits.charAt(depth) - '0'].toCharArray()) {
+            // 更新sb
+            sb.append(c);
             // 进入下一层
-            recursion(nums, ans, permutation, visited);
-            // 返回以后做什么
-            // 更新visited
-            visited.remove(i);
-            // 更新permutation
-            permutation.removeLast();
+            recursion(digits, depth + 1, sb, ans);
+            // 返回以后，更新sb
+            sb.deleteCharAt(sb.length() - 1);
         }
     }
 }

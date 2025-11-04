@@ -1,7 +1,6 @@
 package Recursion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -30,36 +29,32 @@ These are the only two combinations.
    比如下一层如果从2开始遍历, 那么path=[2,3,6,2],这一定与已经遍历过的[2,2,3,6]重复
  */
 public class CombinationSum {
-    public List<List<Integer>> solution1(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(candidates);
-        dfs(candidates, target, 0, new ArrayList<Integer>(), 0, result);
-        return result;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        recursion(candidates, target, 0, 0, ans, new ArrayList<Integer>());
+        return ans;
     }
 
-    public void dfs(
-            int[] candidates,
-            int target,
-            int begin,
-            List<Integer> path,
-            int curSum,
-            List<List<Integer>> result) {
-        // exit
+    public void recursion(int[] candidates, int target, int depth, int curSum, List<List<Integer>> ans, List<Integer> comb) {
+        // 退出条件
         if (curSum == target) {
-            result.add(new ArrayList<>(path));
+            ans.add(new ArrayList<>(comb));
             return;
         }
-
-        for (int i = begin; i < candidates.length; i++) {
-            int num = candidates[i];
-            if (curSum + num > target) {
-                continue;
-            }
-            path.add(num);
-            curSum += num;
-            dfs(candidates, target, i, path, curSum, result);
-            curSum -= num;
-            path.remove(path.size() - 1);
+        // 循环
+        // 每次都只能找当前位置以及当前位置往后的，不能找之前的，比如[2,3,6,7]，假设现在已经把2与3都加入comb了，如果此时到6，那么这层的for循环应该直接跳过之前的2与3
+        for (int i = depth; i < candidates.length; i++) {
+            // 这道题因为只需要 = target的时候的答案，但其实还会遇到小于和大于两种情况
+            // 小于那不用多说，直接继续加数就行
+            // 大于的话如果不处理，就会一直加下去，因为退出条件是等于，而一直加反正都不等于，就会造成stackoverflow
+            // 所以大于的情况我们直接跳过到下一个
+            if (curSum + candidates[i] > target) continue;
+            // 更新comb
+            comb.add(candidates[i]);
+            // 到下一层
+            recursion(candidates, target, i, curSum + candidates[i], ans, comb);
+            // 返回以后更新comb
+            comb.removeLast();
         }
     }
 }

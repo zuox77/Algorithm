@@ -86,14 +86,14 @@ public class SpiralMatrix {
 
     public int[][] spinMatrix(int[][] matrix) {
         // 定义新的矩阵长和宽
-        int len = matrix[0].length;
-        int width = matrix.length - 1; // 因为已经把第一层加进result了, 所以不需要了
+        int row = matrix[0].length;
+        int col = matrix.length - 1; // 因为已经把第一层加进result了, 所以不需要了
         // 因为每次旋转90度, 所以这里长和宽要交换一下
-        int[][] matrixNew = new int[len][width]; // 不是 int[width][len] => int[有几行][有几列]
+        int[][] matrixNew = new int[row][col]; // 不是 int[col][row] => int[有几行][有几列]
         // 将数字一一放到新矩阵里面
-        for (int i = 0; i < len; i++) {
-            for (int j = 0; j < width; j++) {
-                matrixNew[i][j] = matrix[j + 1][len - i - 1];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                matrixNew[i][j] = matrix[j + 1][row - i - 1];
             }
         }
         return matrixNew;
