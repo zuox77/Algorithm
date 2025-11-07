@@ -33,7 +33,7 @@ To take course 1 you should have finished course 0, and to take course 0 you sho
     1. 创建一个与总课程数量相等的List（degree），List的index代表每个课程，数字代表degree（即当前课程有几个前置课程）
     2. 创建一个与总课程数量相等的List<List<Integer>>（relationships）：
         1. 外侧List的index代表每个课程
-        2. 内侧List代表每个课程具体有哪几个前置课程
+        2. 内侧List代表每个课程是哪几个课程的前置课程
     3. 通过遍历，先找到每个课程的degree和对应的前置课程，即完善第一第二步
     4. 将degree为0的课程加入queue（即完全没有前置课程的课程）
     5. 通过while循环，将queue的第一个数poll出来，同时减少numCourse（每次poll出来就要减少一个numCourse）

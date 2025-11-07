@@ -1,11 +1,11 @@
 package LinkedList;
 
 public class ListNode {
-    protected int val;
-    protected int key;
-    protected ListNode next;
+    public int val;
+    public int key;
+    public ListNode next;
 
-    ListNode() {}
+    public ListNode() {}
 
     ListNode(int val) {
         this.val = val;

@@ -24,8 +24,7 @@ Output: [0]
 2. 再创建一个指针，指向head，因为head在之后的操作中会移动，所以还需要一个指针保存根节点
 3. 创建两个指针，分别指向两个链表的根节点
 4. 同时遍历两个指针，保证他们都不为null，然后比较，谁小就把谁加入新链表
-5. 退出循环后，有可能这两个链表长度不一样，所以还需要再来一个循环把长的链表剩余的节点都加进去
-    但其实这里是两个循环，这样写起来简单一些，不需要考虑究竟哪个链表还有剩余节点
+5. 退出循环后，有可能这两个链表长度不一样，所以还需要将不为null的拼接上去
 
  */
 public class MergeTwoSortedLists {
@@ -54,16 +53,7 @@ public class MergeTwoSortedLists {
             head = head.next;
         }
         // 将剩余的node加入
-        while (left != null) {
-            head.next = left;
-            left = left.next;
-            head = head.next;
-        }
-        while (right != null) {
-            head.next = right;
-            right = right.next;
-            head = head.next;
-        }
+        head.next = left != null ? left : right;
         // 返回ans.next，因为head是一个自定义的不存在的节点
         return ans.next;
     }

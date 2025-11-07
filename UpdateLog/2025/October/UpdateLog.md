@@ -40,3 +40,6 @@
 
 ### 2025/11/03
 * Completed `SearchMatrixII.java`, `FindFirstAndLastPositionOfElementInSortedArray.java`, `TopKFrequentElements.java`, `SetMatrixZeros.java`, `LargestRectangleHistogram.java`
+
+### 2025/11/07
+* Completed `SpiralMatrix.java`, `SpiralMatrix2.java`, `SpiralMatrix4.java`, `CourseSchedule.java`, `ShortestBridge.java`, `NetworkDelayTime.java`, `MergeKSortedLists.java`

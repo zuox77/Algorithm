@@ -46,7 +46,8 @@ public class QuickSort_PartitionArray {
         int left = start, right = end;
         int pivotIndex = (start + end) / 2;
         int pivot = nums[pivotIndex];
-        while (left <= right) { // 记住left和right的比较都是小于等于, 因为指针有可能重叠
+        // 记住left和right的比较都是小于等于, 因为指针有可能重叠
+        while (left <= right) {
             // find the first element which is > pivot and on the left side of pivot
             while (left <= right && nums[left] < pivot) {
                 left++;
