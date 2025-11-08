@@ -115,7 +115,7 @@ public class NetworkDelayTime {
         }
         // 建立邻接矩阵
         // 邻接矩阵grid[i][j]代表从i到j的距离
-        for (int[] time: times) {
+        for (int[] time : times) {
             int x = time[0];
             int y = time[1];
             grid[x][y] = time[2];
@@ -139,14 +139,14 @@ public class NetworkDelayTime {
         int curNode = 1;
         for (int i = 1; i < n + 1; i++) {
             /*
-             如果不每次都重置minVal，在后几行的比较代码中，可能出现上一轮的minVal比这一轮的都小，导致无法继续的情况
-             假设源node为1，假设上一轮获得的信息是：1 -> 3 = 4，1 -> 2 = 1
-             按照算法，这一轮我们应该从node2开始，根据node2能抵达的点，计算源node1距离这些点的最短距离
-             假设node2的信息有：2 -> 6 = 4，2 -> 3 = 2，2 -> 4 = 5
-             那这一轮我们的目标是，已知1 -> 2 = 1，计算1 -> 6，1 -> 3，1 -> 4的最小距离
-             如果不更新minValue，那么现在的minValue = 1（即1 -> 2 = 1），
-             而1小于所有的node2能抵达的node的边权重（4、2、5），所以我们就选不出这一轮应该从哪里开始计算了
-             */
+            如果不每次都重置minVal，在后几行的比较代码中，可能出现上一轮的minVal比这一轮的都小，导致无法继续的情况
+            假设源node为1，假设上一轮获得的信息是：1 -> 3 = 4，1 -> 2 = 1
+            按照算法，这一轮我们应该从node2开始，根据node2能抵达的点，计算源node1距离这些点的最短距离
+            假设node2的信息有：2 -> 6 = 4，2 -> 3 = 2，2 -> 4 = 5
+            那这一轮我们的目标是，已知1 -> 2 = 1，计算1 -> 6，1 -> 3，1 -> 4的最小距离
+            如果不更新minValue，那么现在的minValue = 1（即1 -> 2 = 1），
+            而1小于所有的node2能抵达的node的边权重（4、2、5），所以我们就选不出这一轮应该从哪里开始计算了
+            */
             // 重置minVal
             int minValue = Integer.MAX_VALUE;
 
@@ -166,11 +166,11 @@ public class NetworkDelayTime {
             // 更新minDist
             for (int j = 1; j < n + 1; j++) {
                 /*
-                 !visited[j]：该node需要未访问过，不然会覆盖之前的值
-                 grid[curNode][j] != Integer.MAX_VALUE：根据我们的定义，grid[i][j]代表从i到j的距离
-                 且我们将其初始化为最大值，所以
-                 如果grid[i][j] == Integer.MAX_VALUE，代表i无法抵达j，或者说i和j无法通行
-                 */
+                !visited[j]：该node需要未访问过，不然会覆盖之前的值
+                grid[curNode][j] != Integer.MAX_VALUE：根据我们的定义，grid[i][j]代表从i到j的距离
+                且我们将其初始化为最大值，所以
+                如果grid[i][j] == Integer.MAX_VALUE，代表i无法抵达j，或者说i和j无法通行
+                */
                 if (!visited[j] && grid[curNode][j] != Integer.MAX_VALUE) {
                     /*
                     minDist[j]：node j距离源node最小距离
@@ -186,46 +186,35 @@ public class NetworkDelayTime {
         // 找到从源node到所有node的最小距离，即源node到距离其最远的node的最小距离
         int ans = 0;
         /*
-         在循环中，我们判断是否有Integer.MAX_VALUE，如果有说明：
-         1. 这是minDist[0]，因为我们为了方便计算下标，而node的编号又是从1开始的，所以minDist[0]理论上是一个不存在的数
-         2. 代表源node到该节点的距离为Integer.MAX_VALUE，即无法抵达
-         而此时如果直接用for (int num: minDist)，我们无法分开这两个情况
-         对于情况1，我们需要直接跳过
-         对于情况2，我们需要直接返回，因为有源node无法抵达的点，所以按题目要求，返回源node到所有node的最短时间，那么就是-1
-         所以我们只能用for (int i = 1; i < n + 1; i++)
-         */
+        在循环中，我们判断是否有Integer.MAX_VALUE，如果有说明：
+        1. 这是minDist[0]，因为我们为了方便计算下标，而node的编号又是从1开始的，所以minDist[0]理论上是一个不存在的数
+        2. 代表源node到该节点的距离为Integer.MAX_VALUE，即无法抵达
+        而此时如果直接用for (int num: minDist)，我们无法分开这两个情况
+        对于情况1，我们需要直接跳过
+        对于情况2，我们需要直接返回，因为有源node无法抵达的点，所以按题目要求，返回源node到所有node的最短时间，那么就是-1
+        所以我们只能用for (int i = 1; i < n + 1; i++)
+        */
         for (int i = 1; i < n + 1; i++) {
             // 没有路径的
             if (minDist[i] == Integer.MAX_VALUE) return -1;
             /*
-             计算最大值
-             记住，minDist[i]代表从源node到i的最短距离，而题目要求是抵达所有node的最短距离
-             所以为了抵达所有node，ans其实就是抵达最远的node的最短距离，即minDist的最大值
+            计算最大值
+            记住，minDist[i]代表从源node到i的最短距离，而题目要求是抵达所有node的最短距离
+            所以为了抵达所有node，ans其实就是抵达最远的node的最短距离，即minDist的最大值
 
-             注意：我们不能在计算minDist的途中一起计算ans，因为其中可能出现非最短距离
-             例如从1到2为1，从2到3为2，从1直接到3为4
-             因为要计算到最远node的最短值，那么无可避免，我们一定得用Math.max去找到最远的node
-             但如果当前的值还不是最短距离，我们无法判断
-             刚刚的例子中：如果1到3距离为4，ans = Math.max(ans, 4) = 4
-             但后面发现1到3的最短距离为2，那我们无法保存这个值
-             ans = Math.max(ans, 4) = Math.max(4, 3) = 4
-             我们永远只能得到4
-             所以必须等minDist计算完成，保证minDist里面保存的都是最短距离以后，我们才能开始计算ans
-             */
+            注意：我们不能在计算minDist的途中一起计算ans，因为其中可能出现非最短距离
+            例如从1到2为1，从2到3为2，从1直接到3为4
+            因为要计算到最远node的最短值，那么无可避免，我们一定得用Math.max去找到最远的node
+            但如果当前的值还不是最短距离，我们无法判断
+            刚刚的例子中：如果1到3距离为4，ans = Math.max(ans, 4) = 4
+            但后面发现1到3的最短距离为2，那我们无法保存这个值
+            ans = Math.max(ans, 4) = Math.max(4, 3) = 4
+            我们永远只能得到4
+            所以必须等minDist计算完成，保证minDist里面保存的都是最短距离以后，我们才能开始计算ans
+            */
             ans = Math.max(ans, minDist[i]);
         }
         return ans;
-    }
-
-
-    static class Pair {
-        public int node;
-        public int dist;
-
-        Pair(int node, int dist) {
-            this.node = node;
-            this.dist = dist;
-        }
     }
 
     public int networkDelayTime2(int[][] times, int n, int k) {
@@ -237,7 +226,7 @@ public class NetworkDelayTime {
             grid[i] = new ArrayList<Pair>();
         }
         // 建立邻接表
-        for (int[] time: times) {
+        for (int[] time : times) {
             int x = time[0];
             int y = time[1];
             grid[x].add(new Pair(time[1], time[2]));
@@ -261,14 +250,14 @@ public class NetworkDelayTime {
         int curNode = 1;
         for (int i = 1; i < n + 1; i++) {
             /*
-             如果不每次都重置minVal，在后几行的比较代码中，可能出现上一轮的minVal比这一轮的都小，导致无法继续的情况
-             假设源node为1，假设上一轮获得的信息是：1 -> 3 = 4，1 -> 2 = 1
-             按照算法，这一轮我们应该从node2开始，根据node2能抵达的点，计算源node1距离这些点的最短距离
-             假设node2的信息有：2 -> 6 = 4，2 -> 3 = 2，2 -> 4 = 5
-             那这一轮我们的目标是，已知1 -> 2 = 1，计算1 -> 6，1 -> 3，1 -> 4的最小距离
-             如果不更新minValue，那么现在的minValue = 1（即1 -> 2 = 1），
-             而1小于所有的node2能抵达的node的边权重（4、2、5），所以我们就选不出这一轮应该从哪里开始计算了
-             */
+            如果不每次都重置minVal，在后几行的比较代码中，可能出现上一轮的minVal比这一轮的都小，导致无法继续的情况
+            假设源node为1，假设上一轮获得的信息是：1 -> 3 = 4，1 -> 2 = 1
+            按照算法，这一轮我们应该从node2开始，根据node2能抵达的点，计算源node1距离这些点的最短距离
+            假设node2的信息有：2 -> 6 = 4，2 -> 3 = 2，2 -> 4 = 5
+            那这一轮我们的目标是，已知1 -> 2 = 1，计算1 -> 6，1 -> 3，1 -> 4的最小距离
+            如果不更新minValue，那么现在的minValue = 1（即1 -> 2 = 1），
+            而1小于所有的node2能抵达的node的边权重（4、2、5），所以我们就选不出这一轮应该从哪里开始计算了
+            */
             // 重置minVal
             int minValue = Integer.MAX_VALUE;
 
@@ -287,7 +276,7 @@ public class NetworkDelayTime {
             visited[curNode] = true;
             // 更新minDist
             // 这里只需要遍历邻接表的第curNode个即可
-            for (Pair pair: grid[curNode]) {
+            for (Pair pair : grid[curNode]) {
                 if (!visited[pair.node]) {
                     minDist[pair.node] = Math.min(minDist[pair.node], minDist[curNode] + pair.dist);
                 }
@@ -296,32 +285,32 @@ public class NetworkDelayTime {
         // 找到从源node到所有node的最小距离，即源node到距离其最远的node的最小距离
         int ans = 0;
         /*
-         在循环中，我们判断是否有Integer.MAX_VALUE，如果有说明：
-         1. 这是minDist[0]，因为我们为了方便计算下标，而node的编号又是从1开始的，所以minDist[0]理论上是一个不存在的数
-         2. 代表源node到该节点的距离为Integer.MAX_VALUE，即无法抵达
-         而此时如果直接用for (int num: minDist)，我们无法分开这两个情况
-         对于情况1，我们需要直接跳过
-         对于情况2，我们需要直接返回，因为有源node无法抵达的点，所以按题目要求，返回源node到所有node的最短时间，那么就是-1
-         所以我们只能用for (int i = 1; i < n + 1; i++)
-         */
+        在循环中，我们判断是否有Integer.MAX_VALUE，如果有说明：
+        1. 这是minDist[0]，因为我们为了方便计算下标，而node的编号又是从1开始的，所以minDist[0]理论上是一个不存在的数
+        2. 代表源node到该节点的距离为Integer.MAX_VALUE，即无法抵达
+        而此时如果直接用for (int num: minDist)，我们无法分开这两个情况
+        对于情况1，我们需要直接跳过
+        对于情况2，我们需要直接返回，因为有源node无法抵达的点，所以按题目要求，返回源node到所有node的最短时间，那么就是-1
+        所以我们只能用for (int i = 1; i < n + 1; i++)
+        */
         for (int i = 1; i < n + 1; i++) {
             // 没有路径的
             if (minDist[i] == Integer.MAX_VALUE) return -1;
             /*
-             计算最大值
-             记住，minDist[i]代表从源node到i的最短距离，而题目要求是抵达所有node的最短距离
-             所以为了抵达所有node，ans其实就是抵达最远的node的最短距离，即minDist的最大值
+            计算最大值
+            记住，minDist[i]代表从源node到i的最短距离，而题目要求是抵达所有node的最短距离
+            所以为了抵达所有node，ans其实就是抵达最远的node的最短距离，即minDist的最大值
 
-             注意：我们不能在计算minDist的途中一起计算ans，因为其中可能出现非最短距离
-             例如从1到2为1，从2到3为2，从1直接到3为4
-             因为要计算到最远node的最短值，那么无可避免，我们一定得用Math.max去找到最远的node
-             但如果当前的值还不是最短距离，我们无法判断
-             刚刚的例子中：如果1到3距离为4，ans = Math.max(ans, 4) = 4
-             但后面发现1到3的最短距离为2，那我们无法保存这个值
-             ans = Math.max(ans, 4) = Math.max(4, 3) = 4
-             我们永远只能得到4
-             所以必须等minDist计算完成，保证minDist里面保存的都是最短距离以后，我们才能开始计算ans
-             */
+            注意：我们不能在计算minDist的途中一起计算ans，因为其中可能出现非最短距离
+            例如从1到2为1，从2到3为2，从1直接到3为4
+            因为要计算到最远node的最短值，那么无可避免，我们一定得用Math.max去找到最远的node
+            但如果当前的值还不是最短距离，我们无法判断
+            刚刚的例子中：如果1到3距离为4，ans = Math.max(ans, 4) = 4
+            但后面发现1到3的最短距离为2，那我们无法保存这个值
+            ans = Math.max(ans, 4) = Math.max(4, 3) = 4
+            我们永远只能得到4
+            所以必须等minDist计算完成，保证minDist里面保存的都是最短距离以后，我们才能开始计算ans
+            */
             ans = Math.max(ans, minDist[i]);
         }
         return ans;
@@ -336,7 +325,7 @@ public class NetworkDelayTime {
             grid[i] = new ArrayList<Pair>();
         }
         // 建立邻接表
-        for (int[] time: times) {
+        for (int[] time : times) {
             int x = time[0];
             int y = time[1];
             grid[x].add(new Pair(time[1], time[2]));
@@ -366,19 +355,19 @@ public class NetworkDelayTime {
             int headDist = headPair.dist;
             int headNode = headPair.node;
             /*
-             如果堆中的这个pair的dist大于minDist[node]，说明node之前已经出过堆
-             即现在的这个pair所代表的dist，已经不是最短距离了，直接跳过
-             例如1到2的距离为1，2到3的距离为2，1到3的距离为5
-             那么可能在Pair<3, 5>出堆的时候，我们已经通过前两个条件，将minDist[3]更新成3了，
-             此时我们不需要将1到3的距离为5这个信息，覆盖到现在的minDist[3]=3，所以直接跳过
-             */
+            如果堆中的这个pair的dist大于minDist[node]，说明node之前已经出过堆
+            即现在的这个pair所代表的dist，已经不是最短距离了，直接跳过
+            例如1到2的距离为1，2到3的距离为2，1到3的距离为5
+            那么可能在Pair<3, 5>出堆的时候，我们已经通过前两个条件，将minDist[3]更新成3了，
+            此时我们不需要将1到3的距离为5这个信息，覆盖到现在的minDist[3]=3，所以直接跳过
+            */
             if (headDist > minDist[headNode]) continue;
             // 更新maxDist
             maxDist = headDist;
             // 更新剩余未被访问的节点个数
             notVisited--;
             // 遍历堆顶节点所连接的节点
-            for (Pair pair: grid[headNode]) {
+            for (Pair pair : grid[headNode]) {
                 int pairDist = pair.dist;
                 int pairNode = pair.node;
                 /*
@@ -403,5 +392,15 @@ public class NetworkDelayTime {
 
         // 当notVisited不为0时，说明有无法抵达的node，直接返回-1，否则返回maxDist
         return notVisited == 0 ? maxDist : -1;
+    }
+
+    static class Pair {
+        public int node;
+        public int dist;
+
+        Pair(int node, int dist) {
+            this.node = node;
+            this.dist = dist;
+        }
     }
 }

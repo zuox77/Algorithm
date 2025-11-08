@@ -42,7 +42,7 @@ public class TopKFrequentElements {
         Map<Integer, Integer> map = new HashMap<>();
         // 再用一个变量保存最大的次数的值
         int maxFreq = 0;
-        for (int num: nums) {
+        for (int num : nums) {
             map.merge(num, 1, Integer::sum);
             maxFreq = Math.max(maxFreq, map.get(num));
         }
@@ -51,14 +51,14 @@ public class TopKFrequentElements {
         // 初始化
         Arrays.setAll(freqList, i -> new ArrayList<>());
         // 遍历map，填上对应的频率和数字
-        for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             freqList[entry.getValue()].add(entry.getKey());
         }
         // 倒序遍历刚刚的数组，提取前k个数
         int[] ans = new int[k];
         int count = 0;
         for (int i = maxFreq; i >= 0 && count < k; i--) {
-            for (int num: freqList[i]) {
+            for (int num : freqList[i]) {
                 ans[count++] = num;
             }
         }

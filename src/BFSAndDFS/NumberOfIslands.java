@@ -1,4 +1,4 @@
-package BFS;
+package BFSAndDFS;
 
 /*
 https://leetcode.cn/problems/number-of-islands/description/
@@ -31,12 +31,16 @@ import java.util.Queue;
 public class NumberOfIslands {
 
     private static final int[][] DIRECTIONS = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-    List<Node> directions =
-            Arrays.asList(new Node(0, -1), new Node(0, 1), new Node(1, 0), new Node(-1, 0));
+    List<TreeNode> directions =
+            Arrays.asList(
+                    new TreeNode(0, -1),
+                    new TreeNode(0, 1),
+                    new TreeNode(1, 0),
+                    new TreeNode(-1, 0));
 
     public int numberOfIslands1(char[][] grid) {
         int count = 0;
-        Queue<Node> queue = new ArrayDeque<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
 
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
@@ -45,14 +49,14 @@ public class NumberOfIslands {
                     continue;
                 }
                 // Add to queue
-                Node root = new Node(i, j);
+                TreeNode root = new TreeNode(i, j);
                 queue.offer(root);
                 // Marked as visited
                 grid[i][j] = '2';
                 // Loop
                 while (!queue.isEmpty()) {
                     // Pop out first
-                    Node node = queue.poll();
+                    TreeNode node = queue.poll();
                     // Check surroundings
                     checkSurroundings(node, grid, queue);
                 }
@@ -63,8 +67,8 @@ public class NumberOfIslands {
         return count;
     }
 
-    public void checkSurroundings(Node node, char[][] grid, Queue<Node> queue) {
-        for (Node direction : directions) {
+    public void checkSurroundings(TreeNode node, char[][] grid, Queue<TreeNode> queue) {
+        for (TreeNode direction : directions) {
             int row = node.row + direction.row;
             int column = node.column + direction.column;
             // Check validation
@@ -76,7 +80,7 @@ public class NumberOfIslands {
                 continue;
             }
             // Add to queue
-            queue.offer(new Node(row, column));
+            queue.offer(new TreeNode(row, column));
             // Marked as visited
             grid[row][column] = '2';
         }
@@ -129,11 +133,11 @@ public class NumberOfIslands {
         }
     }
 
-    public static class Node {
+    public static class TreeNode {
         int row;
         int column;
 
-        Node(int row, int column) {
+        TreeNode(int row, int column) {
             this.row = row;
             this.column = column;
         }

@@ -1,4 +1,4 @@
-package BFS;
+package BFSAndDFS;
 
 /*
 https://leetcode.cn/problems/rotting-oranges/?envType=study-plan-v2&envId=top-100-liked

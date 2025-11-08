@@ -35,11 +35,20 @@
 * Completed `SlidingWindowMaximum.java`, `DecodeString.java`, `MinStack.java`
 
 ### 2025/11/02
-* Completed `SlidingWindowMaximum.java`, `DecodeString.java`, `MinStack.java`, `SearchInsertPosition.java`, `SearchMatrix.java`, `ImplementTrie.java`, `DailyTemperatures.java`
 
+* Completed `SlidingWindowMaximum.java`, `DecodeString.java`, `MinStack.java`, `SearchInsertPosition.java`,
+  `SearchMatrix.java`, `ImplementTrie.java`, `DailyTemperatures.java`
 
 ### 2025/11/03
-* Completed `SearchMatrixII.java`, `FindFirstAndLastPositionOfElementInSortedArray.java`, `TopKFrequentElements.java`, `SetMatrixZeros.java`, `LargestRectangleHistogram.java`
+
+* Completed `SearchMatrixII.java`, `FindFirstAndLastPositionOfElementInSortedArray.java`, `TopKFrequentElements.java`,
+  `SetMatrixZeros.java`, `LargestRectangleHistogram.java`
 
 ### 2025/11/07
-* Completed `SpiralMatrix.java`, `SpiralMatrix2.java`, `SpiralMatrix4.java`, `CourseSchedule.java`, `ShortestBridge.java`, `NetworkDelayTime.java`, `MergeKSortedLists.java`
+
+* Completed `SpiralMatrix.java`, `SpiralMatrix2.java`, `SpiralMatrix4.java`, `CourseSchedule.java`,
+  `ShortestBridge.java`, `NetworkDelayTime.java`, `MergeKSortedLists.java`
+
+### 2025/11/07
+
+* Completed `MeetingRoom2.java`, `MakingALargeIsland.java`, `NumberOfDistinctIslands.java`

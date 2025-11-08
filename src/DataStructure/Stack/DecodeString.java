@@ -37,8 +37,6 @@ Output: "abcabccdcdcdef"
 
 public class DecodeString {
 
-    private record Pair(String str, int times) {};
-
     public String decodeString(String s) {
         // 创建一个栈
         Deque<Pair> stack = new ArrayDeque<>();
@@ -48,7 +46,7 @@ public class DecodeString {
         int k = 0;
 
         // 遍历字符串
-        for (char ch: s.toCharArray()) {
+        for (char ch : s.toCharArray()) {
             // 如果是数字，那么更新k
             if (Character.isDigit(ch)) {
                 k = k * 10 + ch - '0';
@@ -67,16 +65,19 @@ public class DecodeString {
                 Pair pair = stack.pollFirst();
                 // 计算sb
                 /*
-                 注意，pair里面的string和k不是匹配的，毕竟我们是在[以后才将sb计算好的，
-                 也就是说pair里面的数字，是与当前的sb匹配的，而pair里面字符，需要和计算过后的当前sb，合在一起，以待下次计算
-                 例如 a2[c]
-                 假设我们现在遍历到]，此时的stack的栈首为 pair = {str = "a", times = 2}
-                 而]结束时，我们需要将其化为：acc，所以可以得出：
-                 我们要的答案 = pair里面的str + 当前的sb * pair里面的times
-                 */
+                注意，pair里面的string和k不是匹配的，毕竟我们是在[以后才将sb计算好的，
+                也就是说pair里面的数字，是与当前的sb匹配的，而pair里面字符，需要和计算过后的当前sb，合在一起，以待下次计算
+                例如 a2[c]
+                假设我们现在遍历到]，此时的stack的栈首为 pair = {str = "a", times = 2}
+                而]结束时，我们需要将其化为：acc，所以可以得出：
+                我们要的答案 = pair里面的str + 当前的sb * pair里面的times
+                */
                 sb = new StringBuilder(pair.str).repeat(sb, pair.times);
             }
         }
         return sb.toString();
     }
+    ;
+
+    private record Pair(String str, int times) {}
 }

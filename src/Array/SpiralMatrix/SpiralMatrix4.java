@@ -56,7 +56,11 @@ public class SpiralMatrix4 {
             int newRow = row + directions[dirFlag][0];
             int newCol = col + directions[dirFlag][1];
             // 检查是否出界或者已经填过
-            if (0 > newRow || 0 > newCol || newRow >= m || newCol >= n || matrix[newRow][newCol] != -1) {
+            if (0 > newRow
+                    || 0 > newCol
+                    || newRow >= m
+                    || newCol >= n
+                    || matrix[newRow][newCol] != -1) {
                 dirFlag = (dirFlag + 1) % 4;
             }
             // 重新计算一下一个位置

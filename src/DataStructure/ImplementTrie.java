@@ -35,27 +35,22 @@ trie.insert("app");
 trie.search("app");     // return True
 
 思路：
-1. 主要是要知道，利用新建class Node，让其每个node实例自带一个map，然后通过map去找
-2. 需要一个全局变量或者说实例变量，Node root，去代表根部节点，这样才能每次从根部开始搜索
+1. 主要是要知道，利用新建class TreeNode，让其每个node实例自带一个map，然后通过map去找
+2. 需要一个全局变量或者说实例变量，TreeNode root，去代表根部节点，这样才能每次从根部开始搜索
  */
 
 class ImplementTrie {
 
-    private static class Node {
-        private final Map<Character, Node> map = new HashMap<>(26, 1);
-        boolean end = false;
-    }
-
-    private final Node root = new Node();
+    private final TreeNode root = new TreeNode();
 
     public ImplementTrie() {}
 
     public void insert(String word) {
-        Node cur = root;
-        for (Character ch: word.toCharArray()) {
+        TreeNode cur = root;
+        for (Character ch : word.toCharArray()) {
             // 如果ch不存在cur的map中，创建一个新的node
             // 如果ch已经在cur的map中，拿到已存在的node
-            Node node = cur.map.getOrDefault(ch, new Node());
+            TreeNode node = cur.map.getOrDefault(ch, new TreeNode());
             // 不能在这里将当前node（cur）的end属性改为false
             // 因为如果存在例如"app"和"apple"，那么这两个词，search都应该返回true
             // 如果我们在这里将当前node（cur）的end属性改为false了，那么在添加"app"时，这里的end属性为true，
@@ -70,7 +65,7 @@ class ImplementTrie {
     }
 
     public boolean search(String word) {
-        Node cur = iterate(word);
+        TreeNode cur = iterate(word);
         // 如果cur是null，那么表示word中有字母不存在
         // 如果cur不是null，那么表示word里所有字母都存在，所以只需要额外判断一下cur的这个node的end属性是否为true
         // 如果是true，那么就说明存在word，search返回true，反之则返回false
@@ -83,9 +78,9 @@ class ImplementTrie {
         return iterate(prefix) != null;
     }
 
-    private Node iterate(String s) {
-        Node cur = root;
-        for (Character ch: s.toCharArray()) {
+    private TreeNode iterate(String s) {
+        TreeNode cur = root;
+        for (Character ch : s.toCharArray()) {
             // 如果任意一个ch不存在在map中，返回null
             if (!cur.map.containsKey(ch)) {
                 return null;
@@ -94,5 +89,10 @@ class ImplementTrie {
             cur = cur.map.get(ch);
         }
         return cur;
+    }
+
+    private static class TreeNode {
+        private final Map<Character, TreeNode> map = new HashMap<>(26, 1);
+        boolean end = false;
     }
 }

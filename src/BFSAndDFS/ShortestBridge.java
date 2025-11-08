@@ -1,4 +1,4 @@
-package BFS;
+package BFSAndDFS;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -47,18 +47,20 @@ public class ShortestBridge {
             int curSize = queue.size();
             for (int i = 0; i < curSize; i++) {
                 int[] location = queue.pollLast();
-                for (int[] direction: DIRECTIONS) {
+                for (int[] direction : DIRECTIONS) {
                     int newX = location[0] + direction[0];
                     int newY = location[1] + direction[1];
                     // Check validation
-                    if (!edgeCheck(n, m, newX, newY) || grid[newX][newY] == 2 || visited.contains(newX * m + newY)) continue;
+                    if (!edgeCheck(n, m, newX, newY)
+                            || grid[newX][newY] == 2
+                            || visited.contains(newX * m + newY)) continue;
                     // If find second island
                     if (grid[newX][newY] == 1) {
                         // The first to find the second island is always the shortest
                         return layer;
                     }
                     // Otherwise, push to queue
-                    queue.offerFirst(new int[]{newX, newY});
+                    queue.offerFirst(new int[] {newX, newY});
                     visited.add(newX * m + newY);
                 }
             }
@@ -88,11 +90,11 @@ public class ShortestBridge {
         // mark
         if (grid[x][y] == 1) {
             // Add all locations of first island to queue
-            queue.offerFirst(new int[]{x, y});
+            queue.offerFirst(new int[] {x, y});
             grid[x][y] = 2;
         }
         // Iterate 4 directions
-        for (int[] direction: DIRECTIONS) {
+        for (int[] direction : DIRECTIONS) {
             int newX = x + direction[0];
             int newY = y + direction[1];
             if (!edgeCheck(n, m, newX, newY) || grid[newX][newY] == 2) continue;

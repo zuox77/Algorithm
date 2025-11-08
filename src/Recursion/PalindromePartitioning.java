@@ -46,7 +46,8 @@ public class PalindromePartitioning {
     // 如果分割，那么代表我们想将从start到end这一段的substring当成回文串加入ans，所以此时还需要再检查一下是否是回文串
     // 如果是，则加入，然后start和end指针都移动到end + 1的位置（因为end之前的字母都已经分割+检查结束了）
     // 如果不是，那么什么都不发生，因为我们要分割出来的每一个都是回文串
-    public void recursion(String s, int start, int end, List<List<String>> ans, List<String> substring) {
+    public void recursion(
+            String s, int start, int end, List<List<String>> ans, List<String> substring) {
         // 退出条件
         // 因为end代表下标，所以end如果等于s.length()，那代表其实已经遍历结束了，所以退出
         if (end == s.length()) {

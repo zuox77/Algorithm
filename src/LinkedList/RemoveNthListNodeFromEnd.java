@@ -17,7 +17,7 @@ public class RemoveNthListNodeFromEnd {
         dummy.next = head;
         ListNode slow = dummy;
         // 先让head走n步
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             fast = fast.next;
         }
         // 因为有限制条件：1<=n<=链表长度，所以如果n=链表长度时，即head就是需要被移出的node，而此时head已经到了结束节点的下一个，即null

@@ -33,15 +33,15 @@ https://www.jiuzhang.com/problem/lru-cache/
 2. addtoHead方程一定是将node加入头端(head), 表示最近使用过
  */
 
-class Node {
+class TreeNode {
     int val;
     int key;
-    Node next;
-    Node prev;
+    TreeNode next;
+    TreeNode prev;
 
-    public Node() {}
+    public TreeNode() {}
 
-    public Node(int val, int key) {
+    public TreeNode(int val, int key) {
         this.val = val;
         this.key = key;
         this.next = null;
@@ -51,9 +51,9 @@ class Node {
 
 class LRUCache {
     private int capcacity;
-    private Node head = new Node();
-    private Node tail = new Node();
-    private HashMap<Integer, Node> map = new HashMap<>();
+    private TreeNode head = new TreeNode();
+    private TreeNode tail = new TreeNode();
+    private HashMap<Integer, TreeNode> map = new HashMap<>();
 
     public LRUCache(int capacity) {
         this.capcacity = capacity;
@@ -63,7 +63,7 @@ class LRUCache {
 
     public int get(int key) {
         if (map.containsKey(key)) {
-            Node node = map.get(key);
+            TreeNode node = map.get(key);
             removeFromList(node);
             addToHead(node);
             return node.val;
@@ -73,12 +73,12 @@ class LRUCache {
 
     public void put(int key, int value) {
         if (map.containsKey(key)) {
-            Node node = map.get(key);
+            TreeNode node = map.get(key);
             node.val = value;
             removeFromList(node);
             addToHead(node);
         } else {
-            Node node = new Node(value, key);
+            TreeNode node = new TreeNode(value, key);
             if (map.size() == capcacity) {
                 removeFromList(tail.prev);
             }
@@ -86,8 +86,8 @@ class LRUCache {
         }
     }
 
-    public void addToHead(Node node) {
-        Node tmp = head.next;
+    public void addToHead(TreeNode node) {
+        TreeNode tmp = head.next;
         head.next = node;
         node.prev = head;
         node.next = tmp;
@@ -97,7 +97,7 @@ class LRUCache {
         map.put(key, node);
     }
 
-    public void removeFromList(Node node) {
+    public void removeFromList(TreeNode node) {
         /*
         这里不能写成:
         tail.prev = node.prev;

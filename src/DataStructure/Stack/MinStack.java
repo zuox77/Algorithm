@@ -50,22 +50,16 @@ minStack.getMin(); // return -2
     或者也可以在初始化的时候，额外push一个dummy进去，这个dummy的值是0，这个dummy对应的minValue是Integer.MAX_VALUE
  */
 
-
 /**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(val);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
+ * Your MinStack object will be instantiated and called as such: MinStack obj = new MinStack();
+ * obj.push(val); obj.pop(); int param_3 = obj.top(); int param_4 = obj.getMin();
  */
 class MinStack {
 
     private Deque<int[]> stack = new ArrayDeque<>();
     private int minValue = Integer.MAX_VALUE;
 
-    public MinStack() {
-    }
+    public MinStack() {}
 
     public void push(int val) {
         minValue = Math.min(val, minValue);
@@ -90,5 +84,3 @@ class MinStack {
         return stack.peekFirst()[1];
     }
 }
-
-

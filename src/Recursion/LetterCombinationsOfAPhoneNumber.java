@@ -39,7 +39,9 @@ import java.util.*;
 
 public class LetterCombinationsOfAPhoneNumber {
 
-    private static final String[] MAP = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    private static final String[] MAP = {
+        "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"
+    };
 
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<String>();
@@ -54,7 +56,7 @@ public class LetterCombinationsOfAPhoneNumber {
             return;
         }
         // 每次循环
-        for (char c: MAP[digits.charAt(depth) - '0'].toCharArray()) {
+        for (char c : MAP[digits.charAt(depth) - '0'].toCharArray()) {
             // 更新sb
             sb.append(c);
             // 进入下一层

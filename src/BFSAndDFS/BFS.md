@@ -1,5 +1,7 @@
 # BFS总结
 
+https://leetcode.cn/problems/number-of-distinct-islands/solutions/1252714/dfs-suan-fa-miao-sha-dao-yu-xi-lie-ti-mu-m7k1/
+
 ## Queue的用法
 
 ### 类关系图
@@ -54,9 +56,9 @@ deque.peekLast();   // 从tail读取
 ```
 // 以树类结构举例
 // 声明队列
-Queue<Node> queue = new ArrayDeque<>();
+Queue<TreeNode> queue = new ArrayDeque<>();
 // 声明哈希集合
-Set<Node> visited = new HashSet<>();
+Set<TreeNode> visited = new HashSet<>();
 // 将第一个点加入队列
 queue.offer(root);
 // 如果有需要, 要在把元素添加进队列的时候, 也立马将其标记为已访问
@@ -64,7 +66,7 @@ visited.add(root);
 // 遍历队列, 并不断根据情况, 将合适的节点加入队列
 while (!queue.isEmpty()) {
     // 将节点弹出
-    Node node = queue.poll();
+    TreeNode node = queue.poll();
     // 对节点做判断
     一些判断代码
     // 将合适的节点加入队列
@@ -81,9 +83,9 @@ while (!queue.isEmpty()) {
 ```
 // 以矩阵举例
 // 声明队列
-Queue<Node> queue = new ArrayDeque<>();
+Queue<TreeNode> queue = new ArrayDeque<>();
 // 声明哈希集合
-Set<Node> visited = new HashSet<>();
+Set<TreeNode> visited = new HashSet<>();
 // 遍历矩阵
 for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
@@ -98,7 +100,7 @@ for (int i = 0; i < m; i++) {
             // 遍历队列, 并不断根据情况, 将合适的节点加入队列
             while (!queue.isEmpty()) {
                 // 将节点弹出
-                Node node = queue.poll();
+                TreeNode node = queue.poll();
                 // 对节点做判断
                 一些判断代码
                 // 将合适的节点加入队列
@@ -125,7 +127,7 @@ for (int i = 0; i < m; i++) {
 用哈希集合来记录
 
 ```
-Set<Node> visited = new HashSet<>();
+Set<TreeNode> visited = new HashSet<>();
 ...
 // 将节点加入队列
 queue.offer(node);

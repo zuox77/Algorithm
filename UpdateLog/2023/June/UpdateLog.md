@@ -49,6 +49,6 @@
 ### 2023/06/30
 
 1. Completed `Anagrams.java`, `MaxAreaOfIsland.java`, `SpiralMatrix.java`
-2. Summarized `BFS` method in `BFS.md`
+2. Summarized `BFSAndDFS` method in `BFSAndDFS.md`
 3. Added `July` directory
 4. Rephrased all function name to be `solution1` instead of `solution`, even if they don't have a second solution

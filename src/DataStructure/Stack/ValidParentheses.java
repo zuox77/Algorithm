@@ -23,7 +23,7 @@ public class ValidParentheses {
         // 创建一个栈
         Deque<Character> stack = new ArrayDeque<>();
         // 遍历s，将其放入栈
-        for(char c: s.toCharArray()) {
+        for (char c : s.toCharArray()) {
             // 如果stack是空的，或者是任意的左括号，放入栈
             if (MAP.containsKey(c)) {
                 stack.offerFirst(c);

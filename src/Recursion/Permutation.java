@@ -28,7 +28,8 @@ public class Permutation {
         return ans;
     }
 
-    public void recursion(int[] nums, List<List<Integer>> ans, Set<Integer> visited, List<Integer> permutation) {
+    public void recursion(
+            int[] nums, List<List<Integer>> ans, Set<Integer> visited, List<Integer> permutation) {
         // 退出条件（边界条件）
         // 注意：在这个题里，depth理论上只能有三层，因为[1,2,3]是三个数
         // 所以退出条件也是第三层，所以其实可以直接用visited.size()来代替，毕竟visited里面有几个数也能代表同样的事情

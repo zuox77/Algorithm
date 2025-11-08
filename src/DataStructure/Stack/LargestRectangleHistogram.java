@@ -173,7 +173,7 @@ public class LargestRectangleHistogram {
         int[] rightMin = new int[n];
         // 重置stack
         stack.clear();
-        for (int i = n - 1; i >=0; i--) {
+        for (int i = n - 1; i >= 0; i--) {
             while (!stack.isEmpty() && heights[stack.peekFirst()] >= heights[i]) {
                 stack.pollFirst();
             }

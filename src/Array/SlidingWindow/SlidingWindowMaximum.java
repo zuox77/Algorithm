@@ -126,7 +126,6 @@ public class SlidingWindowMaximum {
             if (left >= 0) {
                 ans[left] = nums[stack.peekFirst()];
             }
-
         }
         return ans;
     }

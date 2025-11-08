@@ -23,7 +23,7 @@ Output: [3,2,1]
 
 public class PostOrderTraverse {
     // 递归 + DFS
-    public List<Integer> solution1(Node root) {
+    public List<Integer> solution1(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         // 递归
@@ -32,7 +32,7 @@ public class PostOrderTraverse {
         return result;
     }
 
-    public void dfs(Node node, List<Integer> result) {
+    public void dfs(TreeNode node, List<Integer> result) {
         // 递归出口
         if (node == null) {
             return;
@@ -48,7 +48,7 @@ public class PostOrderTraverse {
     }
 
     // 分治 + DFS
-    public List<Integer> solution2(Node root) {
+    public List<Integer> solution2(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         // corner case,也是递归的出口
@@ -68,7 +68,7 @@ public class PostOrderTraverse {
 
     // stack
 
-    public List<Integer> solution4(Node root) {
+    public List<Integer> solution4(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         Deque<PostOrderTraverse.State> stack = new ArrayDeque<>();
@@ -82,7 +82,7 @@ public class PostOrderTraverse {
         while (!stack.isEmpty()) {
             // 将栈顶弹出
             PostOrderTraverse.State now = stack.pop();
-            Node node = now.node;
+            TreeNode node = now.node;
             int indicator = now.indicator;
             // 先检查null, 避免后续node.left/node.right出错
             if (node == null) {
@@ -111,10 +111,10 @@ public class PostOrderTraverse {
 
     // stack2
     class State {
-        Node node;
+        TreeNode node;
         int indicator;
 
-        public State(Node node, int indicator) {
+        public State(TreeNode node, int indicator) {
             this.node = node;
             this.indicator = indicator;
         }

@@ -22,7 +22,7 @@ Output: [1,3,2]
  */
 public class InOrderTraverse {
     // 递归 + DFS
-    public List<Integer> solution1(Node root) {
+    public List<Integer> solution1(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         // 递归
@@ -31,7 +31,7 @@ public class InOrderTraverse {
         return result;
     }
 
-    public void dfs(Node root, List<Integer> result) {
+    public void dfs(TreeNode root, List<Integer> result) {
         // 递归出口
         if (root == null) {
             return;
@@ -43,7 +43,7 @@ public class InOrderTraverse {
     }
 
     // 递归 + 分治
-    public List<Integer> solution2(Node root) {
+    public List<Integer> solution2(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         // corner case, 也是递归的出口
@@ -62,16 +62,16 @@ public class InOrderTraverse {
     }
 
     // stack
-    public List<Integer> solution3(Node root) {
+    public List<Integer> solution3(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
-        Deque<Node> stack = new ArrayDeque<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
         // 先检查root是否是null, 不然放入stack会报错
         if (root == null) {
             return result;
         }
         // 设置一个新指针, 指向root
-        Node node = root;
+        TreeNode node = root;
         // root != null是因为最开始没有讲root添加进stack, 如果单写!stack.isEmpty()就会
         // 直接退出, 所以为了进入循环, 要么root不是null, 要么stack不是空
         while (node != null || !stack.isEmpty()) {
@@ -97,7 +97,7 @@ public class InOrderTraverse {
         return result;
     }
 
-    public List<Integer> solution4(Node root) {
+    public List<Integer> solution4(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         Deque<State> stack = new ArrayDeque<>();
@@ -111,7 +111,7 @@ public class InOrderTraverse {
         while (!stack.isEmpty()) {
             // 将栈顶弹出
             State now = stack.pop();
-            Node node = now.node;
+            TreeNode node = now.node;
             int indicator = now.indicator;
             // 先检查null, 避免后续node.left/node.right出错
             if (node == null) {
@@ -139,17 +139,17 @@ public class InOrderTraverse {
     }
 
     // morris
-    public List<Integer> inorderTraversal(Node root) {
+    public List<Integer> inorderTraversal(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<Integer>();
         // 创建一个指向root的新的指针, 这样移动新指针不会导致丢失对root的引用
-        Node now = root;
+        TreeNode now = root;
         // 遍历
         while (now != null) {
             // 判断now.left是否存在
             if (now.left != null) {
                 // 新设置一个指针指向now.left
-                Node tmp = now.left;
+                TreeNode tmp = now.left;
                 // 通过遍历, 将tmp遍历到当前节点的最右边节点
                 while (tmp.right != null && tmp.right != now) {
                     tmp = tmp.right;
@@ -179,11 +179,11 @@ public class InOrderTraverse {
     }
 
     // stack2
-    class State {
-        Node node;
+    static class State {
+        TreeNode node;
         int indicator;
 
-        public State(Node node, int indicator) {
+        public State(TreeNode node, int indicator) {
             this.node = node;
             this.indicator = indicator;
         }

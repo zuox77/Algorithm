@@ -29,9 +29,11 @@ return the values of the nodes you can see ordered from top to bottom
  */
 
 public class RightView {
+    private static final List<Integer> res = new ArrayList<>();
+
     // BFS
-    public List<Integer> solution1(Node root) {
-        Queue<Node> queue = new LinkedList<>();
+    public List<Integer> solution1(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
         List<Integer> result = new ArrayList<>();
         if (root == null) {
             return result;
@@ -41,7 +43,7 @@ public class RightView {
         while (!queue.isEmpty()) {
             int len = queue.size();
             for (int i = 0; i < len; i++) {
-                Node node = queue.poll();
+                TreeNode node = queue.poll();
                 if (i == len - 1) {
                     result.add(node.val);
                 }
@@ -58,22 +60,21 @@ public class RightView {
     }
 
     // DFS
-    public List<Integer> solution2(Node root) {
-        List<Integer> result = new ArrayList<>();
-        dfs(root, 0, result);
-        return result;
+    public List<Integer> solution2(TreeNode root) {
+        dfs(root, 0); // 从根节点开始访问，根节点深度是0
+        return res;
     }
 
-    public void dfs(Node root, int depth, List<Integer> result) {
-        // recursion exit
+    private void dfs(TreeNode root, int depth) {
         if (root == null) {
             return;
         }
-        // check layer
-        if (depth == result.size()) {
-            result.add(root.val);
+        // 先访问 当前节点，再递归地访问 右子树 和 左子树。
+        if (depth == res.size()) { // 如果当前节点所在深度还没有出现在res里，说明在该深度下当前节点是第一个被访问的节点，因此将当前节点加入res中。
+            res.add(root.val);
         }
-        dfs(root.right, depth, result);
-        dfs(root.left, depth, result);
+        depth++;
+        dfs(root.right, depth);
+        dfs(root.left, depth);
     }
 }

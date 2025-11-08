@@ -35,7 +35,13 @@ public class CombinationSum {
         return ans;
     }
 
-    public void recursion(int[] candidates, int target, int depth, int curSum, List<List<Integer>> ans, List<Integer> comb) {
+    public void recursion(
+            int[] candidates,
+            int target,
+            int depth,
+            int curSum,
+            List<List<Integer>> ans,
+            List<Integer> comb) {
         // 退出条件
         if (curSum == target) {
             ans.add(new ArrayList<>(comb));

@@ -1,6 +1,5 @@
 package Recursion;
 
-
 /*
 https://leetcode.cn/problems/word-search/description/?envType=study-plan-v2&envId=top-100-liked
 
@@ -53,7 +52,7 @@ public class WordSearch {
         // 每次循环
         // 更新board
         board[i][j] = '1'; // 标记为visited
-        for (int[] direction: DIRECTIONS) {
+        for (int[] direction : DIRECTIONS) {
             int newX = i + direction[0];
             int newY = j + direction[1];
             // 之所以这里是if(xxx) {return true;}而不是if(!xxx) {return false;}的原因是：
@@ -61,7 +60,11 @@ public class WordSearch {
             // 但如果我们选择return false则没有这个效果
             // 听起来好像是我们应该直接false停下，但要注意recursion用的都是return，return代表返回上一层，而不是一般用的break退出循环
             // 但这里，我们找错了还要继续找，直到把周围方向的都找完为止，所以选返回true的写法，而不能写返回false
-            if (0 <= newX && newX < board.length && 0 <= newY && newY <board[0].length && recursion(newX, newY, k + 1, board, word)) {
+            if (0 <= newX
+                    && newX < board.length
+                    && 0 <= newY
+                    && newY < board[0].length
+                    && recursion(newX, newY, k + 1, board, word)) {
                 return true;
             }
         }

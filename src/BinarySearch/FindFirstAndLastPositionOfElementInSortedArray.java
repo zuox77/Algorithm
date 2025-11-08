@@ -31,7 +31,7 @@ Output: [-1,-1]
 public class FindFirstAndLastPositionOfElementInSortedArray {
     public int[] searchRange(int[] nums, int target) {
         // Corner case
-        if (nums == null || nums.length == 0) return new int[]{-1, -1};
+        if (nums == null || nums.length == 0) return new int[] {-1, -1};
         // 创建双指针
         int left = 0, right = nums.length - 1;
         // 二分
@@ -53,7 +53,7 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         if (nums[right] == target) {
             return findFirstAndLast(nums, target, right);
         }
-        return new int[]{-1, -1};
+        return new int[] {-1, -1};
     }
 
     public int[] findFirstAndLast(int[] nums, int target, int i) {
@@ -67,6 +67,6 @@ public class FindFirstAndLastPositionOfElementInSortedArray {
         while (right < nums.length && nums[right] == target) {
             right++;
         }
-        return new int[]{left + 1, right - 1};
+        return new int[] {left + 1, right - 1};
     }
 }

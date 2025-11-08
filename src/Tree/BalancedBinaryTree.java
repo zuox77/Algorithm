@@ -21,11 +21,11 @@ Output: false
  */
 
 public class BalancedBinaryTree {
-    public boolean isBalanced(Node root) {
+    public boolean isBalanced(TreeNode root) {
         return maxHeight(root) != -1;
     }
 
-    public int maxHeight(Node node) {
+    public int maxHeight(TreeNode node) {
         // 递归出口,同时也是corner case
         if (node == null) {
             return 0;

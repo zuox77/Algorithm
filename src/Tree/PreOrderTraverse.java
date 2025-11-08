@@ -78,8 +78,8 @@ Output: [1,2,3]
  */
 
 public class PreOrderTraverse {
-    // DFS
-    public List<Integer> solution1(Node root) {
+    // DFS / Recursion
+    public List<Integer> preOrderTraverse_DFS(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<Integer>();
         // DFS递归
@@ -88,7 +88,7 @@ public class PreOrderTraverse {
         return result;
     }
 
-    public void recursion(List<Integer> result, Node root) {
+    public void recursion(List<Integer> result, TreeNode root) {
         // 递归出口
         if (root == null) {
             return;
@@ -105,8 +105,8 @@ public class PreOrderTraverse {
         }
     }
 
-    // 分治
-    public List<Integer> solution2(Node root) {
+    // Divide And Conquer
+    public List<Integer> preOrderTraverse_DivideAndConquer(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         // corner case
@@ -114,8 +114,8 @@ public class PreOrderTraverse {
             return result;
         }
         // 分治的分
-        List<Integer> left = solution2(root.left);
-        List<Integer> right = solution2(root.right);
+        List<Integer> left = preOrderTraverse_DivideAndConquer(root.left);
+        List<Integer> right = preOrderTraverse_DivideAndConquer(root.right);
         // 分治的治
         // 按照前序遍历 根 - 左 - 右 的顺序, 每次都先将root放进答案
         result.add(root.val);
@@ -126,11 +126,11 @@ public class PreOrderTraverse {
         return result;
     }
 
-    // stack
-    public List<Integer> solution3(Node root) {
+    // Stack
+    public List<Integer> preOrderTraverse_Stack(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
-        Deque<Node> stack = new ArrayDeque<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
         // 先检查是否是null, 不然加进stack会报错
         if (root == null) {
             return result;
@@ -140,7 +140,7 @@ public class PreOrderTraverse {
         // 开始循环遍历
         while (!stack.isEmpty()) {
             // 将栈顶弹出
-            Node node = stack.pop();
+            TreeNode node = stack.pop();
             // 按照前序遍历 根 - 左 - 右 的顺序, 每次都先将root放进答案
             result.add(node.val);
             // 这里与递归不一样, 需要先将right放进去, 因为栈是FILO顺序, 所以right先放进去会最后出来
@@ -155,7 +155,7 @@ public class PreOrderTraverse {
         return result;
     }
 
-    public List<Integer> solution4(Node root) {
+    public List<Integer> preOrderTraverse_Stack2(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<>();
         Deque<State> stack = new ArrayDeque<>();
@@ -169,7 +169,7 @@ public class PreOrderTraverse {
         while (!stack.isEmpty()) {
             // 将栈顶弹出
             State now = stack.pop();
-            Node node = now.node;
+            TreeNode node = now.node;
             int indicator = now.indicator;
             // 先检查null, 避免后续node.left/node.right出错
             if (node == null) {
@@ -196,18 +196,18 @@ public class PreOrderTraverse {
         return result;
     }
 
-    // morris
-    public List<Integer> solution5(Node root) {
+    // Morris
+    public List<Integer> preOrderTraverse_Morris(TreeNode root) {
         // 定义变量
         List<Integer> result = new ArrayList<Integer>();
         // 创建一个指向root的新的指针, 这样移动新指针不会导致丢失对root的引用
-        Node now = root;
+        TreeNode now = root;
         // 遍历
         while (now != null) {
             // 判断now.left是否存在
             if (now.left != null) {
                 // 新设置一个指针指向now.left
-                Node tmp = now.left;
+                TreeNode tmp = now.left;
                 // 通过遍历, 将tmp遍历到当前节点的最右边节点
                 while (tmp.right != null && tmp.right != now) {
                     tmp = tmp.right;
@@ -235,12 +235,12 @@ public class PreOrderTraverse {
         return result;
     }
 
-    // stack2
-    class State {
-        Node node;
+    // Stack2
+    private static class State {
+        TreeNode node;
         int indicator;
 
-        public State(Node node, int indicator) {
+        public State(TreeNode node, int indicator) {
             this.node = node;
             this.indicator = indicator;
         }

@@ -9,7 +9,7 @@ import java.util.Deque;
 https://leetcode.cn/problems/binary-search-tree-iterator/description/
 
 Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
-1. BSTIterator(Node root) Initializes an object of the BSTIterator class.
+1. BSTIterator(TreeNode root) Initializes an object of the BSTIterator class.
 2. The root of the BST is given as part of the constructor.
 3. The pointer should be initialized to a non-existent number smaller than any element in the BST.
 boolean hasNext() Returns true if there exists a number in the traversal to the right of the pointer, otherwise returns false.
@@ -44,10 +44,10 @@ bSTIterator.hasNext(); // return False
  */
 
 public class BinaryTreeIterator {
-    private Deque<Node> stack = new ArrayDeque<>();
-    private Node current;
+    private final Deque<TreeNode> stack = new ArrayDeque<>();
+    private TreeNode current;
 
-    public BinaryTreeIterator(Node root) {
+    public BinaryTreeIterator(TreeNode root) {
         // 添加新的指针
         this.current = root;
     }
@@ -60,7 +60,7 @@ public class BinaryTreeIterator {
             current = current.left;
         }
         // 这里需要一个新的指针用来返回结果,因为在返回之前要把current移动到current.right
-        Node node = stack.pop();
+        TreeNode node = stack.pop();
         current = node.right;
         return node.val;
     }

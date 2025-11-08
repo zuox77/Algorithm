@@ -24,9 +24,9 @@ Output: [[3],[9,20],[15,7]]
  */
 
 public class BinaryTreeLevelOrderTraversal {
-    public List<List<Integer>> solution1(Node root) {
+    public List<List<Integer>> solution1(TreeNode root) {
         // 定义变量
-        Queue<Node> queue = new ArrayDeque<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
         List<List<Integer>> result = new ArrayList<>();
         // corner case
         if (root == null) {
@@ -46,7 +46,7 @@ public class BinaryTreeLevelOrderTraversal {
             List<Integer> level = new ArrayList<>();
             for (int i = 0; i < prevCount; i++) {
                 // poll出第一个数
-                Node node = queue.poll();
+                TreeNode node = queue.poll();
                 // 将根节点添加进level
                 level.add(node.val);
                 // 左子节点
@@ -67,9 +67,9 @@ public class BinaryTreeLevelOrderTraversal {
         return result;
     }
 
-    public List<List<Integer>> levelOrder(Node root) {
+    public List<List<Integer>> levelOrder(TreeNode root) {
         // 定义变量
-        Queue<Node> queue = new ArrayDeque<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
         List<List<Integer>> result = new ArrayList<>();
         // 定义一个变量记录每一层的值
         List<Integer> level = new ArrayList<>();
@@ -87,7 +87,7 @@ public class BinaryTreeLevelOrderTraversal {
             level = new ArrayList<>();
             for (int i = 0; i < count; i++) {
                 // poll出第一个数
-                Node node = queue.poll();
+                TreeNode node = queue.poll();
                 // 将根节点添加进level
                 level.add(node.val);
                 // 左子节点

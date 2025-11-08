@@ -36,7 +36,8 @@ public class Permutation2 {
         return ans;
     }
 
-    public void recursion(int[] nums, List<List<Integer>> ans, List<Integer> permutation, Set<Integer> visited) {
+    public void recursion(
+            int[] nums, List<List<Integer>> ans, List<Integer> permutation, Set<Integer> visited) {
         // 退出条件（底部条件）
         if (visited.size() == nums.length) {
             ans.add(new ArrayList<>(permutation));

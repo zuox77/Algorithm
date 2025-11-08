@@ -52,14 +52,16 @@ public class MergeKSortedLists {
     public ListNode mergeKLists(ListNode[] lists) {
         int n = lists.length;
         // 创建一个堆
-        PriorityQueue<ListNode> heap = new PriorityQueue<>(new Comparator<ListNode>() {
-            @Override
-            public int compare(ListNode o1, ListNode o2) {
-                return o1.val - o2.val;
-            }
-        });
+        PriorityQueue<ListNode> heap =
+                new PriorityQueue<>(
+                        new Comparator<ListNode>() {
+                            @Override
+                            public int compare(ListNode o1, ListNode o2) {
+                                return o1.val - o2.val;
+                            }
+                        });
         // 将每个链表的头都放进堆里
-        for (ListNode node: lists) {
+        for (ListNode node : lists) {
             // 跳过null
             if (node != null) {
                 heap.offer(node);
@@ -140,7 +142,8 @@ public class MergeKSortedLists {
     public class ExternalMerger {
 
         // 核心合并方法
-        public static void mergeKSortedFiles(List<String> inputFiles, String outputFile) throws IOException {
+        public static void mergeKSortedFiles(List<String> inputFiles, String outputFile)
+                throws IOException {
             // 1. 初始化优先队列（小顶堆）
             PriorityQueue<Element> minHeap = new PriorityQueue<>();
             List<BufferedReader> readers = new ArrayList<>();
@@ -218,7 +221,8 @@ public class MergeKSortedLists {
         }
 
         // 辅助方法：生成一个包含有序整数的文件
-        private static void generateSortedFile(String filename, int start, int count, int step) throws IOException {
+        private static void generateSortedFile(String filename, int start, int count, int step)
+                throws IOException {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
             for (int i = 0; i < count; i++) {
                 writer.write(String.valueOf(start + i * step));
