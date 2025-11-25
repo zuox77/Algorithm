@@ -1,4 +1,4 @@
-package Recursion;
+package BFSAndDFS;
 
 /*
 https://leetcode.cn/problems/letter-combinations-of-a-phone-number/description/?envType=study-plan-v2&envId=top-100-liked
@@ -35,7 +35,8 @@ Output: ["a","b","c"]
 
  */
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LetterCombinationsOfAPhoneNumber {
 
@@ -44,7 +45,7 @@ public class LetterCombinationsOfAPhoneNumber {
     };
 
     public List<String> letterCombinations(String digits) {
-        List<String> ans = new ArrayList<String>();
+        List<String> ans = new ArrayList<>();
         recursion(digits, 0, new StringBuilder(), ans);
         return ans;
     }

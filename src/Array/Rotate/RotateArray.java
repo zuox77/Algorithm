@@ -37,19 +37,19 @@ rotate 2 steps to the right: [3,99,-1,-100]
  */
 
 public class RotateArray {
-    public void rotate(int[] nums, int k) {
+    public void rotateArray(int[] nums, int k) {
         // 需要先把k % n，一个是避免麻烦，当k大于nums.length时，会报错，比如[1,2,3]，k=5，其实是往右移动2位。所以即k = k % n
         int n = nums.length;
         k %= n;
         // 翻转整个数组
-        swapHalf(nums, 0, n - 1);
+        swapArray(nums, 0, n - 1);
         // 翻转前k个
-        swapHalf(nums, 0, k - 1);
+        swapArray(nums, 0, k - 1);
         // 翻转后k个
-        swapHalf(nums, k, n - 1);
+        swapArray(nums, k, n - 1);
     }
 
-    public void swapHalf(int[] nums, int left, int right) {
+    public void swapArray(int[] nums, int left, int right) {
         while (left < right) {
             int tmp = nums[left];
             nums[left] = nums[right];

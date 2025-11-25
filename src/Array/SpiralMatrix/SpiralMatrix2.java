@@ -7,17 +7,22 @@ Given a positive integer n, generate an n x n matrix filled with elements from 1
 
 Example 1:
 Input: n = 3
-Output: [[1,2,3],[8,9,4],[7,6,5]]
+Output:
+[
+    [1,2,3],
+    [8,9,4],
+    [7,6,5]
+]
 
 Example 2:
 Input: n = 1
 Output: [[1]]
 
-思路:
+思路: 和SpiralMatrix.java类似
  */
 
 public class SpiralMatrix2 {
-    public int[][] spiralMatrix(int n) {
+    public int[][] spiralMatrixII(int n) {
         // 创建矩阵
         int[][] matrix = new int[n][n];
         // 创建方向矩阵
@@ -53,5 +58,25 @@ public class SpiralMatrix2 {
             col += directions[dirFlag][1];
         }
         return matrix;
+    }
+
+    public int[][] spiralMatrixII2(int n) {
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int[][] ans = new int[n][n];
+        int count = 1, currentStep = n, nextStep = n - 1, row = 0, col = -1;
+        for (int i = 0; count <= n * n; i = (i + 1) % 4) {
+            for (int j = 0; j < currentStep; j++) {
+                // Update position
+                row += directions[i][0];
+                col += directions[i][1];
+                // Add to matrix and update count
+                ans[row][col] = count++;
+            }
+            // Update steps
+            int tmp = currentStep;
+            currentStep = nextStep;
+            nextStep = tmp - 1;
+        }
+        return ans;
     }
 }

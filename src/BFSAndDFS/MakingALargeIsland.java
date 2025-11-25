@@ -25,7 +25,8 @@ Explanation: Can't change any 0 to 1, only one island with area = 4.
 思路: DFS
 1. 先遍历所有的岛，并将其重新编号，与0和1区分开，然后用一个map记录编号和面积
 2. 再遍历所有的0，对每一个0，上下左右四个方向，找grid上面是否有编号，如果有，通过第一步的map找到面积并加上
-3. 记住判断没有岛屿的情况
+3. 记住判断没有岛屿的情况，如果没有岛
+4. 记住判断全是岛的情况，即maxArea = 0的时候，因为如果所有地方都是岛，那么就进不去计算area的for循环（第二个for循环），因为没有水
  */
 
 import java.util.HashMap;
@@ -67,8 +68,9 @@ public class MakingALargeIsland {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
-                    Set<Integer> edges = new HashSet<>();
-                    int area = dfs(grid, m, n, i, j, symbol, edges);
+                    // 用一个visited记录已经遍历过的位置和水的位置，可以避免重复遍历以及帮助计算dfs的退出条件
+                    Set<Integer> visited = Set.of(symbol, 0);
+                    int area = dfs(grid, m, n, i, j, symbol, visited);
                     // 记录当前面积
                     areaMap.put(symbol, area);
                     // 更新symbol
@@ -92,7 +94,7 @@ public class MakingALargeIsland {
                 int area = 1;
                 // 用一个visited记录已经添加过的岛屿编号，防止重复添加
                 Set<Integer> visited = new HashSet<>();
-                // 可以先添加一个0进去，相当与下面检查时候的排除其余的0
+                // 可以先添加一个0进去，即将水先加入，相当与下面检查时候的排除水的位置
                 visited.add(0);
                 // 找到当前坐标的四个方向是否有其他岛屿，如果有，加上面积
                 for (int[] dire : DIRECTIONS) {
@@ -100,7 +102,8 @@ public class MakingALargeIsland {
                     int newY = j + dire[1];
                     // 检查边界 + 添加visited
                     // 本来应该再检查一下grid[newX][newY] == 0，但因为visited已经添加了0，所以不需要检查了
-                    if (!isValid(m, n, newX, newY) || !visited.add(grid[newX][newY])) continue;
+                    if (!isValid(m, n, newX, newY, grid, visited) || !visited.add(grid[newX][newY]))
+                        continue;
                     // 计算面积
                     area += areaMap.get(grid[newX][newY]);
                 }
@@ -112,21 +115,21 @@ public class MakingALargeIsland {
         return maxArea == 0 ? n * n : maxArea;
     }
 
-    private int dfs(int[][] grid, int m, int n, int x, int y, int symbol, Set<Integer> edges) {
-        // 超过边界或者已经遍历过
-        if (!isValid(m, n, x, y) || grid[x][y] == symbol || grid[x][y] == 0) return 0;
+    private int dfs(int[][] grid, int m, int n, int x, int y, int symbol, Set<Integer> visited) {
+        // 超过边界或者已经遍历过或者是水
+        if (!isValid(m, n, x, y, grid, visited)) return 0;
         // 赋予新的标号
         grid[x][y] = symbol;
         // 更新面积
         int area = 1;
         // 按照方向遍历四周计算面积
         for (int[] dire : DIRECTIONS) {
-            area += dfs(grid, m, n, x + dire[0], y + dire[1], symbol, edges);
+            area += dfs(grid, m, n, x + dire[0], y + dire[1], symbol, visited);
         }
         return area;
     }
 
-    private boolean isValid(int m, int n, int x, int y) {
-        return 0 <= x && 0 <= y && x < m && y < n;
+    private boolean isValid(int m, int n, int x, int y, int[][] grid, Set<Integer> visited) {
+        return 0 <= x && 0 <= y && x < m && y < n && !visited.contains(grid[x][y]);
     }
 }

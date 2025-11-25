@@ -96,13 +96,9 @@ public class PreOrderTraverse {
         // 按照前序遍历 根 - 左 - 右 的顺序, 每次都先将root放进答案
         result.add(root.val);
         // 递归遍历左子节点
-        if (root.left != null) {
-            recursion(result, root.left);
-        }
+        recursion(result, root.left);
         // 递归遍历右子节点
-        if (root.right != null) {
-            recursion(result, root.right);
-        }
+        recursion(result, root.right);
     }
 
     // Divide And Conquer

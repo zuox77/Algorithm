@@ -1,13 +1,30 @@
 package DataStructure;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 /*
 https://leetcode.cn/problems/top-k-frequent-elements/
 https://www.jiuzhang.com/problem/top-k-frequent-elements/
 https://www.lintcode.com/problem/471/
+
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+
+Example 1:
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+Example 2:
+Input: nums = [1], k = 1
+Output: [1]
+
+Example 3:
+Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
 
 思路1: 最小堆
 1. 建立最小堆, 最小堆的堆顶是最小的, 所以每个新的元素进来前都与堆顶做比较, 如果比堆顶大, 那么堆顶出, 新元素进, 这样可以保证最小堆里的数都是大的
@@ -36,7 +53,7 @@ https://www.lintcode.com/problem/471/
  */
 
 public class TopKFrequent {
-    public int[] solution1(int[] nums, int k) {
+    public int[] topKFrequent1(int[] nums, int k) {
         // define a max heap and override its compare method
         PriorityQueue<Pair> maxHeap =
                 new PriorityQueue<>(
@@ -82,6 +99,34 @@ public class TopKFrequent {
     用的时候直接:
     pairComparator.compare(pair1, pair2) > 0: 表示pair1比pair2大
      */
+
+    public int[] topKFrequent2(int[] nums, int k) {
+        // 用map保存每个数字出现的次数
+        Map<Integer, Integer> map = new HashMap<>();
+        // 再用一个变量保存最大的次数的值
+        int maxFreq = 0;
+        for (int num : nums) {
+            map.merge(num, 1, Integer::sum);
+            maxFreq = Math.max(maxFreq, map.get(num));
+        }
+        // 创建一个数组，用数组下标作为次数，保存相应的数字
+        List<Integer>[] freqList = new List[maxFreq + 1]; // 这里加1是因为下标为0代表频率为0的，所以多了一个数
+        // 初始化
+        Arrays.setAll(freqList, i -> new ArrayList<>());
+        // 遍历map，填上对应的频率和数字
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            freqList[entry.getValue()].add(entry.getKey());
+        }
+        // 倒序遍历刚刚的数组，提取前k个数
+        int[] ans = new int[k];
+        int count = 0;
+        for (int i = maxFreq; i >= 0 && count < k; i--) {
+            for (int num : freqList[i]) {
+                ans[count++] = num;
+            }
+        }
+        return ans;
+    }
 
     class Pair {
         int val;

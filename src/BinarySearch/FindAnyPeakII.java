@@ -75,7 +75,7 @@ class FindAnyPeakII {
             if (!leftLarger && !rightLarger) {
                 return new int[] {colMaxIndex, mid};
                 // 当前点处于向右递增, 则右边更有可能有峰顶, 所以left指针向右移动
-            } else if (!leftLarger && rightLarger) {
+            } else if (!leftLarger) {
                 // 注意这里一定要是mid+1, 详情可以看BinarySearch.md
                 left = mid + 1;
                 // 当前点处于向左递增, 则左边更有可能有峰顶, 所以right指针向左移动

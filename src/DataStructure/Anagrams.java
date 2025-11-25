@@ -32,7 +32,7 @@ public class Anagrams {
             // 遍历m单词的每个字母, 放入字母表数组中
             int[] alphabet = new int[26];
             for (int i = 0; i < str.length(); i++) {
-                alphabet[str.charAt(i) - 'a'] = alphabet[str.charAt(i) - 'a'] + 1;
+                alphabet[str.charAt(i) - 'a']++;
             }
             // 遍历字母表数组, 将出现过的字母以及其频率组成字符串
             StringBuilder sb = new StringBuilder();

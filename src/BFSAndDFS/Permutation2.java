@@ -1,7 +1,7 @@
-package Recursion;
+package BFSAndDFS;
 
 /*
-https://leetcode.cn/problems/permutations-ii/submissions/407453339/?orderBy=most_votes
+https://leetcode.cn/problems/permutations-ii/description/?orderBy=most_votes
 
 思路: 递归/dfs
 1. 跟Permutation这道题差不多, 但允许重复元素, 而结果中又不允许重复答案

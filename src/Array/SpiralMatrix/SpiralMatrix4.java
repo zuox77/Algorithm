@@ -11,7 +11,12 @@ Return the generated matrix.
 
 Example 1:
 Input: m = 3, n = 5, head = [3,0,2,6,8,1,7,9,4,2,5,5,0]
-Output: [[3,0,2,6,8],[5,0,-1,-1,1],[5,2,4,9,7]]
+Output:
+[
+    [3,0,2,6,8],
+    [5,0,-1,-1,1],
+    [5,2,4,9,7]
+]
 Explanation: The diagram above shows how the values are printed in the matrix.
 Note that the remaining spaces in the matrix are filled with -1.
 
@@ -21,7 +26,7 @@ Output: [[0,1,2,-1]]
 Explanation: The diagram above shows how the values are printed from left to right in the matrix.
 The last space in the matrix is set to -1.
 
-思路:
+思路: 和SpiralMatrix.java一样
  */
 
 import LinkedList.ListNode;
@@ -29,7 +34,7 @@ import LinkedList.ListNode;
 import java.util.Arrays;
 
 public class SpiralMatrix4 {
-    public int[][] spiralMatrix(int m, int n, ListNode head) {
+    public int[][] spiralMatrixIV(int m, int n, ListNode head) {
         // 创建矩阵
         int[][] matrix = new int[m][n];
         // 初始化
@@ -66,6 +71,36 @@ public class SpiralMatrix4 {
             // 重新计算一下一个位置
             row += directions[dirFlag][0];
             col += directions[dirFlag][1];
+        }
+        return matrix;
+    }
+
+    public int[][] spiralMatrixIV2(int m, int n, ListNode head) {
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            Arrays.fill(matrix[i], -1);
+        }
+
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int row = 0, col = -1, currentStep = n, nextStep = m - 1, count = 0;
+        for (int i = 0; count < m * n; i = (i + 1) % 4) {
+            for (int j = 0; j < currentStep; j++) {
+                // Check head
+                if (head == null) return matrix;
+                // Update position
+                row += directions[i][0];
+                col += directions[i][1];
+                // Update matrix
+                matrix[row][col] = head.val;
+                // Update head
+                head = head.next;
+                // Update count
+                count++;
+            }
+            // Update steps
+            int tmp = currentStep;
+            currentStep = nextStep;
+            nextStep = tmp - 1;
         }
         return matrix;
     }

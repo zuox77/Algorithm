@@ -72,7 +72,7 @@ public class BoardGame {
         return player;
     }
 
-    enum Player {
+    public enum Player {
         PLAYER_WHITE('W'),
         PLAYER_RED('R');
         char symbol;

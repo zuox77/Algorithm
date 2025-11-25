@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
 刷题次数: 2
@@ -76,7 +77,7 @@ Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
  */
 public class GroupAnagrams {
     // 思路1
-    public List<List<String>> solution1(String[] strs) {
+    public List<List<String>> groupAnagram1(String[] strs) {
         // 创建哈希表
         HashMap<String, List<String>> map = new HashMap<>();
         // 遍历strs
@@ -99,7 +100,7 @@ public class GroupAnagrams {
     }
 
     // 思路2
-    public List<List<String>> solution2(String[] strs) {
+    public List<List<String>> groupAnagram2(String[] strs) {
         // 创建哈希表
         HashMap<String, List<String>> map = new HashMap<>();
         // 遍历
@@ -127,5 +128,16 @@ public class GroupAnagrams {
             map.put(key, list);
         }
         return new ArrayList<List<String>>(map.values());
+    }
+
+    public List<List<String>> groupAnagram3(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String word : strs) {
+            char[] wordList = word.toCharArray();
+            Arrays.sort(wordList);
+            String key = new String(wordList);
+            map.computeIfAbsent(key, x -> new ArrayList<>()).add(word);
+        }
+        return new ArrayList<>(map.values());
     }
 }

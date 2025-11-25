@@ -1,6 +1,7 @@
 package DataStructure;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /*
 https://leetcode.cn/problems/lru-cache/description/
@@ -15,98 +16,96 @@ https://www.jiuzhang.com/problem/lru-cache/
     4. 一个哈希字典, key是node的value, value是node本身, 方便查找
 3. get方程:
     1. 在哈希字典里面找key, 如果没有返回默认值
-    2. 如果有, 先用removeFromList方程删除此node, 再用addtoHead方程插入此node, 以此表示这个node被调用过, 会放在最前端
+    2. 如果有, 先用removeNode方程删除此node, 再用addNode方程插入此node, 以此表示这个node被调用过, 会放在最前端
 4. put方程:
     在哈希字典里面找key:
-        1. 如果没有: 先检查map.size(), removeFromList(tail.prev)方程, 再创建新的node
-        2. 如果有: 先将已有node的value更新, removeFromList
-    最后统一addtoHead方程
-5. addtoHead方程:
+        1. 如果没有: 先检查map.size(), removeNode(tail.prev)方程, 再创建新的node
+        2. 如果有: 先将已有node的value更新, removeNode
+    最后统一addNode方程
+5. addNode方程:
     1. 主要负责将node插入head
     2. 加入哈希字典
-6. removeFromList:
+6. removeNode:
     1. 主要负责将node移出链表
     2. 删去哈希字典
 
 需要注意的点:
-1. removeFromList方程不是将node从尾端(tail)移走, 只是将node移出链表, 因为需要移出链表的node不一定都在tail前面
-2. addtoHead方程一定是将node加入头端(head), 表示最近使用过
+1. removeNode方程不是将node从尾端(tail)移走, 只是将node移出链表, 因为需要移出链表的node不一定都在tail前面
+2. addNode方程一定是将node加入头端(head), 表示最近使用过
  */
 
-class TreeNode {
-    int val;
-    int key;
-    TreeNode next;
-    TreeNode prev;
-
-    public TreeNode() {}
-
-    public TreeNode(int val, int key) {
-        this.val = val;
-        this.key = key;
-        this.next = null;
-        this.prev = null;
-    }
-}
-
 class LRUCache {
-    private int capcacity;
-    private TreeNode head = new TreeNode();
-    private TreeNode tail = new TreeNode();
-    private HashMap<Integer, TreeNode> map = new HashMap<>();
 
+    private final int capacity;
+    private final Map<Integer, Node> keyMap;
+    private final Node head;
+    private final Node tail;
     public LRUCache(int capacity) {
-        this.capcacity = capacity;
+        this.capacity = capacity;
+        this.keyMap = new HashMap<>();
+        this.head = new Node(-1, -1);
+        this.tail = new Node(-1, -1);
         head.next = tail;
-        tail.prev = head;
+        tail.pre = head;
+    }
+
+    public void put(int key, int val) {
+        // 检查是否需要先删除一个节点
+        if (!keyMap.containsKey(key) && keyMap.size() == capacity) {
+            // 删除一个节点
+            removeNode(tail.pre);
+        }
+        // 通过key和value，获取或者创建节点
+        Node node;
+        if (keyMap.containsKey(key)) {
+            node = keyMap.get(key);
+            // 更新value
+            node.val = val;
+            removeNode(node);
+        } else {
+            node = new Node(key, val);
+        }
+        addNode(node);
     }
 
     public int get(int key) {
-        if (map.containsKey(key)) {
-            TreeNode node = map.get(key);
-            removeFromList(node);
-            addToHead(node);
-            return node.val;
-        }
-        return -1;
+        if (!keyMap.containsKey(key)) return -1;
+        // 获取节点
+        Node node = keyMap.get(key);
+        // 更新节点在链表中的位置
+        removeNode(node);
+        addNode(node);
+        return node.val;
     }
 
-    public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            TreeNode node = map.get(key);
-            node.val = value;
-            removeFromList(node);
-            addToHead(node);
-        } else {
-            TreeNode node = new TreeNode(value, key);
-            if (map.size() == capcacity) {
-                removeFromList(tail.prev);
-            }
-            addToHead(node);
-        }
+    private void removeNode(Node node) {
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        node.next = null;
+        node.pre = null;
+        keyMap.remove(node.key);
     }
 
-    public void addToHead(TreeNode node) {
-        TreeNode tmp = head.next;
+    private void addNode(Node node) {
+        head.next.pre = node;
+        node.next = head.next;
         head.next = node;
-        node.prev = head;
-        node.next = tmp;
-        tmp.prev = node;
-
-        int key = node.key;
-        map.put(key, node);
+        node.pre = head;
+        keyMap.put(node.key, node);
     }
+    ;
 
-    public void removeFromList(TreeNode node) {
-        /*
-        这里不能写成:
-        tail.prev = node.prev;
-        node.prev.next = tail;
-        因为不是从tail移除！是从链表任意位置移除！
-         */
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-        int key = node.key;
-        map.remove(key);
+    static class Node {
+        int key;
+        int val;
+        Node pre;
+        Node next;
+
+        public Node(int key, int val) {
+            this.key = key;
+            this.val = val;
+            this.pre = null;
+            this.next = null;
+        }
     }
 }

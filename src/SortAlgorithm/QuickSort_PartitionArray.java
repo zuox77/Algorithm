@@ -3,6 +3,7 @@ package SortAlgorithm;
 /*
 https://www.lintcode.com/problem/31/
 https://www.jiuzhang.com/problem/partition-array/
+
 快排思路:
 1. 双指针+递归
 2. 递归出口: start >= end
@@ -46,7 +47,7 @@ public class QuickSort_PartitionArray {
         int left = start, right = end;
         int pivotIndex = (start + end) / 2;
         int pivot = nums[pivotIndex];
-        // 记住left和right的比较都是小于等于, 因为指针有可能重叠
+
         while (left <= right) {
             // find the first element which is > pivot and on the left side of pivot
             while (left <= right && nums[left] < pivot) {
@@ -64,25 +65,24 @@ public class QuickSort_PartitionArray {
                 left++;
                 right--;
             }
-
-            // recursion
-            quickSortTemplate(nums, start, right);
-            quickSortTemplate(nums, left, end);
         }
     }
 
     // partition array
-    public int[] solution1(int[] nums, int k) {
+    public int[] partition(int[] nums, int pivot) {
         int left = 0, right = nums.length - 1;
         int pivotIndex = (left + right) / 2;
-        k = nums[pivotIndex];
+        // 记住left和right的比较都是小于等于, 因为指针有可能重叠
         while (left <= right) {
-            while (left <= right && nums[left] < k) {
+            // find the first element which is > pivot and on the left side of pivot
+            while (left <= right && nums[left] < pivot) {
                 left++;
             }
-            while (left <= right && nums[right] >= k) {
+            // find the first element which is < pivot and on the right side of pivot
+            while (left <= right && nums[right] > pivot) {
                 right--;
             }
+
             if (left <= right) {
                 int temp = nums[left];
                 nums[left] = nums[right];

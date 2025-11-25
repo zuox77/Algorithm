@@ -7,6 +7,32 @@ https://leetcode.cn/problems/find-median-from-data-stream/description/?orderBy=m
 https://www.lintcode.com/problem/81/
 https://www.jiuzhang.com/solutions/data-stream-median/
 
+The median is the middle value in an ordered integer list.
+If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
+For example, for arr = [2,3,4], the median is 3.
+For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+
+Implement the MedianFinder class:
+    MedianFinder() initializes the MedianFinder object.
+    void addNum(int num) adds the integer num from the data stream to the data structure.
+    double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+
+
+Example 1:
+Input
+["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+[[], [1], [2], [], [3], []]
+Output
+[null, null, null, 1.5, null, 2.0]
+
+Explanation
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.addNum(2);    // arr = [1, 2]
+medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+medianFinder.addNum(3);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
+
 思路: 两个堆
 1. 此题的关键在于median的定义不是任意数组的下标在中间的数, 而是排序数组的下标在中间的数
 2. 因为是数据流, 所以不知道最大长度, 无法用一般的排序方法解决, 又因为每个数都不一定是有序的, 所以还涉及到如何排序的问题

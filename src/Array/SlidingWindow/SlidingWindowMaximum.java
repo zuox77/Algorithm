@@ -47,7 +47,7 @@ import java.util.Deque;
 public class SlidingWindowMaximum {
 
     public int[] maxSlidingWindow(int[] nums, int k) {
-        // 创建一个栈用来记录滑动窗口，栈首代表最大的数，栈尾代表最小的数
+        // 创建一个栈用来记录滑动窗口，栈首（First）代表最大的数，栈尾（Last）代表最小的数，单调递减
         Deque<Integer> stack = new ArrayDeque<>();
 
         // 创建一个变量记录答案
@@ -56,7 +56,7 @@ public class SlidingWindowMaximum {
 
         // 遍历nums
         for (int right = 0; right < n; right++) {
-            // 如果比栈尾大，那么需要将所有的数pop出来存入新的数，以维护栈的单调性
+            // 如果比栈尾（Last）大，那么需要将所有比nums[right]小的数pop出来，以维护栈的单调性
             while (!stack.isEmpty() && nums[stack.peekLast()] <= nums[right]) {
                 stack.removeLast();
             }
@@ -76,19 +76,24 @@ public class SlidingWindowMaximum {
             移除栈首，且判断条件与第一种情况不一样
             第一种情况：maxSlidingWindow()
             第二种情况：maxSlidingWindow2()
-
              */
-            // 如果left >= 0，那么就需要记录栈首，保存进ans
+
+            /*
+            如果left < 0，说明当前窗口还没有达到k的长度，后续的操作是
+            1. 更新ans
+            2. 如果left == stack.peekFirst()，说明此时滑动窗口即将离开stack.peekFirst()的位置，所以将stack.peekFirst()直接出栈
+            这两步操作都与left < 0时无关，所以直接continue
+             */
             int left = right - k + 1;
-            if (left >= 0) {
-                ans[left] = nums[stack.peekFirst()];
-            }
-            // 还需要保证当前的right和left不超过k的距离，如果超过，那么栈首出栈
-            // 要做到这点，就需要用栈首的数（即栈首所代表的数的位置）与left比较
-            if (left >= stack.peekFirst()) {
-                // 如果大于栈首所代表的数的位置，栈首出栈
-                stack.removeFirst();
-            }
+            if (left < 0) continue;
+            // 更新ans
+            ans[left] = nums[stack.peekFirst()];
+            /*
+            还需要保证当前的right和left不超过k的距离，如果超过，那么栈首出栈
+            要做到这点，就需要用栈首的数（即栈首所代表的数的位置）与left比较
+             */
+            // 如果大于栈首所代表的数的位置，栈首出栈
+            if (left >= stack.peekFirst()) stack.removeFirst();
         }
         return ans;
     }

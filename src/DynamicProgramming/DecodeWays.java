@@ -77,7 +77,7 @@ Explanation: "06" cannot be mapped to "F" because of the leading zero ("6" is di
  */
 
 public class DecodeWays {
-    public int solution1(String s) {
+    public int decodeWays1(String s) {
         // corner case
         if (s.charAt(0) == '0') {
             return 0;
@@ -115,7 +115,7 @@ public class DecodeWays {
         return dp[n - 1];
     }
 
-    public int solution2(String s) {
+    public int decodeWays2(String s) {
         // corner case
         if (s.charAt(0) == '0') {
             return 0;
@@ -155,5 +155,25 @@ public class DecodeWays {
         }
         // 返回最后一个数
         return dpCurrent;
+    }
+
+    public int decodeWays3(String s) {
+        int n = s.length();
+        // 创建一个新的s，利用一个空格当作首个字母，可以方便计算
+        String newS = " " + s;
+        // 创建一个数组，数组的第i个，代表从0到i，一共有多少种decode方法
+        int[] num = new int[n + 1];
+        // 将第一个初始化为1，因为第0个数和第-1个数，一定只能组成1种方法，第-1个数是空格，所以一定无法decode
+        num[0] = 1;
+        // 从1开始遍历，方便计算
+        for (int i = 1; i < n + 1; i++) {
+            int oneChar = newS.charAt(i) - '0';
+            int twoChar = (newS.charAt(i) - '0') * 10 + newS.charAt(i + 1) - '0';
+            // 如果oneChar在1-9，那么oneChar可以自己单独组成一个数字
+            if (1 <= oneChar && oneChar <= 9) num[i] = num[i - 1];
+            // 如果twoChar在10-26之间，那么twoChar可以组成一个数字，在i=1的时候，因为初始化newS的第一个字母为空格，所以不需要考虑i - 2的情况
+            if (10 <= twoChar && twoChar <= 26) num[i] += num[i - 2];
+        }
+        return num[n];
     }
 }

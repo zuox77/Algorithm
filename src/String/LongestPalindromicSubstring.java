@@ -5,6 +5,20 @@ package String;
 
 https://leetcode.cn/problems/longest-palindromic-substring/description/
 
+Given a string s, return the longest palindromic substring in s.
+
+Example 1:
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+
+Example 2:
+Input: s = "cbbd"
+Output: "bb"
+
+a b a b c
+ cnt
+
 思路:
 1. 中心扩展法, 即遍历每个点, 以每个点为中点, 向两侧扩散检查关于中心点对称的两点是否相等
 2. 思路很简单, 需要注意的点有:

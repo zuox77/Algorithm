@@ -54,7 +54,7 @@ public class ShortestBridge {
                     if (!edgeCheck(n, m, newX, newY)
                             || grid[newX][newY] == 2
                             || visited.contains(newX * m + newY)) continue;
-                    // If find second island
+                    // Find second island
                     if (grid[newX][newY] == 1) {
                         // The first to find the second island is always the shortest
                         return layer;
@@ -84,7 +84,7 @@ public class ShortestBridge {
 
     private void dfs(int[][] grid, int n, int m, int x, int y) {
         // Exit
-        if (grid[x][y] == 0) {
+        if (edgeCheck(n, m, x, y) || grid[x][y] == 0 || grid[x][y] == 2) {
             return;
         }
         // mark
@@ -95,18 +95,12 @@ public class ShortestBridge {
         }
         // Iterate 4 directions
         for (int[] direction : DIRECTIONS) {
-            int newX = x + direction[0];
-            int newY = y + direction[1];
-            if (!edgeCheck(n, m, newX, newY) || grid[newX][newY] == 2) continue;
             // move deeper
-            dfs(grid, n, m, newX, newY);
+            dfs(grid, n, m, x + direction[0], y + direction[1]);
         }
     }
 
     private boolean edgeCheck(int n, int m, int x, int y) {
-        if (0 <= x && x < n && 0 <= y && y < m) {
-            return true;
-        }
-        return false;
+        return 0 <= x && x < n && 0 <= y && y < m;
     }
 }

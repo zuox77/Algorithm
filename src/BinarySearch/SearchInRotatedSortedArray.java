@@ -78,10 +78,22 @@ Output: 4
    2. target和mid都在左侧, 且nums[mid] < target, 左指针动, 其余写else且右指针动 -> 都在左 mid小 左指针动
    3. target和mid都在右侧, 且nums[mid] > target, 右指针动, 其余写else且左指针动 -> 都在右 mid大 右指针动
 7. 由于是搭配2, 所以最后需要检查一下left和right, 如果找到就返回, 否则就返回-1
+
+思路：
+1. 其余的不变，但对于如何移动左右指针的逻辑，可以简化一点
+2. 当target和mid都在同一边（都在左或者都在右）的时候，一定是个单调递增的区间
+    1. (isTargetLeft && isMidLeft) || (!isTargetLeft && !isMidLeft) -> 都在同一边
+        mid < target -> left = mid
+        mid > target -> right = mid
+        mid = target -> return
+    2. isTargetLeft && !isMidLeft -> target在左，mid在右
+        此时target一定大于mid，而我们想要靠近target，所以直接right = mid
+    3. !isTargetLeft && isMidLeft -> target在右，mid在左
+        此时target一定小于mid，而我们想要靠近target，所以直接left = mid
  */
 
 public class SearchInRotatedSortedArray {
-    public int search(int[] nums, int target) {
+    public int searchInRotatedSortedArray(int[] nums, int target) {
         // 定义指针
         int n = nums.length;
         int left = 0, right = n - 1;
@@ -121,5 +133,34 @@ public class SearchInRotatedSortedArray {
         }
         // 最后额外检查一次
         return nums[left] == target ? left : nums[right] == target ? right : -1;
+    }
+
+    public int searchInRotatedSortedArray2(int[] nums, int target) {
+        int n = nums.length, pivot = nums[n - 1], left = 0, right = n - 1;
+        if (pivot == target) return n - 1;
+        boolean isTargetLeft = target > pivot;
+        while (left + 1 < right) {
+            int midIndex = (left + right) >>> 1;
+            int mid = nums[midIndex];
+            if (mid == target) return midIndex;
+            boolean isMidLeft = mid > pivot;
+            // 如果在同一边
+            if (isTargetLeft && isMidLeft || (!isTargetLeft && !isMidLeft)) {
+                if (mid < target) {
+                    left = midIndex;
+                } else {
+                    right = midIndex;
+                }
+                // 如果target在左，mid在右
+            } else if (isTargetLeft) {
+                right = midIndex;
+                // 如果target在右，mid在左
+            } else {
+                left = midIndex;
+            }
+        }
+        if (nums[left] == target) return left;
+        if (nums[right] == target) return right;
+        return -1;
     }
 }

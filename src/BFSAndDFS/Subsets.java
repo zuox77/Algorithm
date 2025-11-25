@@ -1,4 +1,4 @@
-package Recursion;
+package BFSAndDFS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class Subsets {
         for (int i = begin; i < nums.length; i++) {
             subset.add(nums[i]);
             recursion(nums, subset, result, i + 1);
-            subset.remove(subset.size() - 1);
+            subset.removeLast();
         }
     }
 

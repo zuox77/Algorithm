@@ -27,7 +27,7 @@ Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
  */
 
 public class SetMatrixZeros {
-    public List<Integer> solution1(int[][] matrix) {
+    public List<Integer> setMatrixZeros1(int[][] matrix) {
         // 声明变量
         List<Integer> result = new ArrayList<>();
         // 遍历
@@ -56,5 +56,58 @@ public class SetMatrixZeros {
             }
         }
         return matrixNew;
+    }
+
+    public void setMatrixZeros2(int[][] matrix) {
+        // 用两个变量保存第一行和第一列是否存在0
+        boolean firstRowZero = false;
+        boolean firstColZero = false;
+        // 遍历查找第一行是否为0
+        for (int num : matrix[0]) {
+            if (num == 0) {
+                firstRowZero = true;
+                break;
+            }
+        }
+        // 遍历查找第一列是否为0
+        for (int[] nums : matrix) {
+            if (nums[0] == 0) {
+                firstColZero = true;
+                break;
+            }
+        }
+
+        // 用第一行和第一列去记录每一行和每一列是否有0
+        // 不用考虑第一行和第一列，因为已经计算过
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+
+        // 先把除了第一行和第一列以外的设置为0
+        for (int i = 1; i < matrix.length; i++) {
+            for (int j = 1; j < matrix[0].length; j++) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        // 设置第一行
+        if (firstRowZero) {
+            for (int i = 0; i < matrix[0].length; i++) {
+                matrix[0][i] = 0;
+            }
+        }
+        // 设置第一列
+        if (firstColZero) {
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][0] = 0;
+            }
+        }
     }
 }

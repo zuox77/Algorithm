@@ -1,7 +1,22 @@
 package LinkedList;
 
 /*
-https://leetcode.cn/problems/remove-nth-ListNode-from-end-of-list/description/?favorite=2cktkvj
+https://leetcode.cn/problems/remove-nth-node-from-end-of-list/description/
+
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+Example 1:
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+
+Example 2:
+Input: head = [1], n = 1
+Output: []
+
+Example 3:
+Input: head = [1,2], n = 1
+Output: [1]
+
 
 思路: 快慢指针
 1. 要建一个dummy, dummy指向head, 目的是: 1. 方便找到head 2. 不需要特殊对待head

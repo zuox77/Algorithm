@@ -1,4 +1,4 @@
-package Recursion;
+package BFSAndDFS;
 
 import java.util.Deque;
 import java.util.HashSet;

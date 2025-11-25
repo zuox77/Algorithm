@@ -8,6 +8,19 @@ https://leetcode.cn/problems/ugly-number-ii/description/
 https://www.lintcode.com/problem/4/
 https://www.jiuzhang.com/problem/ugly-number-ii/
 
+An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
+Given an integer n, return the nth ugly number.
+
+Example 1:
+Input: n = 10
+Output: 12
+Explanation: [1, 2, 3, 4, 5, 6, 8, 9, 10, 12] is the sequence of the first 10 ugly numbers.
+
+Example 2:
+Input: n = 1
+Output: 1
+Explanation: 1 has no prime factors, therefore all of its prime factors are limited to 2, 3, and 5.
+
 思路: 堆+哈希集合
 注意: java的堆都是最小堆, 即堆顶是最小的, 想要用最大堆就将数字变成负数, 或者override其comparator
 PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(new Comparator<Integer>(){
@@ -38,10 +51,7 @@ public class UglyNumber2 {
             curUgly = heap.poll();
             for (int factor : factors) {
                 newUgly = curUgly * factor;
-                if (!visited.contains(newUgly)) {
-                    visited.add(newUgly);
-                    heap.add(newUgly);
-                }
+                if (visited.add(newUgly)) heap.add(newUgly);
             }
         }
         return (int) curUgly;

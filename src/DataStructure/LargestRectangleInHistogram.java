@@ -1,5 +1,7 @@
 package DataStructure;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Stack;
 
 /*
@@ -58,7 +60,7 @@ https://www.jiuzhang.com/problem/largest-rectangle-in-histogram/
  */
 
 public class LargestRectangleInHistogram {
-    public int solution1(int[] heights) {
+    public int largestRectangleInHistogram(int[] heights) {
         Stack<Integer> stack = new Stack<>();
         int maxArea = 0;
 
@@ -72,6 +74,114 @@ public class LargestRectangleInHistogram {
                 maxArea = Math.max(maxArea, height * weight);
             }
             stack.push(i);
+        }
+        return maxArea;
+    }
+
+    public int largestRectangleInHistogram2(int[] heights) {
+        int n = heights.length;
+        // 从左往右遍历，找到一个，在i左侧，且比heights[i]小（不包括等于）的，离i最近的坐标
+        // 如果没有则为-1
+        Deque<Integer> stack = new ArrayDeque<>();
+        int[] leftMin = new int[n];
+        for (int i = 0; i < n; i++) {
+            /*
+            当stack保存的数都比heights[i]大或者等于，全部出栈
+            因为我们需要找的是
+            1. 离i距离最近
+            2. 且小于（不能等于）heights[i]
+            的位置。这个位置的右侧一位，比如这个位置是j，那么j+1，就是当前heights[i]可以计算面积的最左端
+            不能等于的原因是：我们要的其实是这个位置的右侧一位，但如果是等于heights[i]，那么右侧一位就少算了
+            例如[2,3,5,5,6,2,3]
+            中间的5和5和6，最大面积为3 * 5，所以我们计算的位置应该是在3的位置（即下标1），这样3的位置的右侧一位即是面积的最左端
+            为什么不能直接找最左端？因为只有当我们确认：左侧某一个位置上的高度，小于heights[i]的时候，我们才知道哪里是最左端
+
+            对于下面的条件：
+            为什么这里要heights[stack.peekFirst()] >= heights[i]而不是heights[stack.peekFirst()] > heights[i]？
+            因为：我们要找的是离得最近的那一个比heights[i]小的位置，所以等于的时候，虽然也满足条件，但是不是离得最近的了
+
+            并且：我们想要stack保存的数字是什么？或者说想要stack给我们提供什么样的信息？
+            是：当我遍历到后面某一个位置（比如x）时，我需要知道前面的位置里面，离当前这个位置最近的且heights[前面的某个位置] < heights[当前这个位置]的位置在哪里
+            假设我现在遍历到x了，那后面的数（比如位置为x+1）有三种情况，（高度）比x大，（高度）比x小，（高度）等于x
+            1. （高度）比x大时：对于位置x+1，我需要知道，左侧的位置里面，离x+1最近的且heights[x] < heights[x+1]的位置在哪
+                所以，在x之前的那些数，只要是高度比x更大或者等于的，我都不需要知道了，因为在我能保证heights[x] < heights[x+1]的情况下，
+                x一定是离x+1最近的那个
+            2. （高度）比x小：对于位置x+1，因为heights[x] > heights[x+1]，所以我可以在这个时候计算出位置x+1的最左端，并且把x出栈
+                出栈的原因就是第一条原因
+            3. （高度）等于x：和第一条的原因类似，等于的时候，哪怕也符合高度小于heights[x+1]，但是距离没有x近，所以也不需要考虑了
+
+            这里其实我们还是在用人为的方式去创建一个单调栈，但因为我们保存的是下标，所以单调的是高度，所以栈本身不是单调的，但其高度一定是单调的
+            */
+            while (!stack.isEmpty() && heights[stack.peekFirst()] >= heights[i]) {
+                stack.pollFirst();
+            }
+            // 如果stack是空，代表前面没有比当前位置高度更低的数字，直接变成-1，或者就取栈首
+            // 变成-1的原因是，如果左侧都比当前位置高，那么当前位置的高度就是能形成的矩形的最高高度了，所以长度可以拉满
+            // 之前那些情况之所以需要考虑最左端就是因为他们的高度比当前位置低，所以要根据他们的高度来选长度
+            leftMin[i] = stack.isEmpty() ? -1 : stack.peekFirst();
+            // 加入栈
+            stack.offerFirst(i);
+        }
+
+        // 同理，从右往左遍历，找到最右侧的点
+        int[] rightMin = new int[n + 1];
+        // 重置stack
+        stack.clear();
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && heights[stack.peekFirst()] >= heights[i]) {
+                stack.pollFirst();
+            }
+            // 对于右侧来说，如果当前位置的高度就是最低点，那么同样，长度拉满，此时应该将其设置为n，原因类似，
+            // 左端点找到以后，实际的矩阵最左端是左端点右侧一位，那么右端点找到以后，实际的矩阵最右端是右端点左侧一位，所以n - 1，刚好是rightMin的最右端
+            rightMin[i] = stack.isEmpty() ? n : stack.peekFirst();
+            stack.offerFirst(i);
+        }
+        // 最后在遍历一次得到的数组，来计算最大值
+        int maxArea = 0;
+        for (int i = 0; i < n; i++) {
+            maxArea = Math.max(maxArea, (rightMin[i] - leftMin[i] - 1) * heights[i]);
+        }
+        return maxArea;
+    }
+
+    public int largestRectangleArea3(int[] heights) {
+        int n = heights.length;
+        // stack
+        Deque<Integer> stack = new ArrayDeque<>();
+        // 给stack一个默认值，以此来对应，当leftMin[i] = -1的情况
+        stack.offerFirst(-1);
+
+        // 遍历
+        int maxArea = 0;
+        // 这里记得是i <= n，因为在这个算法下，第一个（i = 0）元素的面积，最快也是在i = 1的时候，才能计算出来
+        // 所以说当i = n - 1的面积，需要i = n的时候才能计算出来
+        // 且因为我们有dummy在stack里面，所以不怕空栈的情况
+        for (int i = 0; i <= n; i++) {
+            // 同理，因为我们需要i最大为n，那么我们就需要对i = n的时候特殊处理
+            // [1,1,1,5]
+            int curHeight = i < n ? heights[i] : -1;
+            // 这里的stack.size() > 1是因为我们给了stack一个dummy，即上面的-1
+            // 有了dummy和这个条件，我们可以等同于有了leftMin[i] = stack.isEmpty() ? -1 : stack.peekFirst();
+            // 这样while循环里面，如果stack里面只有两个元素，我们pollFirst以后，还会剩下dummy，可以用作peekFirst
+            while (stack.size() > 1 && heights[stack.peekFirst()] >= curHeight) {
+                // 栈首出栈
+                int stackFirst = stack.pollFirst();
+                /*
+                要计算某个位置的面积，需要知道其左端和右端，即第一个比它高度低的位置
+                通过上面的条件heights[stack.peekFirst()] >= curHeight，curHeight就是height[i]，所以
+                对于stack.peekFirst()（即stackFirst）来说，位置i就是第一个比它高度低的位置
+                所以stackFirst的右端就是i
+                 */
+                int right = i;
+                /*
+                现在知道了stackFirst的右端是i，那么左端其实就是现在的stack.peekFirst()
+                为什么？因为我们的stack是单调递增的，所以栈首一定是最大的，所以stackFirst出栈以后，栈首就是stackFirst的left
+                 */
+                int left = stack.peekFirst();
+                // 计算面积
+                maxArea = Math.max(maxArea, heights[stackFirst] * (right - left - 1));
+            }
+            stack.offerFirst(i);
         }
         return maxArea;
     }

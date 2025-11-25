@@ -5,6 +5,7 @@ package BinarySearch;
 
 https://www.lintcode.com/problem/75/
 https://www.jiuzhang.com/solutions/find-peak-element/
+https://leetcode.cn/problems/find-peak-element/
 
 题目:
 There is an integer array which has the following features:

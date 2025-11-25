@@ -1,6 +1,7 @@
-package DataStructure;
+package DataStructure.PrefixTree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -53,7 +54,7 @@ Output: ["/a"]
  */
 
 public class RemoveSubFolder {
-    public List<String> solution1(String[] folders) {
+    public List<String> removeSubfolders(String[] folders) {
         // 定义变量
         List<String> result = new ArrayList<>();
         Trie trie = new Trie();
@@ -66,6 +67,20 @@ public class RemoveSubFolder {
             result.add(folders[i]);
         }
         return result;
+    }
+
+    public List<String> removeSubfolders2(String[] folder) {
+        Arrays.sort(folder);
+        List<String> ans = new ArrayList<>();
+        ans.add(folder[0]);
+        for (int i = 1; i < folder.length; i++) {
+            String s = folder[i];
+            String last = ans.getLast();
+            if (!s.startsWith(last) || s.charAt(last.length()) != '/') {
+                ans.add(s);
+            }
+        }
+        return ans;
     }
 
     // 定义一个前缀树
