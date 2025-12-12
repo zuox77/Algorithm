@@ -36,7 +36,7 @@ public class PalindromePartitioning {
     public List<List<String>> partition(String s) {
         // 创建一个list保存答案
         List<List<String>> ans = new ArrayList<>();
-        recursion(s, 0, 0, ans, new ArrayList<String>());
+        dfs(s, 0, 0, ans, new ArrayList<String>());
         return ans;
     }
 
@@ -46,7 +46,7 @@ public class PalindromePartitioning {
     // 如果分割，那么代表我们想将从start到end这一段的substring当成回文串加入ans，所以此时还需要再检查一下是否是回文串
     // 如果是，则加入，然后start和end指针都移动到end + 1的位置（因为end之前的字母都已经分割+检查结束了）
     // 如果不是，那么什么都不发生，因为我们要分割出来的每一个都是回文串
-    public void recursion(
+    public void dfs(
             String s, int start, int end, List<List<String>> ans, List<String> substring) {
         // 退出条件
         // 因为end代表下标，所以end如果等于s.length()，那代表其实已经遍历结束了，所以退出
@@ -59,14 +59,14 @@ public class PalindromePartitioning {
         // 所以选择分割的最大值为end < s.length() - 1
         if (end < s.length() - 1) {
             // 不分割，那么右指针继续往右移动
-            recursion(s, start, end + 1, ans, substring);
+            dfs(s, start, end + 1, ans, substring);
         }
         // 如果选择分割，那么就要检查是否为回文串
         if (isPalindrome(s, start, end)) {
             // 如果确实为回文串，那么加入substring
             substring.add(s.substring(start, end + 1));
             // 移动所有指针
-            recursion(s, end + 1, end + 1, ans, substring);
+            dfs(s, end + 1, end + 1, ans, substring);
             // 返回以后移除substring的最后一位
             substring.removeLast();
         }
@@ -75,11 +75,11 @@ public class PalindromePartitioning {
     public List<List<String>> partition2(String s) {
         // 创建一个list保存答案
         List<List<String>> ans = new ArrayList<>();
-        recursion(s, 0, ans, new ArrayList<String>());
+        dfs(s, 0, ans, new ArrayList<String>());
         return ans;
     }
 
-    public void recursion(String s, int start, List<List<String>> ans, List<String> substring) {
+    public void dfs(String s, int start, List<List<String>> ans, List<String> substring) {
         // 退出条件
         // 这里需要稍微多想一下，好像我们应该检查start == s.length() 作为退出条件才对，因为end一定比start先到终点
         // 但原因是：因为我们只用了一个指针在方程里面传递，所以每次传进去的int start，其实不仅代表start指针，也代表end指针会从这里开始遍历
@@ -99,7 +99,7 @@ public class PalindromePartitioning {
                 // 如果确实为回文串，那么加入substring
                 substring.add(s.substring(start, end + 1));
                 // 移动所有指针，从当前回文串结束位置+1的地方开始继续枚举，end+1就是新的start指针位置
-                recursion(s, end + 1, ans, substring);
+                dfs(s, end + 1, ans, substring);
                 // 返回以后移除substring的最后一位
                 substring.removeLast();
             }

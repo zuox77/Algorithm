@@ -4,8 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /*
-刷题次数：2
-第二次：忘了
+
 https://leetcode.cn/problems/binary-search-tree-iterator/description/
 
 Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
@@ -44,32 +43,28 @@ bSTIterator.hasNext(); // return False
  */
 
 public class BinaryTreeIterator {
-    private final Deque<TreeNode> stack = new ArrayDeque<>();
-    private TreeNode current;
+    private final Deque<TreeNode> stack;
 
     public BinaryTreeIterator(TreeNode root) {
-        // 添加新的指针
-        this.current = root;
+        this.stack = new ArrayDeque<>();
+        while (root != null) {
+            stack.addFirst(root);
+            root = root.left;
+        }
     }
 
     public int next() {
-        // 与InOrderTraverse的stack解法类似
-        // 先遍历到最左边的节点,并将所有节点push到stack里面
-        while (this.current != null) {
-            this.stack.push(current);
-            current = current.left;
+        TreeNode root = stack.pollFirst();
+        int rootVal = root.val;
+        root = root.right;
+        while (root != null) {
+            stack.addFirst(root);
+            root = root.left;
         }
-        // 这里需要一个新的指针用来返回结果,因为在返回之前要把current移动到current.right
-        TreeNode node = stack.pop();
-        current = node.right;
-        return node.val;
+        return rootVal;
     }
 
     public boolean hasNext() {
-        // 如果stack非空或者current非空
-        if (current != null || !stack.isEmpty()) {
-            return true;
-        }
-        return false;
+        return !stack.isEmpty();
     }
 }

@@ -24,7 +24,7 @@ Output: [[3],[9,20],[15,7]]
  */
 
 public class BinaryTreeLevelOrderTraversal {
-    public List<List<Integer>> solution1(TreeNode root) {
+    public List<List<Integer>> binaryTreeLevelOrderTraversal(TreeNode root) {
         // 定义变量
         Queue<TreeNode> queue = new ArrayDeque<>();
         List<List<Integer>> result = new ArrayList<>();
@@ -67,7 +67,7 @@ public class BinaryTreeLevelOrderTraversal {
         return result;
     }
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> binaryTreeLevelOrderTraversal2(TreeNode root) {
         // 定义变量
         Queue<TreeNode> queue = new ArrayDeque<>();
         List<List<Integer>> result = new ArrayList<>();
