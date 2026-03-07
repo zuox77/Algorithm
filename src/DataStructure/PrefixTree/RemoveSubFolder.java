@@ -86,7 +86,7 @@ public class RemoveSubFolder {
     // 定义一个前缀树
     class Trie {
         // 定义一个字典来存储映射关系
-        private HashMap<String, Trie> children = new HashMap<>();
+        private final HashMap<String, Trie> children = new HashMap<>();
         // 定义一个变量来记录该路径是字符串在folder数组的位置, 并且通过-1来表示当前节点不是目录的结尾
         // 比如"/a/b/e" -> 那么对a来说, 不是目录结尾, 所以-1, 对e来说, 就是结尾, 所以记录字符串在folder数组的位置
         private int idx = -1;

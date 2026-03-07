@@ -18,21 +18,21 @@ Explanation: [1,null,3] and [3,1] are both height-balanced BSTs.
 
 public class ConvertSortedArrayToBinarySearchTree {
     public TreeNode sortedArrayToBST(int[] nums) {
-        // 调用递归函数，初始范围是整个数组 [0, nums.length)
+        // 调用递归函数,初始范围是整个数组 [0, nums.length)
         return dfs(nums, 0, nums.length);
     }
 
     // 递归函数：将 nums[left] 到 nums[right-1] 转换为平衡BST
     private TreeNode dfs(int[] nums, int left, int right) {
-        // 基础情况：当左边界等于右边界时，表示没有元素了
+        // 基础情况：当左边界等于右边界时,表示没有元素了
         if (left == right) {
             return null;
         }
 
-        // 计算中间位置，使用无符号右移防止溢出并提高效率
+        // 计算中间位置,使用无符号右移防止溢出并提高效率
         int m = (left + right) >>> 1;
 
-        // 递归构建树：中间元素作为根，左边构建左子树，右边构建右子树
+        // 递归构建树：中间元素作为根,左边构建左子树,右边构建右子树
         return new TreeNode(
                 nums[m],
                 dfs(nums, left, m), // 左子树：左半部分

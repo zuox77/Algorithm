@@ -23,21 +23,21 @@ Explanation: Some possible arrangements for the digits of -7605 are -7650, -6705
 The arrangement with the smallest value that does not contain any leading zeros is -7650.
 
 思路:
-1. 通过余10（mod）和除10，不断循环，得到每一个数字
+1. 通过余10（mod）和除10,不断循环,得到每一个数字
 2. 将数字和其出现的频率放在一个长度为10的数组上
 3. 判断正负：
     正的：
-        1. 从小到大遍历数组，找到第一个不是0且频率也不为0的数字，将其加入ans，避免leading zero
-        2. 从小到大遍历数组，按照顺序，不断的加入ans，先乘10，再加当前数字，并且更新出现的频率
+        1. 从小到大遍历数组,找到第一个不是0且频率也不为0的数字,将其加入ans,避免leading zero
+        2. 从小到大遍历数组,按照顺序,不断的加入ans,先乘10,再加当前数字,并且更新出现的频率
     负的：
-        1. 从大到小遍历数组，找到第一个不是0且频率也不为0的数字，将其加入ans，避免leading zero
-        2. 从大到小遍历数组，按照顺序，不断的加入ans，先乘10，再加当前数字，并且更新出现的频率
+        1. 从大到小遍历数组,找到第一个不是0且频率也不为0的数字,将其加入ans,避免leading zero
+        2. 从大到小遍历数组,按照顺序,不断的加入ans,先乘10,再加当前数字,并且更新出现的频率
  */
 
 public class SmallestValueOfTheRearrangedNumber {
     public long smallestNumber(long num) {
         long tmp = num;
-        // 检查num是正还是负，如果是正，那么下面的循环都需要从小到大遍历，如果是负，那么反过来，从大到小遍历
+        // 检查num是正还是负,如果是正,那么下面的循环都需要从小到大遍历,如果是负,那么反过来,从大到小遍历
         boolean isPositive = true;
         if (tmp < 0) {
             tmp = -tmp;
@@ -61,9 +61,9 @@ public class SmallestValueOfTheRearrangedNumber {
         }
 
         long ans = 0;
-        // 遍历数组，找到第一个非0的数，正数时，从小到大遍历，可以找到最小的非0数，负数时则是找到最大的
+        // 遍历数组,找到第一个非0的数,正数时,从小到大遍历,可以找到最小的非0数,负数时则是找到最大的
         int firstNonZero = 0;
-        // 因为i = 0的时候就代表0的次数，所以直接从1开始遍历
+        // 因为i = 0的时候就代表0的次数,所以直接从1开始遍历
         for (int i = start; Math.abs(i - end) >= 0 && i >= 0 && i <= 9; i += incre) {
             if (i == 0) continue;
             if (numFreq[i] != 0) {
@@ -72,7 +72,7 @@ public class SmallestValueOfTheRearrangedNumber {
             }
         }
 
-        // 将第一个非0的数加入ans，只添加一次，这是为了防止leading zero
+        // 将第一个非0的数加入ans,只添加一次,这是为了防止leading zero
         ans += firstNonZero;
         numFreq[firstNonZero]--;
 

@@ -25,7 +25,7 @@ Output: [-1,-1]
 
 思路: 二分
 1. 先用正常的方式找到left和right的点
-2. 通过循环让left不断往左，right不断往右，找到第一个和最后一个
+2. 通过循环让left不断往左,right不断往右,找到第一个和最后一个
  */
 
 public class FindFirstAndLastPositionOfElementInSortedArray {

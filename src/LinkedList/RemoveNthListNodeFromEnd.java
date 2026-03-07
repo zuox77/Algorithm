@@ -26,7 +26,7 @@ Output: [1]
  */
 public class RemoveNthListNodeFromEnd {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        // 创建两个指针，指向head
+        // 创建两个指针,指向head
         ListNode fast = head;
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
@@ -35,16 +35,16 @@ public class RemoveNthListNodeFromEnd {
         for (int i = 0; i < n; i++) {
             fast = fast.next;
         }
-        // 因为有限制条件：1<=n<=链表长度，所以如果n=链表长度时，即head就是需要被移出的node，而此时head已经到了结束节点的下一个，即null
+        // 因为有限制条件：1<=n<=链表长度,所以如果n=链表长度时,即head就是需要被移出的node,而此时head已经到了结束节点的下一个,即null
         // 所以我们需要判断
-        // 除开上面的特殊情况，此时正常该做的事情是，因为fast已经走了n步，所以此时fast和slow一起走，最后当fast在null时，slow就在该节点上
-        // 但是为了移出该节点，我们还需要知道该节点的上一个节点是什么，所以最好在最开始定义的时候，将slow定义为一个dummy节点，并使其指向head，
+        // 除开上面的特殊情况,此时正常该做的事情是,因为fast已经走了n步,所以此时fast和slow一起走,最后当fast在null时,slow就在该节点上
+        // 但是为了移出该节点,我们还需要知道该节点的上一个节点是什么,所以最好在最开始定义的时候,将slow定义为一个dummy节点,并使其指向head,
         // 即slow在fast的上一个
         while (fast != null) {
             fast = fast.next;
             slow = slow.next;
         }
-        // 移出该节点，不需要担心slow是null，因为fast一定比slow先到null
+        // 移出该节点,不需要担心slow是null,因为fast一定比slow先到null
         slow.next = slow.next.next;
         return dummy.next;
     }

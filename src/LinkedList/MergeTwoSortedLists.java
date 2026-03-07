@@ -20,11 +20,11 @@ Input: list1 = [], list2 = [0]
 Output: [0]
 
 思路:
-1. 创建一个新的指针，指向dummy node，这就是之后的新链表的起点head
-2. 再创建一个指针，指向head，因为head在之后的操作中会移动，所以还需要一个指针保存根节点
-3. 创建两个指针，分别指向两个链表的根节点
-4. 同时遍历两个指针，保证他们都不为null，然后比较，谁小就把谁加入新链表
-5. 退出循环后，有可能这两个链表长度不一样，所以还需要将不为null的拼接上去
+1. 创建一个新的指针,指向dummy node,这就是之后的新链表的起点head
+2. 再创建一个指针,指向head,因为head在之后的操作中会移动,所以还需要一个指针保存根节点
+3. 创建两个指针,分别指向两个链表的根节点
+4. 同时遍历两个指针,保证他们都不为null,然后比较,谁小就把谁加入新链表
+5. 退出循环后,有可能这两个链表长度不一样,所以还需要将不为null的拼接上去
 
  */
 public class MergeTwoSortedLists {
@@ -34,14 +34,14 @@ public class MergeTwoSortedLists {
      * this.next = next; } }
      */
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
-        // 创建一个新的指针，代表新的链表
+        // 创建一个新的指针,代表新的链表
         ListNode head = new ListNode(-1);
-        // 创建另一个指针保存答案，因为head是会移动的，所以还需要一个指针去保存答案
+        // 创建另一个指针保存答案,因为head是会移动的,所以还需要一个指针去保存答案
         ListNode ans = head;
-        // 创建两个指针，分别指向两个链表
+        // 创建两个指针,分别指向两个链表
         ListNode left = list1;
         ListNode right = list2;
-        // 循环移动指针，将val小的放入新的链表，并移动
+        // 循环移动指针,将val小的放入新的链表,并移动
         while (left != null && right != null) {
             if (left.val <= right.val) {
                 head.next = left;
@@ -54,7 +54,7 @@ public class MergeTwoSortedLists {
         }
         // 将剩余的node加入
         head.next = left != null ? left : right;
-        // 返回ans.next，因为head是一个自定义的不存在的节点
+        // 返回ans.next,因为head是一个自定义的不存在的节点
         return ans.next;
     }
 }

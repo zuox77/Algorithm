@@ -1,4 +1,4 @@
-package Pointers;
+package Array.Pointers;
 
 /*
 https://leetcode.cn/problems/next-permutation/description/
@@ -67,18 +67,18 @@ public class NextPermutation {
                 break;
             }
         }
-        // 这里需要检查一次，如果left还是-1，说明整个array都是升序，那么直接反转整个array即可
+        // 这里需要检查一次,如果left还是-1,说明整个array都是升序,那么直接反转整个array即可
         if (left == -1) {
             reverse(nums, 0, n - 1);
             return;
         }
         /*
-        找到从n-1到right（包括n-1和right）之间，第一个大于nums[left]的数
-        注意：nums[right]一定是大于nums[left]的，因为我们找的就是一个升序的pair
+        找到从n-1到right（包括n-1和right）之间,第一个大于nums[left]的数
+        注意：nums[right]一定是大于nums[left]的,因为我们找的就是一个升序的pair
         但是right不一定是第一个从右往左数大于nums[left]的数
-        比如[1, 3, 2] 找到的pair是[1, 3]，right是3这个位置，即下标1
-        我们需要从右往左，从n-1到right，即n - 1 >= j >= right中，找到第一个
-        不难看出，第一个大于nums[left]的数是2，即下标2
+        比如[1, 3, 2] 找到的pair是[1, 3],right是3这个位置,即下标1
+        我们需要从右往左,从n-1到right,即n - 1 >= j >= right中,找到第一个
+        不难看出,第一个大于nums[left]的数是2,即下标2
         所以第一个大于nums[left]的数不一定就是right
          */
         for (int i = n - 1; i >= right; i--) {

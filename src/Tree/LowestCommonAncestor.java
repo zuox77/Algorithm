@@ -21,12 +21,12 @@ Explanation: The LCA of nodes 5 and 1 is 3.
 
 public class LowestCommonAncestor {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // 递归出口，也是corner case
+        // 递归出口,也是corner case
         if (root == null) {
             return root;
         }
         // 判断是不是遍历到p或者q了
-        // 如果遍历到任意一个，那么此时root就一定是ancestor
+        // 如果遍历到任意一个,那么此时root就一定是ancestor
         if (root == p || root == q) {
             return root;
         }
@@ -34,17 +34,13 @@ public class LowestCommonAncestor {
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
         // 分治的治
-        // 如果左子树存能找到节点，右子树也能找到节点，那么说明root是他们的ancestor
+        // 如果左子树存能找到节点,右子树也能找到节点,那么说明root是他们的ancestor
         if (left != null && right != null) {
             return root;
-            // 如果只有左子树能找到节点，那么左子树就是ancestor
+            // 如果只有左子树能找到节点,那么左子树就是ancestor
         } else if (left != null) {
             return left;
-            // 如果只有右子树能找到节点，那么右子树就是ancestor
-        } else if (right != null) {
-            return right;
-        } else {
-            return null;
-        }
+            // 如果只有右子树能找到节点,那么右子树就是ancestor
+        } else return right;
     }
 }

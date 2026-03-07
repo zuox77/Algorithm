@@ -16,11 +16,11 @@ Output: 3
 
 思路1: BFS
 1. 思路看BFS.md
-2. 需要注意：对于矩阵类的题目，有三个办法可以用来标记visited。
-    1. 可以使用一个static class，例如Node。这是因为可以改变矩阵的值，所以不需要额外一个HashSet当做visited set去避免重复访问。
-    2. 使用Queue<int[]>，详见NumberOfIslands2。
-    3. 使用数字，将二维矩阵的index转化为数列的index。例如上面的矩阵中，第二行第三列的数，index为[1,2]，但如果按照从左到右，从上到下来数，
-       它排第七位，index为7，即 1 * 5+ 2。所以公式为：[i,j] -> i * 矩阵宽(即grid[0].length) + j。
+2. 需要注意：对于矩阵类的题目,有三个办法可以用来标记visited.
+    1. 可以使用一个static class,例如Node. 这是因为可以改变矩阵的值,所以不需要额外一个HashSet当做visited set去避免重复访问.
+    2. 使用Queue<int[]>,详见NumberOfIslands2.
+    3. 使用数字,将二维矩阵的index转化为数列的index. 例如上面的矩阵中,第二行第三列的数,index为[1,2],但如果按照从左到右,从上到下来数,
+       它排第七位,index为7,即 1 * 5+ 2. 所以公式为：[i,j] -> i * 矩阵宽(即grid[0].length) + j.
  */
 
 import java.util.ArrayDeque;
@@ -111,7 +111,7 @@ public class NumberOfIslands {
         return count;
     }
 
-    // 注意：这里定义参数一定要带入泛型：Queue<int[]> queue，而不是直接使用Queue queue
+    // 注意：这里定义参数一定要带入泛型：Queue<int[]> queue,而不是直接使用Queue queue
     public void bfs(char[][] grid, Queue<int[]> queue) {
         // Pop out first
         int[] coordinates = queue.poll();

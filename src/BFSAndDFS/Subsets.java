@@ -23,9 +23,9 @@ Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
    所以不能够用begin<数组长度
 
 解法上有两个小区别：
-1. 由于[]也算一个元素，所以可以按照以前的做法，将[]单独视为特殊情况，在recursion前就加入ans，
-    这样的话，在每一层，都会将现在的subset加入ans，例如第一层加入[1]，第二层加入[1,2]，第三层[1,2,3]
-2. 或者将[]也包含在写法内，即退出的时候加入
+1. 由于[]也算一个元素,所以可以按照以前的做法,将[]单独视为特殊情况,在recursion前就加入ans,
+    这样的话,在每一层,都会将现在的subset加入ans,例如第一层加入[1],第二层加入[1,2],第三层[1,2,3]
+2. 或者将[]也包含在写法内,即退出的时候加入
  */
 
 public class Subsets {
@@ -62,14 +62,14 @@ public class Subsets {
     }
 
     public void recursion(int start, int[] nums, List<Integer> subset, List<List<Integer>> ans) {
-        // 退出条件（设置recursion的底部，防止无限往下）
+        // 退出条件（设置recursion的底部,防止无限往下）
         if (start == nums.length) {
             return;
         }
 
         // 每个循环需要做什么
-        // 由于这道题需要将所有的不重复subset加入，所以当depth<=nums.length的时候就要加入
-        // 且由于需要不重复，那么for循环就需要从上一层的i额外加1开始
+        // 由于这道题需要将所有的不重复subset加入,所以当depth<=nums.length的时候就要加入
+        // 且由于需要不重复,那么for循环就需要从上一层的i额外加1开始
         for (int i = start; i < nums.length; i++) {
             // 加入subset
             subset.add(nums[i]);

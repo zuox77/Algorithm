@@ -31,7 +31,7 @@ Explanation: Given matrix cannot be a zero matrix.
  */
 
 public class FlipBoard {
-    private int[][] directions =
+    private final int[][] directions =
             new int[][] {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 
     public int solution(int[][] matrix) {
@@ -70,9 +70,6 @@ public class FlipBoard {
     }
 
     public boolean validator(int i, int j, int n, int m, int[][] matrix) {
-        if (0 <= i && i < n && 0 <= j && j < m && matrix[i][j] == 1) {
-            return true;
-        }
-        return false;
+        return 0 <= i && i < n && 0 <= j && j < m && matrix[i][j] == 1;
     }
 }

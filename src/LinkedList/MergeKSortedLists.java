@@ -31,16 +31,16 @@ Input: list1 = [], list2 = [0]
 Output: [0]
 
 思路1: 堆
-1. 创建一个堆，因为ListNode是一个自定义的类，所以需要复写一个compare的方法
-2. 将lists中的所有链表头放入堆，排除null的链表头或者链表头的值为null的
-3. 遍历堆，直接推出堆头，用两个指针，将新的链表和堆头连起来，堆头判断一下下一个是否为null，不为null就加入堆里
+1. 创建一个堆,因为ListNode是一个自定义的类,所以需要复写一个compare的方法
+2. 将lists中的所有链表头放入堆,排除null的链表头或者链表头的值为null的
+3. 遍历堆,直接推出堆头,用两个指针,将新的链表和堆头连起来,堆头判断一下下一个是否为null,不为null就加入堆里
 
 思路2：分治
 1. 将问题转化为merge 2 sorted lists
 
 follow up：
-如果某些链表太大以至于本地内存无法保存，该如何处理？
-如果是文件，给每一个链表开启一个类似于Buffreader之类的I/O类，然后每次操作的时候只读取一个数
+如果某些链表太大以至于本地内存无法保存,该如何处理？
+如果是文件,给每一个链表开启一个类似于Buffreader之类的I/O类,然后每次操作的时候只读取一个数
 
  */
 public class MergeKSortedLists {
@@ -132,7 +132,7 @@ public class MergeKSortedLists {
             this.reader = reader;
         }
 
-        // 实现 Comparable 接口，用于优先队列排序（小顶堆）
+        // 实现 Comparable 接口,用于优先队列排序（小顶堆）
         @Override
         public int compareTo(Element other) {
             return Integer.compare(this.value, other.value);
@@ -149,13 +149,13 @@ public class MergeKSortedLists {
             List<BufferedReader> readers = new ArrayList<>();
 
             try {
-                // 2. 打开所有输入文件，并读取第一个元素放入堆中
+                // 2. 打开所有输入文件,并读取第一个元素放入堆中
                 for (String file : inputFiles) {
                     BufferedReader reader = new BufferedReader(new FileReader(file));
                     readers.add(reader);
                     String line = reader.readLine();
                     if (line != null) {
-                        // 将第一个元素及对应的读取器封装成 Element 对象，加入堆
+                        // 将第一个元素及对应的读取器封装成 Element 对象,加入堆
                         minHeap.add(new Element(Integer.parseInt(line), reader));
                     }
                 }
@@ -175,17 +175,17 @@ public class MergeKSortedLists {
                     // 5. 从取出元素对应的文件中读取下一个元素
                     String nextLine = currentMin.reader.readLine();
                     if (nextLine != null) {
-                        // 如果文件还有数据，更新 Element 的值，并重新加入堆
+                        // 如果文件还有数据,更新 Element 的值,并重新加入堆
                         currentMin.value = Integer.parseInt(nextLine);
                         minHeap.add(currentMin);
                     }
-                    // 如果文件读取完毕，则不再将该 reader 对应的 Element 加入堆中
+                    // 如果文件读取完毕,则不再将该 reader 对应的 Element 加入堆中
                 }
 
                 writer.close(); // 关闭输出流
 
             } finally {
-                // 确保所有输入流都被关闭，防止资源泄露
+                // 确保所有输入流都被关闭,防止资源泄露
                 for (BufferedReader reader : readers) {
                     try {
                         reader.close();

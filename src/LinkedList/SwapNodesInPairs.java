@@ -24,7 +24,7 @@ public class SwapNodesInPairs {
      * val = x; next = null; } }
      */
     public ListNode swapPairs(ListNode head) {
-        // 思路是通过一个helper方程去转换，每一次只调整一个node
+        // 思路是通过一个helper方程去转换,每一次只调整一个node
 
         // 创建dummy node
         ListNode dummy = new ListNode();
@@ -47,7 +47,7 @@ public class SwapNodesInPairs {
              */
             deleteFromLink(pre, head, next);
             /*
-            2. 我们想要将1加入2和3之间，所以按照自定义的addToLink方程，需要移动指针
+            2. 我们想要将1加入2和3之间,所以按照自定义的addToLink方程,需要移动指针
              从
              head   pre  next
               1   [dummy -> 2 -> 3 -> 4]
@@ -70,7 +70,7 @@ public class SwapNodesInPairs {
             addToLink(pre, head, next);
 
             /*
-            4. 移动到下一个交换点，即3是需要被移动的点
+            4. 移动到下一个交换点,即3是需要被移动的点
              从
                       pre  head  next
              [dummy -> 2 -> 1 -> 3 -> 4]

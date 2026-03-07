@@ -34,7 +34,7 @@ public class DailyTemperatures {
         Deque<Integer> stack = new ArrayDeque<>();
         // 遍历数组
         for (int i = 0; i < temperatures.length; i++) {
-            // 如果大于栈首且stack不为空，记录答案
+            // 如果大于栈首且stack不为空,记录答案
             while (!stack.isEmpty() && temperatures[stack.peekFirst()] < temperatures[i]) {
                 int preDate = stack.pollFirst();
                 ans[preDate] = i - preDate;

@@ -80,16 +80,16 @@ Output: 4
 7. 由于是搭配2, 所以最后需要检查一下left和right, 如果找到就返回, 否则就返回-1
 
 思路：
-1. 其余的不变，但对于如何移动左右指针的逻辑，可以简化一点
-2. 当target和mid都在同一边（都在左或者都在右）的时候，一定是个单调递增的区间
+1. 其余的不变,但对于如何移动左右指针的逻辑,可以简化一点
+2. 当target和mid都在同一边（都在左或者都在右）的时候,一定是个单调递增的区间
     1. (isTargetLeft && isMidLeft) || (!isTargetLeft && !isMidLeft) -> 都在同一边
         mid < target -> left = mid
         mid > target -> right = mid
         mid = target -> return
-    2. isTargetLeft && !isMidLeft -> target在左，mid在右
-        此时target一定大于mid，而我们想要靠近target，所以直接right = mid
-    3. !isTargetLeft && isMidLeft -> target在右，mid在左
-        此时target一定小于mid，而我们想要靠近target，所以直接left = mid
+    2. isTargetLeft && !isMidLeft -> target在左,mid在右
+        此时target一定大于mid,而我们想要靠近target,所以直接right = mid
+    3. !isTargetLeft && isMidLeft -> target在右,mid在左
+        此时target一定小于mid,而我们想要靠近target,所以直接left = mid
  */
 
 public class SearchInRotatedSortedArray {
@@ -151,10 +151,10 @@ public class SearchInRotatedSortedArray {
                 } else {
                     right = midIndex;
                 }
-                // 如果target在左，mid在右
+                // 如果target在左,mid在右
             } else if (isTargetLeft) {
                 right = midIndex;
-                // 如果target在右，mid在左
+                // 如果target在右,mid在左
             } else {
                 left = midIndex;
             }

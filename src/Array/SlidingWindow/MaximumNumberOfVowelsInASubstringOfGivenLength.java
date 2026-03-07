@@ -24,15 +24,15 @@ Output: 2
 Explanation: "lee", "eet" and "ode" contain 2 vowels.
 
 思路：滑动窗口
-1. 利用一个set保存所有的元音，这样方便查询
-2. 在遍历时，用for loop，且for loop里的指针最好是右侧端点，这样更简单去处理边界问题
+1. 利用一个set保存所有的元音,这样方便查询
+2. 在遍历时,用for loop,且for loop里的指针最好是右侧端点,这样更简单去处理边界问题
  */
 
 import java.util.Set;
 
 public class MaximumNumberOfVowelsInASubstringOfGivenLength {
     public int maxVowels(String s, int k) {
-        // 创建一个包含所有元音的set，方便之后进行判断
+        // 创建一个包含所有元音的set,方便之后进行判断
         Set<Character> set = Set.of('a', 'e', 'i', 'o', 'u');
 
         // 通过右指针进行for loop遍历s
@@ -43,7 +43,7 @@ public class MaximumNumberOfVowelsInASubstringOfGivenLength {
             if (set.contains(s.charAt(right))) {
                 ans++;
             }
-            // 通过右指针和k的长度，算出滑动窗口的左指针
+            // 通过右指针和k的长度,算出滑动窗口的左指针
             int left = right - k + 1;
             if (left < 0) continue;
             // 更新maxAns

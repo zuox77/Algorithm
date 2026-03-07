@@ -1,4 +1,4 @@
-package Pointers;
+package Array.Pointers;
 
 /*
 https://leetcode.cn/problems/container-with-most-water/description/

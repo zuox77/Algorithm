@@ -17,9 +17,9 @@ Input: matrix = [
 Output: true
 
 思路：双指针
-1. 我们从右上角开始判断，右上角是当前行的最大的数，也是当前列的最小的数
-2. 如果右上角的数小于target，而右上角是当前行的最大的数，所以右上角所在的行都比target小，直接排除当前行
-3. 如果右上角的数大于target，而右上角是当前列的最小的数，所以右上角所在的列都比target大，直接排除当前列
+1. 我们从右上角开始判断,右上角是当前行的最大的数,也是当前列的最小的数
+2. 如果右上角的数小于target,而右上角是当前行的最大的数,所以右上角所在的行都比target小,直接排除当前行
+3. 如果右上角的数大于target,而右上角是当前列的最小的数,所以右上角所在的列都比target大,直接排除当前列
 4. 循环的条件就是当row和col都抵达边界
 
 思路: 递归
@@ -51,11 +51,11 @@ Output: true
 
 public class SearchMatrixII {
     public boolean searchMatrixII(int[][] matrix, int target) {
-        // 创建两个指针，一个代表第一行，一个代表最后一列
-        // 第一行最后一列，即右上角，从右上角开始判断：
+        // 创建两个指针,一个代表第一行,一个代表最后一列
+        // 第一行最后一列,即右上角,从右上角开始判断：
         // 如果找到直接返回
-        // 如果比target小，说明最后一列都比target大，排除最后一列
-        // 如果比target大，说明第一行都比target小，排除第一行
+        // 如果比target小,说明最后一列都比target大,排除最后一列
+        // 如果比target大,说明第一行都比target小,排除第一行
         int row = 0;
         int col = matrix[0].length - 1;
 
@@ -101,9 +101,7 @@ public class SearchMatrixII {
             if (recursion(matrix, rowLeft, rowMid, colMid, colRight, target)) {
                 return true;
             }
-            if (recursion(matrix, rowLeft, rowRight, colLeft, colMid, target)) {
-                return true;
-            }
+            return recursion(matrix, rowLeft, rowRight, colLeft, colMid, target);
             // 如果比target小, 那么说明左上角的所有数都比target小, 所以排除左上角
         } else {
             // if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {return
@@ -113,10 +111,7 @@ public class SearchMatrixII {
             if (recursion(matrix, rowLeft, rowMid + 1, colMid + 1, colRight, target)) {
                 return true;
             }
-            if (recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target)) {
-                return true;
-            }
+            return recursion(matrix, rowMid + 1, rowRight, colLeft, colRight, target);
         }
-        return false;
     }
 }

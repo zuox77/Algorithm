@@ -1,4 +1,4 @@
-package Pointers;
+package Array.Pointers;
 
 import java.util.List;
 

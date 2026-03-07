@@ -40,6 +40,7 @@ class LRUCache {
     private final Map<Integer, Node> keyMap;
     private final Node head;
     private final Node tail;
+
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.keyMap = new HashMap<>();
@@ -55,7 +56,7 @@ class LRUCache {
             // 删除一个节点
             removeNode(tail.pre);
         }
-        // 通过key和value，获取或者创建节点
+        // 通过key和value,获取或者创建节点
         Node node;
         if (keyMap.containsKey(key)) {
             node = keyMap.get(key);
@@ -93,7 +94,6 @@ class LRUCache {
         node.pre = head;
         keyMap.put(node.key, node);
     }
-    ;
 
     static class Node {
         int key;

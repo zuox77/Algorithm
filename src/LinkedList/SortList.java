@@ -18,10 +18,10 @@ Input: head = []
 Output: []
 
 思路：分治
-1. 先找到中点，记得slow和fast的初始位置，fast要在slow.next，不然的话，当分割长度为2的链表的时候，会无限循环
-2. 找到以后，先获取right，right是sortList(mid.next)，获取完以后记得断开连接，即mid.next = null
-3. 然后获取left，因为已经断开连接，所以直接sortList(head)
-4. 合并left和right，只需要遍历两个链表，创建一个新的node作为新的链表的head，谁小就先排谁去head.next
+1. 先找到中点,记得slow和fast的初始位置,fast要在slow.next,不然的话,当分割长度为2的链表的时候,会无限循环
+2. 找到以后,先获取right,right是sortList(mid.next),获取完以后记得断开连接,即mid.next = null
+3. 然后获取left,因为已经断开连接,所以直接sortList(head)
+4. 合并left和right,只需要遍历两个链表,创建一个新的node作为新的链表的head,谁小就先排谁去head.next
 
  */
 public class SortList {
@@ -30,7 +30,7 @@ public class SortList {
      * val = x; next = null; } }
      */
     public ListNode sortList(ListNode head) {
-        // 只剩一个或者当前为空，则返回head
+        // 只剩一个或者当前为空,则返回head
         if (head == null || head.next == null) return null;
         // 找中位数
         ListNode mid = findMedian(head);
@@ -39,7 +39,7 @@ public class SortList {
         left = 从head到mid
         right = 从mid.next到结尾
          */
-        // 注意：记得将链表从mid切断，而且需要先right后left，因为left从head开始且没有切断，相当于无限循环
+        // 注意：记得将链表从mid切断,而且需要先right后left,因为left从head开始且没有切断,相当于无限循环
         ListNode right = sortList(mid.next);
         mid.next = null;
         ListNode left = sortList(head);
@@ -55,11 +55,11 @@ public class SortList {
         快慢指针找中节点
         如果是奇数[1, 2, 3] -> slow在2
         如果是偶数[1, 2, 3, 4] -> slow在2
-        注意：这里fast必须从node.next开始，因为如果fast和slow都从根节点出发的话
-        如果是奇数[1, 2, 3] -> slow会停在2，没问题
+        注意：这里fast必须从node.next开始,因为如果fast和slow都从根节点出发的话
+        如果是奇数[1, 2, 3] -> slow会停在2,没问题
         如果是偶数[1, 2] -> slow会停在2
             相当于将[1,2]划分为left = [1, 2]和right = []
-            带入sortList的逻辑，right会直接返回，left会无限循环
+            带入sortList的逻辑,right会直接返回,left会无限循环
          */
         ListNode slow = node;
         ListNode fast = node.next;
@@ -76,7 +76,7 @@ public class SortList {
         ListNode dummy = node;
         // 遍历两条链表
         while (left != null && right != null) {
-            // 通过比较，选择链接哪个节点
+            // 通过比较,选择链接哪个节点
             if (left.val < right.val) {
                 node.next = left;
                 left = left.next;

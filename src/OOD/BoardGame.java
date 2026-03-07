@@ -10,8 +10,8 @@ https://www.1point3acres.com/bbs/thread-953876-1-1.html
  */
 
 public class BoardGame {
-    private HashMap<Integer, StringBuilder> board = new HashMap<>();
-    private int winLength;
+    private final HashMap<Integer, StringBuilder> board = new HashMap<>();
+    private final int winLength;
 
     public BoardGame(int winLength) {
         this.winLength = winLength;
@@ -48,6 +48,7 @@ public class BoardGame {
             for (int m = 0; m < horizon.length(); m++) {
                 if (horizon.charAt(m) != player.symbol) {
                     flag = false;
+                    break;
                 }
             }
             if (flag) {

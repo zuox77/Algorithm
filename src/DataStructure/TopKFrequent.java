@@ -109,15 +109,15 @@ public class TopKFrequent {
             map.merge(num, 1, Integer::sum);
             maxFreq = Math.max(maxFreq, map.get(num));
         }
-        // 创建一个数组，用数组下标作为次数，保存相应的数字
-        List<Integer>[] freqList = new List[maxFreq + 1]; // 这里加1是因为下标为0代表频率为0的，所以多了一个数
+        // 创建一个数组,用数组下标作为次数,保存相应的数字
+        List<Integer>[] freqList = new List[maxFreq + 1]; // 这里加1是因为下标为0代表频率为0的,所以多了一个数
         // 初始化
         Arrays.setAll(freqList, i -> new ArrayList<>());
-        // 遍历map，填上对应的频率和数字
+        // 遍历map,填上对应的频率和数字
         for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             freqList[entry.getValue()].add(entry.getKey());
         }
-        // 倒序遍历刚刚的数组，提取前k个数
+        // 倒序遍历刚刚的数组,提取前k个数
         int[] ans = new int[k];
         int count = 0;
         for (int i = maxFreq; i >= 0 && count < k; i--) {

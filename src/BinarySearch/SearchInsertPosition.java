@@ -69,9 +69,9 @@ public class SearchInsertPosition {
                 right = mid;
             }
         }
-        // 用left + 1 < right条件会让left和right停在相邻的位置，所以最后判断一次
-        // 根据题意，插入的位置在比target大的第一个数所在的位置，而left一定比right小，所以先判断left，再判断right
-        // 如果还不行的话，直接返回长度
+        // 用left + 1 < right条件会让left和right停在相邻的位置,所以最后判断一次
+        // 根据题意,插入的位置在比target大的第一个数所在的位置,而left一定比right小,所以先判断left,再判断right
+        // 如果还不行的话,直接返回长度
         if (nums[left] >= target) return left;
         if (nums[right] >= target) return right;
         return n;

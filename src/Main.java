@@ -1,92 +1,171 @@
-import Interview.Airbnb.Property;
+import Interview.TradeDesk.BankSystem;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
+import java.util.Set;
 
 public class Main {
-    public static void main(String[] args) throws ParseException {
-        Map<Property, Integer> map = Map.of(
-                Property.weight, 10,
-                Property.volume, 20,
-                Property.crewSize, 30
-        );
-        Shipment shipment = new Shipment(map);
-        Limit limit1 = new Limit(Property.weight, 0, 0, 10);
-        Limit limit1_1 = new Limit(Property.crewSize, 5, 0, 10);
-        Limit limit1_2 = new Limit(Property.crewSize, 10, 10, 15);
-        Limit limit1_3 = new Limit(Property.crewSize, 20, 15, -1);
-        Limit limit2 = new Limit(Property.weight, 0, 10, -1);
-        Limit limit2_1 = new Limit(Property.crewSize, 15, 0, -1);
-        limit1.innerLimits.add(limit1_1);
-        limit1.innerLimits.add(limit1_2);
-        limit1.innerLimits.add(limit1_3);
-        limit2.innerLimits.add(limit2_1);
-        List<Limit> input = new ArrayList<>();
-        input.add(limit1);
-        input.add(limit2);
-        System.out.println(calculateCost(input, shipment));
+    static void main(String[] args) {
+        BankSystem bankSystem = new BankSystem();
+        // L1
+        //        System.out.println("L1");
+        //        System.out.println(bankSystem.createAccount(1, "account1"));
+        //        System.out.println(bankSystem.createAccount(2, "account1"));
+        //        System.out.println(bankSystem.createAccount(3, "account2"));
+        //        System.out.println(bankSystem.deposit(4, "xxx", 2700));
+        //        System.out.println(bankSystem.deposit(5, "account1", 2700));
+        //        System.out.println(bankSystem.transfer(6, "account1", "account2", 2701));
+        //        System.out.println(bankSystem.transfer(7, "account1", "account2", 200));
+
+        // L2
+        //        System.out.println("L2");
+        //        System.out.println(bankSystem.createAccount(1, "account3"));
+        //        System.out.println(bankSystem.createAccount(2, "account2"));
+        //        System.out.println(bankSystem.createAccount(3, "account1"));
+        //        System.out.println(bankSystem.deposit(4, "account1", 2000));
+        //        System.out.println(bankSystem.deposit(5, "account2", 3000));
+        //        System.out.println(bankSystem.deposit(6, "account3", 4000));
+        //        System.out.println(bankSystem.topSpenders(7, 3));
+        //        System.out.println(bankSystem.transfer(8, "account3", "account2", 500));
+        //        System.out.println(bankSystem.transfer(9, "account3", "account1", 1000));
+        //        System.out.println(bankSystem.transfer(10, "account1", "account2", 2500));
+        //        System.out.println(bankSystem.topSpenders(11, 3));
+
+        // L3
+        int day = 86400000;
+        System.out.println("L3");
+        System.out.println(bankSystem.createAccount(1, "account1"));
+        System.out.println(bankSystem.createAccount(2, "account2"));
+        System.out.println(bankSystem.deposit(3, "account1", 2000));
+        System.out.println(bankSystem.pay(4, "account1", 1000));
+        System.out.println(bankSystem.pay(100, "account1", 1000));
+        System.out.println(bankSystem.getPaymentStatus(101, "xxx", "payment1"));
+        System.out.println(bankSystem.getPaymentStatus(102, "account2", "payment1"));
+        System.out.println(bankSystem.getPaymentStatus(103, "account1", "payment1"));
+        System.out.println(bankSystem.topSpenders(104, 2));
+        System.out.println(bankSystem.deposit(3 + day, "account1", 100));
+        System.out.println(bankSystem.getPaymentStatus(4 + day, "account1", "payment1"));
+        System.out.println(bankSystem.deposit(5 + day, "account1", 100));
+        System.out.println(bankSystem.deposit(99 + day, "account1", 100));
+        System.out.println(bankSystem.deposit(100 + day, "account1", 100));
     }
 
-    public static int calculateCost(List<Limit> limitList, Shipment shipment) {
-        Limit limit = null;
-        for (Limit element : limitList) {
-            if (shipment.map.get(element.type) <= element.end) {
-                limit = element;
-                break;
+    public static int minPrice(int[][] hotels, int guest) {
+        int totalCap = 0;
+        for (int[] hotel : hotels) {
+            totalCap += hotel[2];
+        }
+        int[] dp = new int[totalCap + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+        Arrays.sort(
+                hotels,
+                (a, b) -> {
+                    if (a[2] != b[2]) return a[2] - b[2];
+                    if (a[1] != b[1]) return a[1] - b[1];
+                    return a[0] - b[0];
+                });
+        for (int[] hotel : hotels) {
+            int id = hotel[0], price = hotel[1], cap = hotel[2];
+            for (int i = guest; i >= 0; i--) {
+                if (dp[i] == Integer.MAX_VALUE) continue;
+                dp[i + cap] = Math.min(dp[i] + price, dp[i + cap]);
             }
         }
-        if (limit == null) return -1;
-        int cost = 0;
-        int amount = shipment.map.get(limit.innerLimits.getFirst().type);
-        for (Limit childLimit: limit.innerLimits) {
-            if (childLimit.end == -1 || childLimit.end >= amount) {
-                cost += amount * childLimit.unitCost;
-                return cost;
-            } else if (childLimit.end < amount) {
-                cost += childLimit.unitCost * childLimit.end;
-                amount -= childLimit.end;
+        int minPrice = Integer.MAX_VALUE;
+        for (int i = guest; i <= totalCap; i++) {
+            minPrice = Math.min(minPrice, dp[i]);
+        }
+        return minPrice == Integer.MAX_VALUE ? -1 : minPrice;
+    }
+
+    public static List<String> solution(String[][] menu, String[] wants) {
+        int targetNum = wants.length;
+        // 把wants保存在map里面,方便之后menu做匹配,检查是否存在
+        Map<String, Integer> targetMap = new HashMap<>();
+        for (int i = 0; i < targetNum; i++) {
+            targetMap.put(wants[i].toLowerCase(), i);
+        }
+        // 将menu转变成menuState
+        int n = menu.length;
+        List<Menu> menuList = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            double cost = Double.parseDouble(menu[i][0]);
+            String[] itemList = menu[i][1].split(",");
+            // 检查itemList里面是否有wants里不存在的
+            //            boolean existNoWant = false;
+            //            for (String item: itemList) {
+            //                if (!targetMap.containsKey(item.trim().toLowerCase())) {
+            //                    existNoWant = true;
+            //                    break;
+            //                }
+            //            }
+            //            if (existNoWant) continue;
+            // 设置bitMap
+            int bitMap = 0;
+            for (String item : itemList) {
+                if (!targetMap.containsKey(item.trim().toLowerCase())) continue;
+                bitMap |= 1 << targetMap.get(item.trim().toLowerCase());
+            }
+            // 如果bitMap不为0,那么创建MenuState
+            if (bitMap != 0) {
+                menuList.add(new Menu(i, bitMap, cost));
             }
         }
-        return cost;
-    }
+        // 用dp方程来计算最小花费,dp[i]代表,i是bitMap,其二进制代表wants里面物品的组合
+        State[] dp = new State[1 << targetNum];
+        int targetState = (1 << targetNum) - 1;
+        Arrays.setAll(dp, i -> new State());
+        dp[0].cost = 0.0;
+        // 遍历menuList来更新dp
+        for (Menu ms : menuList) {
+            // 从右往左,更新dp
+            for (int i = targetState; i >= 0; i--) {
+                // 位置i上面的bitmap
+                int curBitMap = i;
+                // 与ms结合以后的bitMap,即新的位置
+                int newBitMap = i | ms.bitMap;
+                // 位置newBitMap上面记录的当前cost
+                double curCost = dp[newBitMap].cost;
+                // 位置i上面记录的当前cost + ms的cost
+                double newCost = dp[i].cost + ms.cost;
 
-    public static class Limit {
-        Property type;
-        int unitCost;
-        int start;
-        int end;
-        List<Limit> innerLimits;
-
-        public Limit(Property type, int unitCost, int start, int end) {
-            this.type = type;
-            this.unitCost = unitCost;
-            this.start = start;
-            this.end = end;
-            this.innerLimits = new ArrayList<>();
+                // 如果当前无法抵达（即POSITIVE_INFINITY）或者newCost更大了,直接跳过
+                if (dp[curBitMap].cost == Double.POSITIVE_INFINITY || newCost - curCost >= 1e-2)
+                    continue;
+                // 如果cost更少
+                if (newCost < curCost) {
+                    // 更新newBitMap的cost
+                    dp[newBitMap].cost = newCost;
+                    // 清除新位置上的现有comb
+                    dp[newBitMap].combList.clear();
+                }
+                // 当前位置i的每一个comb + 当前ms的id -> 添加到dp[新位置]的comb里面
+                for (String comb : dp[i].combList) {
+                    String newComb = addItemToPath(comb, ms.id);
+                    dp[newBitMap].combList.add(newComb);
+                }
+            }
         }
+        // 获取结果
+        State finalState = dp[targetState];
+        List<String> result = new ArrayList<>();
+        if (finalState.cost == Double.POSITIVE_INFINITY) return result;
+        result.addAll(finalState.combList);
+        return result;
     }
 
-    public static class Shipment {
-        Map<Property, Integer> map;
-
-        public Shipment(Map<Property, Integer> map) {
-            this.map = map;
-        }
-    }
-
-    public enum Property {
-        weight("1"), volume("2"), crewSize("3");
-
-        Property(String s) {}
-    }
-
-    public int calculateCost(Limit limit, Shipment shipment) {
-
+    private static String addItemToPath(String path, int itemNum) {
+        String itemStr = String.valueOf(itemNum);
+        if (path.isEmpty()) return itemStr;
+        String newPath = path + "+" + itemStr;
+        String[] strList = newPath.split("\\+");
+        Arrays.sort(strList);
+        return String.join("+", strList);
     }
 
     public static String randomWriter(String s, int n) {
@@ -144,7 +223,7 @@ public class Main {
             char targetChar = target.charAt(i);
             if (!targetFreqMap.containsKey(guessChar)) {
                 ans[i] = 'B';
-            } else if (guessChar != targetChar){
+            } else if (guessChar != targetChar) {
                 ans[i] = 'Y';
             }
             if (targetFreqMap.get(targetChar) > 1) {
@@ -155,19 +234,27 @@ public class Main {
         }
         return new String(ans);
     }
-}
 
-/*
-set_value("A", 5): Sets A=5
-set_value("B", 10): Sets B=10
-set_sum("C", ["A", "B"]): C depends on A and B, so C=15
-set_sum("D", ["C", "C", "A"]): D depends on C and A, so D=15+15+5=35
-get_value("A"): Returns 5
-set_value("B", 10): B already 10, no change needed
-get_value("C"): Returns 15
-get_value("D"): Returns 35
-set_value("A", 100): A changes to 100, triggers updates:
-C updates to 100+10=110
-D updates to 110+110+100=320
-get_value("D"): Returns 320
- */
+    public static class Menu {
+        int id;
+        int bitMap;
+        double cost;
+
+        public Menu(int id, int bitMap, double cost) {
+            this.id = id;
+            this.cost = cost;
+            this.bitMap = bitMap;
+        }
+    }
+
+    public static class State {
+        double cost;
+        Set<String> combList;
+
+        public State() {
+            this.cost = Double.POSITIVE_INFINITY;
+            this.combList = new HashSet<>();
+            combList.add("");
+        }
+    }
+}

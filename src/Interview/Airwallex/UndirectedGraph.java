@@ -26,10 +26,10 @@ import java.util.Set;
 public class UndirectedGraph {
     public static List<List<Integer>> getConnected2(int[] vertices, int[][] edges) {
         int n = vertices.length;
-        List<Integer>[]connection = new List[n + 1];
+        List<Integer>[] connection = new List[n + 1];
         Arrays.setAll(connection, i -> new ArrayList<>());
 
-        for (int[] edge: edges) {
+        for (int[] edge : edges) {
             int node1 = edge[0];
             int node2 = edge[1];
             connection[node1].add(node2);
@@ -49,8 +49,8 @@ public class UndirectedGraph {
                 for (int child : connection[queue.pollLast()]) {
                     if (path.add(child)) queue.addFirst(child);
                 }
-            visited.addAll(path);
-            result.add(new ArrayList<>(path));
+                visited.addAll(path);
+                result.add(new ArrayList<>(path));
             }
         }
         return result;
@@ -58,7 +58,7 @@ public class UndirectedGraph {
 }
 
 /*
-        int[] vertices = {1,2,3,4,5,6,7,8};
-        int[][] edges = {{1,2}, {2,1}, {2,3},{2,4},{6,7},{7,8}};
-        System.out.println(UndirectedGraph.getConnected2(vertices, edges));
- */
+       int[] vertices = {1,2,3,4,5,6,7,8};
+       int[][] edges = {{1,2}, {2,1}, {2,3},{2,4},{6,7},{7,8}};
+       System.out.println(UndirectedGraph.getConnected2(vertices, edges));
+*/

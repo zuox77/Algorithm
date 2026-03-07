@@ -31,24 +31,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Menu {
-    public static class MenuItem {
-        int bitMask;
-        double price;
-        int menuIndex;
-
-        public MenuItem (int bitMask, double price) {
-            this.bitMask = bitMask;
-            this.price = price;
-        }
-
-        public MenuItem (int bitMask, double price, int menuIndex) {
-            this.bitMask = bitMask;
-            this.price = price;
-            this.menuIndex = menuIndex;
-        }
-    }
-
-    public double findMinPrice (Object[][] menu, String[] userWants) {
+    public double findMinPrice(Object[][] menu, String[] userWants) {
         int n = userWants.length;
         // Assign all wanted items with an index and store in a map
         Map<String, Integer> wantedMap = new HashMap<>();
@@ -58,12 +41,12 @@ public class Menu {
         }
         // Create items and calculate their bitMask
         List<MenuItem> menuItems = new ArrayList<>();
-        for (Object[] menuItem: menu) {
+        for (Object[] menuItem : menu) {
             double price = (Double) menuItem[0];
             String items = (String) menuItem[1];
             // Create menu item
             int menuBitMask = 0;
-            for (String item: items.split(",")) {
+            for (String item : items.split(",")) {
                 item = item.trim().toLowerCase();
                 // Skip if user don't want this item
                 if (!wantedMap.containsKey(item)) continue;
@@ -79,7 +62,7 @@ public class Menu {
         Arrays.fill(minPrice, Double.POSITIVE_INFINITY);
         minPrice[0] = 0.0;
         // Iterate the menuItems array to update the lowest price
-        for (MenuItem menuItem: menuItems) {
+        for (MenuItem menuItem : menuItems) {
             // Traverse reversely to update
             for (int i = targetState; i >= 0; i--) {
                 // If it's Double.POSITIVE_INFINITY, meaning we cannot reach position i yet, so skip
@@ -93,28 +76,7 @@ public class Menu {
         return minPrice[targetState];
     }
 
-    // If unique path is also required
-    public static class Answer {
-        double price;
-        List<String> solutionList;
-
-        public Answer(double price, List<String> solutionList) {
-            this.price = price;
-            this.solutionList = solutionList;
-        }
-    }
-
-    public static class StateInfo {
-        double price;
-        Set<String> uniquePaths;
-
-        public StateInfo (double price) {
-            this.price = price;
-            uniquePaths = new HashSet<>();
-        }
-    }
-
-    public Answer findMinPriceAndPath (Object[][] menu, String[] userWants) {
+    public Answer findMinPriceAndPath(Object[][] menu, String[] userWants) {
         int n = userWants.length;
         // Assign all wanted items with an index and store in a map
         Map<String, Integer> wantedMap = new HashMap<>();
@@ -130,7 +92,7 @@ public class Menu {
             String items = (String) menuItem[1];
             // Create menu item
             int menuBitMask = 0;
-            for (String item: items.split(",")) {
+            for (String item : items.split(",")) {
                 item = item.trim().toLowerCase();
                 // Skip if user don't want this item
                 if (!wantedMap.containsKey(item)) continue;
@@ -149,7 +111,7 @@ public class Menu {
             if (i == 0) stateInfos[i].price = 0.0;
         }
         // Iterate the menuItems array to update the lowest price
-        for (MenuItem menuItem: menuItems) {
+        for (MenuItem menuItem : menuItems) {
             // Traverse reversely to update
             for (int currentState = totalState - 1; currentState >= 0; currentState--) {
                 // If it's Double.POSITIVE_INFINITY, meaning we cannot reach position i yet, so skip
@@ -161,20 +123,24 @@ public class Menu {
                 if (newPrice < stateInfos[newState].price) {
                     // Clear old path
                     stateInfos[newState].uniquePaths.clear();
-                    // For each current state path, create new path, new path = current state path + current menu index
-                    for (String path: stateInfos[currentState].uniquePaths) {
-                        String newSolution = addItemToPath(path, menuItem.menuIndex); // index is 0-based, so add 1
+                    // For each current state path, create new path, new path = current state path +
+                    // current menu index
+                    for (String path : stateInfos[currentState].uniquePaths) {
+                        String newSolution =
+                                addItemToPath(
+                                        path, menuItem.menuIndex); // index is 0-based, so add 1
                         stateInfos[newState].uniquePaths.add(newSolution);
                     }
                     // Update price
                     stateInfos[newState].price = newPrice;
-                /*
-                If same price but different paths
-                Note: float(double) cannot use == because it's not precise
-                 */
+                    /*
+                    If same price but different paths
+                    Note: float(double) cannot use == because it's not precise
+                     */
                 } else if (Math.abs(newPrice - stateInfos[newState].price) < 1e-4) {
-                    // For each current state path, create new path, new path = current state path + current menu index
-                    for (String path: stateInfos[currentState].uniquePaths) {
+                    // For each current state path, create new path, new path = current state path +
+                    // current menu index
+                    for (String path : stateInfos[currentState].uniquePaths) {
                         String newSolution = addItemToPath(path, menuItem.menuIndex);
                         stateInfos[newState].uniquePaths.add(newSolution);
                     }
@@ -184,7 +150,8 @@ public class Menu {
         StateInfo finalState = stateInfos[totalState - 1];
         List<String> solutionList = new ArrayList<>();
         // No solution
-        if (finalState.price == Double.POSITIVE_INFINITY) return new Answer(Double.POSITIVE_INFINITY, solutionList);
+        if (finalState.price == Double.POSITIVE_INFINITY)
+            return new Answer(Double.POSITIVE_INFINITY, solutionList);
         solutionList.addAll(finalState.uniquePaths);
         return new Answer(finalState.price, solutionList);
     }
@@ -196,5 +163,43 @@ public class Menu {
         String[] strList = newPath.split(",");
         Arrays.sort(strList);
         return String.join(",", strList);
+    }
+
+    public static class MenuItem {
+        int bitMask;
+        double price;
+        int menuIndex;
+
+        public MenuItem(int bitMask, double price) {
+            this.bitMask = bitMask;
+            this.price = price;
+        }
+
+        public MenuItem(int bitMask, double price, int menuIndex) {
+            this.bitMask = bitMask;
+            this.price = price;
+            this.menuIndex = menuIndex;
+        }
+    }
+
+    // If unique path is also required
+    public static class Answer {
+        double price;
+        List<String> solutionList;
+
+        public Answer(double price, List<String> solutionList) {
+            this.price = price;
+            this.solutionList = solutionList;
+        }
+    }
+
+    public static class StateInfo {
+        double price;
+        Set<String> uniquePaths;
+
+        public StateInfo(double price) {
+            this.price = price;
+            uniquePaths = new HashSet<>();
+        }
     }
 }

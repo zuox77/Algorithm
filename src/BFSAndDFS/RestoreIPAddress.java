@@ -55,9 +55,9 @@ public class RestoreIPAddress {
     private static void dfs(
             String s, int startIndex, int startPath, int n, List<String> result, String[] path) {
         /*
-        出口：当path被填满时，一定要退出（即return）
-        但是还需要额外检查一下，只有当startIndex >= n时，才表示所有字母都被使用了，才可以加入result
-        比如11110 -> 可以分成1.1.1.1 但还有个0没使用，这时候就不能加入result
+        出口：当path被填满时,一定要退出（即return）
+        但是还需要额外检查一下,只有当startIndex >= n时,才表示所有字母都被使用了,才可以加入result
+        比如11110 -> 可以分成1.1.1.1 但还有个0没使用,这时候就不能加入result
          */
         if (path[3] != null && startIndex >= n) {
             result.add(String.join(".", path));
@@ -65,8 +65,8 @@ public class RestoreIPAddress {
         } else if (path[3] != null) return;
 
         /*
-        按照长度来遍历，或者说决定在哪个位置分割
-        startIndex + len -> 在哪里分割，那么下一个startIndex就是从startIndex + len开始
+        按照长度来遍历,或者说决定在哪个位置分割
+        startIndex + len -> 在哪里分割,那么下一个startIndex就是从startIndex + len开始
          */
         for (int len = 1; len < 4; len++) {
             // 检查剩余的长度是否还够用
@@ -80,7 +80,7 @@ public class RestoreIPAddress {
             path[startPath] = subString;
             // 进入下一层
             dfs(s, startIndex + len, startPath + 1, n, result, path);
-            // 回溯以后，将path改回来
+            // 回溯以后,将path改回来
             path[startPath] = null;
         }
     }

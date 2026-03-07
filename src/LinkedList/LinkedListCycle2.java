@@ -11,13 +11,13 @@ It is -1 if there is no cycle. Note that pos is not passed as a parameter.
 Do not modify the linked list.
 
 思路: 快慢指针
-1. 核心思路：如果有环的情况下，建立两个指针，slow每次移动一步，fast每次移动2步，总有一天fast会超过slow一圈并且相遇。
-   此时，同时移动head和slow，每次移动一步，当head和slow相遇时，即是入环点。具体可以看leetcode题解。
+1. 核心思路：如果有环的情况下,建立两个指针,slow每次移动一步,fast每次移动2步,总有一天fast会超过slow一圈并且相遇.
+   此时,同时移动head和slow,每次移动一步,当head和slow相遇时,即是入环点. 具体可以看leetcode题解.
 2. 此题有几个corner case：
     1. 空链表                  --> fast != null
     2. 只有一个node的链表       --> fast.next != null
-    3. 只有两个node且无环的链表  --> fast会直接抵达链表末端的null，所以也是fast != null
-    4. 只有两个node且有环的链表  --> fast会直接抵达原点，所以此时直接判断slow == fast
+    3. 只有两个node且无环的链表  --> fast会直接抵达链表末端的null,所以也是fast != null
+    4. 只有两个node且有环的链表  --> fast会直接抵达原点,所以此时直接判断slow == fast
 
  */
 public class LinkedListCycle2 {

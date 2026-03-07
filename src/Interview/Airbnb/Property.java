@@ -1,13 +1,13 @@
 package Interview.Airbnb;
 
 /*
-假设我们有一个Property列表，每个 Property(id, neighborhood, capacity)，我们有一个目标Neighborhood和GroupSize
+假设我们有一个Property列表,每个 Property(id, neighborhood, capacity),我们有一个目标Neighborhood和GroupSize
 请在neighborhood范围内找出推荐的property组合的id列表
 按照先后顺序满足
 1. capacity大于等于groupSize
 2. property数量更少
 3. capacity尽可能接近groupSize
-请输出一个这样的组合，如果没有这样的组合存在，输出空数组。
+请输出一个这样的组合,如果没有这样的组合存在,输出空数组.
 
 输入格式: List<Property> properties, String neighbourhood, int groupSize
 输出格式：List<Integer>（或者int[]也可以）
@@ -46,24 +46,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Property {
-    public static class PropertyInfo {
-        int id;
-        String neighborhood;
-        int capacity;
-
-        public PropertyInfo(int id, String neighborhood, int capacity) {
-            this.id = id;
-            this.neighborhood = neighborhood;
-            this.capacity = capacity;
-        }
-    }
-
-    public List<Integer> recommendProp(List<PropertyInfo> properties, int groupSize, String neighborhood) {
+    public List<Integer> recommendProp(
+            List<PropertyInfo> properties, int groupSize, String neighborhood) {
         List<Integer> ans = new ArrayList<>();
         // Find all target neighborhood properties and largest capacity among all properties
         List<PropertyInfo> filtered = new ArrayList<>();
         int maxPropCap = 0;
-        for (PropertyInfo prop: properties) {
+        for (PropertyInfo prop : properties) {
             if (neighborhood.equalsIgnoreCase(prop.neighborhood)) {
                 filtered.add(prop);
                 maxPropCap = Math.max(maxPropCap, prop.capacity);
@@ -84,7 +73,8 @@ public class Property {
             PropertyInfo prop = filtered.get(i);
             int cap = prop.capacity;
             for (int j = upperBound; j >= cap; j--) {
-                if (minPropNum[j - cap] != Integer.MAX_VALUE && minPropNum[j - cap] + 1 < minPropNum[j]) {
+                if (minPropNum[j - cap] != Integer.MAX_VALUE
+                        && minPropNum[j - cap] + 1 < minPropNum[j]) {
                     minPropNum[j] = minPropNum[j - cap] + 1;
                     prevCap[j] = j - cap;
                     prevIdx[j] = i;
@@ -109,5 +99,17 @@ public class Property {
         }
 
         return ans;
+    }
+
+    public static class PropertyInfo {
+        int id;
+        String neighborhood;
+        int capacity;
+
+        public PropertyInfo(int id, String neighborhood, int capacity) {
+            this.id = id;
+            this.neighborhood = neighborhood;
+            this.capacity = capacity;
+        }
     }
 }

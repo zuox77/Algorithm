@@ -28,10 +28,10 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 空间复杂度: O(1)
 
 思路：前缀和/DP
-1. 计算前缀和。但这道题因为求所有subarray中最大的值，所以虽说是前缀和，但其实只需要维护前缀和中出现过的最大值和最大值即可
-2. 注意：因为可能有负数，所以初始化ans的时候，需要用Integer.MIN_VALUE
-3. 注意：一定要先更新ans，因为如果先更新minSum，相当于把下一次循环该做的事情做了，因为下一个循环会根据当前的prefixSum来更新minSum，所以
-    相当于i = 0的时候的值没有计算，所有循环都在计算下一次的
+1. 计算前缀和. 但这道题因为求所有subarray中最大的值,所以虽说是前缀和,但其实只需要维护前缀和中出现过的最大值和最大值即可
+2. 注意：因为可能有负数,所以初始化ans的时候,需要用Integer.MIN_VALUE
+3. 注意：一定要先更新ans,因为如果先更新minSum,相当于把下一次循环该做的事情做了,因为下一个循环会根据当前的prefixSum来更新minSum,所以
+    相当于i = 0的时候的值没有计算,所有循环都在计算下一次的
 
 思路1: DP, 或者说变形前缀和
 1. state: dp[i]表示, 以下标为i的数作为结尾的连续子数组的最大和
@@ -74,7 +74,7 @@ public class MaximumSubarray {
         for (int num : nums) {
             // 更新prefixSum
             prefixSum += num;
-            // 先更新ans，用当前前缀和减去曾出现过的前缀和的最小值
+            // 先更新ans,用当前前缀和减去曾出现过的前缀和的最小值
             ans = Math.max(ans, prefixSum - minSum);
             // 更新曾出现过的前缀和中的最小值
             minSum = Math.min(prefixSum, minSum);

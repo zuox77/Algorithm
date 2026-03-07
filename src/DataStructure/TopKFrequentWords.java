@@ -95,8 +95,8 @@ public class TopKFrequentWords {
         int count = 0;
         /*
         注意：
-        1. 题目要求前k个，但是同一个频率可能有多个，所以要考虑同一个频率里的单词数量大于k的情况
-        2. 因为用的桶排序，所以如果从最大的频率开始遍历到最小的频率，可能有些频率里面是空的，要排除这些空情况
+        1. 题目要求前k个,但是同一个频率可能有多个,所以要考虑同一个频率里的单词数量大于k的情况
+        2. 因为用的桶排序,所以如果从最大的频率开始遍历到最小的频率,可能有些频率里面是空的,要排除这些空情况
          */
         for (int i = n - 1; i >= 0 && count < k; i--) {
             List<String> wordList = freqArray[i];
@@ -112,15 +112,15 @@ public class TopKFrequentWords {
 
     /*
     写一个自定义的排序来解题
-    将所有元素都放进List<String>，然后通过查询map中的频率来自定义排序方法
+    将所有元素都放进List<String>,然后通过查询map中的频率来自定义排序方法
      */
     public List<String> topKFrequentWords3(String[] words, int k) {
-        // 不同：这里创建一个List<String>，将所有元素添加进去
+        // 不同：这里创建一个List<String>,将所有元素添加进去
         List<String> ans = new ArrayList<>();
         // 用map保存所有的频率
         Map<String, Integer> freqMap = new HashMap<>();
         for (String s : words) {
-            // 如果是第一次出现的单词，需要添加进ans
+            // 如果是第一次出现的单词,需要添加进ans
             if (!freqMap.containsKey(s)) ans.add(s);
             freqMap.merge(s, 1, Integer::sum);
         }
@@ -130,7 +130,7 @@ public class TopKFrequentWords {
                 new Comparator<String>() {
                     @Override
                     public int compare(String o1, String o2) {
-                        // 先比较频率，注意频率高的在前面，所以是o2 - o1
+                        // 先比较频率,注意频率高的在前面,所以是o2 - o1
                         if (freqMap.get(o1) != freqMap.get(o2))
                             return freqMap.get(o2) - freqMap.get(o1);
                         // 再比较字符串顺序

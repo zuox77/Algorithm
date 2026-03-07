@@ -18,8 +18,8 @@ https://www.jiuzhang.com/problem/implement-queue-by-two-stacks/
     stack1里不为空, 那么就说明所有元素都进去了
  */
 public class ImplementQueueByStack {
-    private Stack<Integer> stack1;
-    private Stack<Integer> stack2;
+    private final Stack<Integer> stack1;
+    private final Stack<Integer> stack2;
 
     public ImplementQueueByStack() {
         stack1 = new Stack<>();

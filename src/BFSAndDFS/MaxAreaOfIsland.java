@@ -43,9 +43,9 @@ Output: 6
 public class MaxAreaOfIsland {
     private int area;
     private int result = 0;
-    private int[] xDire = new int[] {0, 0, 1, -1};
-    private int[] yDire = new int[] {1, -1, 0, 0};
-    private Set<Integer> visited = new HashSet<>();
+    private final int[] xDire = new int[] {0, 0, 1, -1};
+    private final int[] yDire = new int[] {1, -1, 0, 0};
+    private final Set<Integer> visited = new HashSet<>();
 
     public int maxAreaOfIslands1(int[][] grid) {
         // 声明变量

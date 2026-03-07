@@ -75,8 +75,8 @@ System.out.println("Search 'helo': " + trie.search("helo"));   // false
 System.out.println("Search 'c.*x': " + trie.search("c.*x"));   // false
 
 思路：
-1. 主要是要知道，利用新建class TreeNode，让其每个node实例自带一个map，然后通过map去找
-2. 需要一个全局变量或者说实例变量，TreeNode root，去代表根部节点，这样才能每次从根部开始搜索
+1. 主要是要知道,利用新建class TreeNode,让其每个node实例自带一个map,然后通过map去找
+2. 需要一个全局变量或者说实例变量,TreeNode root,去代表根部节点,这样才能每次从根部开始搜索
  */
 
 class ImplementTrieWithWildcards {
@@ -92,7 +92,7 @@ class ImplementTrieWithWildcards {
     }
 
     public static class Trie {
-        private TreeNode root;
+        private final TreeNode root;
 
         public Trie() {
             root = new TreeNode();

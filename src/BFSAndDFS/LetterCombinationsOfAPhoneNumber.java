@@ -62,7 +62,7 @@ public class LetterCombinationsOfAPhoneNumber {
             sb.append(c);
             // 进入下一层
             recursion(digits, depth + 1, sb, ans);
-            // 返回以后，更新sb
+            // 返回以后,更新sb
             sb.deleteCharAt(sb.length() - 1);
         }
     }

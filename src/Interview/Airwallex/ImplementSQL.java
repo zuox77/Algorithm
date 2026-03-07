@@ -3,17 +3,13 @@ package Interview.Airwallex;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Deque;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
-import java.util.Set;
 
 /*
 CSV Query Tool
@@ -121,6 +117,15 @@ public class ImplementSQL {
         Map<Integer, String> indexMap;
         // Map of values -> index
         Map<String, Integer> valueMap;
+
+        public FileData(String tableName, int row, int col) {
+            this.tableName = tableName;
+            this.row = row;
+            this.col = col;
+            indexMap = new HashMap<>();
+            valueMap = new HashMap<>();
+        }
+
         /*
         [1, 2, 3],
         [4, 5, 6],
@@ -135,19 +140,11 @@ public class ImplementSQL {
         7 % col = 7 % 3 = 1
          */
         public int[] getPosition(int k) {
-            return new int[]{k / col, k % col};
+            return new int[] {k / col, k % col};
         }
 
         public int getIndex(int x, int y) {
             return x * col + y;
-        }
-        
-        public FileData(String tableName, int row, int col) {
-            this.tableName = tableName;
-            this.row = row;
-            this.col = col;
-            indexMap = new HashMap<>();
-            valueMap = new HashMap<>();
         }
     }
 
@@ -155,17 +152,18 @@ public class ImplementSQL {
 
         private final Map<String, FileData> fileMap;
 
-        public QueryTool(String fileName, String tableName, int row, int col) throws FileNotFoundException {
+        public QueryTool(String fileName, String tableName, int row, int col)
+                throws FileNotFoundException {
             fileMap = new HashMap<>();
             FileData fd = new FileData(tableName, row, col);
             fileMap.put(tableName, fd);
 
             int x = 0;
             String line;
-            try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
                 while ((line = reader.readLine()) != null) {
                     int y = 0;
-                    for (String word: line.split(",")) {
+                    for (String word : line.split(",")) {
                         fd.indexMap.put(fd.getIndex(x, y), word.trim());
                         fd.valueMap.put(word.trim(), fd.getIndex(x, y));
                         y++;
@@ -184,14 +182,14 @@ public class ImplementSQL {
                 throw new NoSuchElementException();
             } else if (rows == null) {
                 for (int i = 0; i <= rowEnd; i++) {
-                    for (int j: cols) {
+                    for (int j : cols) {
                         rowValues[j] = fd.indexMap.get(fd.getIndex(i, j));
                     }
                     System.out.println(String.join(",", rowValues));
                 }
             } else {
-                for (int i: rows) {
-                    for (int j: cols) {
+                for (int i : rows) {
+                    for (int j : cols) {
                         rowValues[j] = fd.indexMap.get(fd.getIndex(i, j));
                     }
                     System.out.println(String.join(",", rowValues));
@@ -247,12 +245,9 @@ public class ImplementSQL {
             }
             // Put occurrence to a heap
             PriorityQueue<Map.Entry<String, Integer>> heap =
-                    new PriorityQueue<>(
-                            freq.size(),
-                            (a, b) -> b.getValue() - a.getValue()
-                    );
+                    new PriorityQueue<>(freq.size(), (a, b) -> b.getValue() - a.getValue());
             // Push all values to heap
-            for (Map.Entry<String, Integer> entry: freq.entrySet()) {
+            for (Map.Entry<String, Integer> entry : freq.entrySet()) {
                 heap.offer(entry);
             }
             // Print column name first
@@ -270,26 +265,32 @@ public class ImplementSQL {
             // Get col values
             int colIndex = fd.getPosition(fd.valueMap.get(colName))[1];
             // Create a heap to save by row
-            PriorityQueue<Map.Entry<Integer, String[]>> heap = new PriorityQueue<>(fd.row, new Comparator<Map.Entry<Integer, String[]>>() {
-                @Override
-                public int compare(Map.Entry<Integer, String[]> o1, Map.Entry<Integer, String[]> o2) {
-                    int o1Value = Integer.parseInt(o1.getValue()[colIndex]);
-                    int o2Value = Integer.parseInt(o2.getValue()[colIndex]);
-                    if (o1Value != o2Value) {
-                        return o1Value - o2Value;
-                    }
-                    // Compare rest column values
-                    for (int col = 0; col < fd.col; col++) {
-                        if (col == colIndex) continue;
-                        String o1Word = o1.getValue()[col];
-                        String o2Word = o2.getValue()[col];
-                        if (o1Word.equals(o2Word)) continue;
-                        return o1Word.compareTo(o2Word);
-                    }
-                    // If these 2 records are totally identical, return the one which exists earlier
-                    return o1.getKey() - o2.getKey();
-                }
-            });
+            PriorityQueue<Map.Entry<Integer, String[]>> heap =
+                    new PriorityQueue<>(
+                            fd.row,
+                            new Comparator<Map.Entry<Integer, String[]>>() {
+                                @Override
+                                public int compare(
+                                        Map.Entry<Integer, String[]> o1,
+                                        Map.Entry<Integer, String[]> o2) {
+                                    int o1Value = Integer.parseInt(o1.getValue()[colIndex]);
+                                    int o2Value = Integer.parseInt(o2.getValue()[colIndex]);
+                                    if (o1Value != o2Value) {
+                                        return o1Value - o2Value;
+                                    }
+                                    // Compare rest column values
+                                    for (int col = 0; col < fd.col; col++) {
+                                        if (col == colIndex) continue;
+                                        String o1Word = o1.getValue()[col];
+                                        String o2Word = o2.getValue()[col];
+                                        if (o1Word.equals(o2Word)) continue;
+                                        return o1Word.compareTo(o2Word);
+                                    }
+                                    // If these 2 records are totally identical, return the one
+                                    // which exists earlier
+                                    return o1.getKey() - o2.getKey();
+                                }
+                            });
             // Save row values to a map
             Map<Integer, String[]> rowMap = new HashMap<>();
             for (int i = 0; i < fd.row; i++) {
@@ -299,7 +300,7 @@ public class ImplementSQL {
                 }
                 rowMap.put(i, rowValues);
             }
-            for (Map.Entry<Integer, String[]> entry: rowMap.entrySet()) {
+            for (Map.Entry<Integer, String[]> entry : rowMap.entrySet()) {
                 // Exclude column names
                 if (entry.getKey() == 0) continue;
                 heap.offer(entry);
@@ -311,10 +312,11 @@ public class ImplementSQL {
             }
         }
 
-        private List<String> getRowValuesWithColNames(FileData fd, String[] colNames, String curWord, int row) {
+        private List<String> getRowValuesWithColNames(
+                FileData fd, String[] colNames, String curWord, int row) {
             int n = colNames.length;
             List<String> rowValues = new ArrayList<>();
-            for (String colName: colNames) {
+            for (String colName : colNames) {
                 if (!fd.valueMap.containsKey(colName)) continue;
                 // Get column name index
                 int colNameIndex = fd.getPosition(fd.valueMap.get(colName))[1];
@@ -350,7 +352,8 @@ public class ImplementSQL {
                     // Get all words from 2nd fd in that row under colNames
                     List<String> rowValues2 = getRowValuesWithColNames(fd2, colNames, curWord, i);
                     // Print
-                    System.out.println(String.join(",", rowValues1) + "," + String.join(",", rowValues2));
+                    System.out.println(
+                            String.join(",", rowValues1) + "," + String.join(",", rowValues2));
                 }
             }
         }

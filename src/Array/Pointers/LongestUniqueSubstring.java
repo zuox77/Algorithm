@@ -1,4 +1,4 @@
-package Pointers;
+package Array.Pointers;
 
 import java.util.HashMap;
 
@@ -47,13 +47,13 @@ public class LongestUniqueSubstring {
 
         /*
         滑动窗口的思路
-        left代表左端，通过for循环，遍历右端
-        1. 新出现的字母 -> 直接加入map，更新长度
-        2. 已经出现过的字母 -> 找到哈希表中该字母上次出现时的下标，
-            将从left到上次出现时的下标（包括left和上次出现时的下标）中的字母，一一从字典中删除
-            每删除一次，left往右挪动一次
-            例如："abccbdf" 当遍历到第二个c的时候，哪怕left现在在0，但是ab都不能用了，后面的计算中，left要从第二个c开始
-            所以将a b c全部删除，left指向第二个c
+        left代表左端,通过for循环,遍历右端
+        1. 新出现的字母 -> 直接加入map,更新长度
+        2. 已经出现过的字母 -> 找到哈希表中该字母上次出现时的下标,
+            将从left到上次出现时的下标（包括left和上次出现时的下标）中的字母,一一从字典中删除
+            每删除一次,left往右挪动一次
+            例如："abccbdf" 当遍历到第二个c的时候,哪怕left现在在0,但是ab都不能用了,后面的计算中,left要从第二个c开始
+            所以将a b c全部删除,left指向第二个c
          */
         int left = 0;
         int maxLength = 0;

@@ -36,18 +36,18 @@ minStack.top();    // return 0
 minStack.getMin(); // return -2
 
 思路: 栈
-1. 首先需要知道，栈其实本身没有单调性，只有我们用特定条件让特定的值入栈的时候，才能构成单调栈，并且构成的单调栈也不是绝对单调，我们往往只能
-    保证：栈首/栈尾是单调的，或者说，栈首一定比其他的大/小。
-2. 这道题最主要的点在于，当某个当前最小的值被pop出去以后，如何找到上一个最小值。（有点类似于堆）
-    比如[-10,-5,-20,20]，假设这是当前被push进去的数字。此刻的minValue是-20。
-    当我们把20给推出栈时，[-10,-5,-20]，此时的minValue还是-20
-    但如果我们把-20给推出栈时，[-10,-5]，此时的minValue是-10，所以如何保寸这个minValue就是这道题的考点
-3. 思路就是用一个数来保存（或者也可以用一个list）来保存minValue，用一个int[]来同时保存当前值以及当前值被push进去的那一刻的minValue
-4. 注意：在pop的时候，需要同时更新当前的minValue的值
-    先pop出去，然后检查stack是否为空。
-    如果stack不为空，那么就从stack的栈首去找他的minValue并且更新
-    如果stack为空，那么设置成Integer.MAX_VALUE
-    或者也可以在初始化的时候，额外push一个dummy进去，这个dummy的值是0，这个dummy对应的minValue是Integer.MAX_VALUE
+1. 首先需要知道,栈其实本身没有单调性,只有我们用特定条件让特定的值入栈的时候,才能构成单调栈,并且构成的单调栈也不是绝对单调,我们往往只能
+    保证：栈首/栈尾是单调的,或者说,栈首一定比其他的大/小.
+2. 这道题最主要的点在于,当某个当前最小的值被pop出去以后,如何找到上一个最小值. （有点类似于堆）
+    比如[-10,-5,-20,20],假设这是当前被push进去的数字. 此刻的minValue是-20.
+    当我们把20给推出栈时,[-10,-5,-20],此时的minValue还是-20
+    但如果我们把-20给推出栈时,[-10,-5],此时的minValue是-10,所以如何保寸这个minValue就是这道题的考点
+3. 思路就是用一个数来保存（或者也可以用一个list）来保存minValue,用一个int[]来同时保存当前值以及当前值被push进去的那一刻的minValue
+4. 注意：在pop的时候,需要同时更新当前的minValue的值
+    先pop出去,然后检查stack是否为空.
+    如果stack不为空,那么就从stack的栈首去找他的minValue并且更新
+    如果stack为空,那么设置成Integer.MAX_VALUE
+    或者也可以在初始化的时候,额外push一个dummy进去,这个dummy的值是0,这个dummy对应的minValue是Integer.MAX_VALUE
  */
 
 /**
@@ -56,7 +56,7 @@ minStack.getMin(); // return -2
  */
 class MinStack {
 
-    private Deque<int[]> stack = new ArrayDeque<>();
+    private final Deque<int[]> stack = new ArrayDeque<>();
     private int minValue = Integer.MAX_VALUE;
 
     public MinStack() {}

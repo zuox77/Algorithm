@@ -27,9 +27,9 @@ https://www.1point3acres.com/bbs/thread-970148-1-1.html
  */
 
 public class WordleGame {
-    private int n;
-    private String target;
-    private HashMap<Character, Integer> mapDup;
+    private final int n;
+    private final String target;
+    private final HashMap<Character, Integer> mapDup;
     private Scanner reader;
 
     //    public void main() {

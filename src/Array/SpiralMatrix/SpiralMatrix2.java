@@ -45,7 +45,7 @@ public class SpiralMatrix2 {
             int newRow = row + directions[dirFlag][0];
             int newCol = col + directions[dirFlag][1];
             // 检查是否要换方向
-            // 是否出边界 + 是否已经填入数字（默认是0，所以如果不是0，就是已经填入数字）
+            // 是否出边界 + 是否已经填入数字（默认是0,所以如果不是0,就是已经填入数字）
             if (newRow < 0
                     || newCol < 0
                     || newRow >= n

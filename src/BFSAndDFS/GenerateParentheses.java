@@ -35,7 +35,7 @@ public class GenerateParentheses {
             ans.add(new String(sb));
             return;
         }
-        // 如果左括号数量比右括号多，那么直接返回，去掉多的
+        // 如果左括号数量比右括号多,那么直接返回,去掉多的
         if (left > right) return;
         // 增加左括号括号
         if (left > 0) {

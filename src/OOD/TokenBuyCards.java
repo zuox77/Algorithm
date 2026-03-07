@@ -39,9 +39,9 @@ public class TokenBuyCards {
         White("White"),
         Black("Black"),
         Gold("Gold");
-        private String name;
+        private final String name;
 
-        private Color(String name) {
+        Color(String name) {
             this.name = name;
         }
 
@@ -56,7 +56,7 @@ public class TokenBuyCards {
         1. Token有颜色属性和计数属性
         2. 在Card里, 计数表示价格, 在Customer里, 计数表示手牌有多少token
          */
-        private Color color;
+        private final Color color;
         private int count;
 
         // constructor
@@ -86,7 +86,7 @@ public class TokenBuyCards {
         2. 一个卡由多个token决定价格, 所以一定要一个哈希表
          */
         private HashMap<Color, Token> cardToken = new HashMap<>();
-        private Color color;
+        private final Color color;
 
         // constructor
         public Card(HashMap<Color, Token> cardToken, Color color) {
@@ -110,8 +110,8 @@ public class TokenBuyCards {
         2. Customer有discount, 买了什么牌就有什么牌的折扣
         3. Customer要注意Gold牌可以当任意牌用
          */
-        private HashMap<Color, Token> customerToken;
-        private HashMap<Color, Integer> discount = new HashMap<>();
+        private final HashMap<Color, Token> customerToken;
+        private final HashMap<Color, Integer> discount = new HashMap<>();
 
         // constructor
         public Customer(HashMap<Color, Token> customerToken) {

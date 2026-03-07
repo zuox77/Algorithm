@@ -25,10 +25,10 @@ public class SymmetricTree {
     }
 
     private boolean isSymmetricTree(TreeNode left, TreeNode right) {
-        // 如果左节点或者右节点有任意一个为空，那么就判断他们是否都为空
+        // 如果左节点或者右节点有任意一个为空,那么就判断他们是否都为空
         if (left == null || right == null) return left == right;
         /*
-        因为是镜像，所以要满足
+        因为是镜像,所以要满足
         1. left的val是否等于right的val
         2. left.left和right.right
         3. left.right和right.left

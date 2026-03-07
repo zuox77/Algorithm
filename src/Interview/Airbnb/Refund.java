@@ -4,8 +4,8 @@ package Interview.Airbnb;
 https://www.1point3acres.com/bbs/thread-1108723-1-1.html
 https://www.1point3acres.com/bbs/thread-1140063-1-1.html
 
-例子里就是用string的形式表示一个transaction里面都包含什么信息，可能是payment也可能是refund，payment有type，amount，id这类的信息
-refund的话有link to payment transaction，amount的信息。
+例子里就是用string的形式表示一个transaction里面都包含什么信息,可能是payment也可能是refund,payment有type,amount,id这类的信息
+refund的话有link to payment transaction,amount的信息.
 用什么数据结构存可以自己决定
 
 三条规则：
@@ -53,46 +53,34 @@ public class Refund {
 
     private static final String PAYMENT = "Payment";
     private static final String REFUND = "Refund";
-    private static final Map<String, Integer> TYPEMAP = Map.of(
-            "CREDIT", 1,
-            "CREDIT_CARD", 2,
-            "PAYPAL", 3
-    );
+    private static final Map<String, Integer> TYPEMAP =
+            Map.of(
+                    "CREDIT", 1,
+                    "CREDIT_CARD", 2,
+                    "PAYPAL", 3);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private final PriorityQueue<Payment> heap;
 
-    public static class Payment {
-        int id;
-        String name;
-        String type;
-        Date date;
-        int amount;
-
-        public Payment(int id, String name, String type, Date date, int amount) {
-            this.id = id;
-            this.type = type;
-            this.name = name;
-            this.date = date;
-            this.amount = amount;
-        }
-    }
-
     public Refund(List<String> transactions) throws ParseException {
         // Initialize heap
-        heap = new PriorityQueue<>(transactions.size(), (o1, o2) -> {
-            // Compare transaction type
-            if (!o1.type.equalsIgnoreCase(o2.type)) return TYPEMAP.get(o1.type) - TYPEMAP.get(o2.type);
-            // Compare date
-            if (o1.date.compareTo(o2.date) != 0) return o1.date.compareTo(o2.date);
-            // Compare amount
-            if (o1.amount != o2.amount) return o2.amount - o1.amount;
-            // Compare id
-            return o1.id - o2.id;
-        });
+        heap =
+                new PriorityQueue<>(
+                        transactions.size(),
+                        (o1, o2) -> {
+                            // Compare transaction type
+                            if (!o1.type.equalsIgnoreCase(o2.type))
+                                return TYPEMAP.get(o1.type) - TYPEMAP.get(o2.type);
+                            // Compare date
+                            if (o1.date.compareTo(o2.date) != 0) return o1.date.compareTo(o2.date);
+                            // Compare amount
+                            if (o1.amount != o2.amount) return o2.amount - o1.amount;
+                            // Compare id
+                            return o1.id - o2.id;
+                        });
         // Initialize payment map
         Map<String, Payment> paymentMap = new HashMap<>();
         // Get full info of each transaction
-        for (String transaction: transactions) {
+        for (String transaction : transactions) {
             /*
             Example: Payment1: Credit, 2023-01-10, $40
             Example: Refund1: linked to Payment1, $20
@@ -121,7 +109,7 @@ public class Refund {
             }
         }
         // Store to heap
-        for (Payment payment: paymentMap.values()) {
+        for (Payment payment : paymentMap.values()) {
             heap.offer(payment);
         }
     }
@@ -145,9 +133,29 @@ public class Refund {
              */
             if (amount >= payment.amount) {
                 amount -= payment.amount;
-                ans.add(REFUND + " " + count + ": linked to " + payment.name + ", " + payment.type + ", " + "$" + payment.amount);
+                ans.add(
+                        REFUND
+                                + " "
+                                + count
+                                + ": linked to "
+                                + payment.name
+                                + ", "
+                                + payment.type
+                                + ", "
+                                + "$"
+                                + payment.amount);
             } else {
-                ans.add(REFUND + " " + count + ": linked to " + payment.name + ", " + payment.type + ", " + "$" + amount);
+                ans.add(
+                        REFUND
+                                + " "
+                                + count
+                                + ": linked to "
+                                + payment.name
+                                + ", "
+                                + payment.type
+                                + ", "
+                                + "$"
+                                + amount);
                 payment.amount -= amount;
                 amount = 0;
                 // Put back
@@ -160,18 +168,34 @@ public class Refund {
         }
         return ans;
     }
+
+    public static class Payment {
+        int id;
+        String name;
+        String type;
+        Date date;
+        int amount;
+
+        public Payment(int id, String name, String type, Date date, int amount) {
+            this.id = id;
+            this.type = type;
+            this.name = name;
+            this.date = date;
+            this.amount = amount;
+        }
+    }
 }
 
 /*
-        List<String> payments = Arrays.asList(
-                "Payment1: Credit, 2023-01-15, $40",
-                "Payment2: PayPal, 2023-01-10, $60",
-                "Payment3: PayPal, 2023-01-20, $40",
-                "Refund1: linked to Payment1, $20"
-        );
-        String input = "Refund amount: $1000";
-        Refund refund = new Refund(payments);
-        for (String result: refund.newRefund(input)) {
-            System.out.println(result);
-        }
- */
+       List<String> payments = Arrays.asList(
+               "Payment1: Credit, 2023-01-15, $40",
+               "Payment2: PayPal, 2023-01-10, $60",
+               "Payment3: PayPal, 2023-01-20, $40",
+               "Refund1: linked to Payment1, $20"
+       );
+       String input = "Refund amount: $1000";
+       Refund refund = new Refund(payments);
+       for (String result: refund.newRefund(input)) {
+           System.out.println(result);
+       }
+*/

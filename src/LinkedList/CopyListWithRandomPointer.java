@@ -31,13 +31,13 @@ Input: head = [[3,null],[3,0],[3,null]]
 Output: [[3,null],[3,0],[3,null]]
 
 思路：哈希表
-1. 只需要一个哈希表，将原node和新创建的node建立映射关系即可
+1. 只需要一个哈希表,将原node和新创建的node建立映射关系即可
 
 思路：链表
-1. 这道题本质上只需要知道原node和新创建的node的关系即可，即我们只需要有种方法能从原node找到新创建的node
-2. 那么我们将新创建的node插入原链表，形成一个类似于：
+1. 这道题本质上只需要知道原node和新创建的node的关系即可,即我们只需要有种方法能从原node找到新创建的node
+2. 那么我们将新创建的node插入原链表,形成一个类似于：
     1 -> 1' -> 2 -> 2' -> 3 -> 3'
-    这样，我们相当于用node.next去记录了这个映射关系
+    这样,我们相当于用node.next去记录了这个映射关系
 
  */
 public class CopyListWithRandomPointer {
@@ -49,19 +49,19 @@ public class CopyListWithRandomPointer {
         Node root = dummy;
         /*
         用一个map去保存原node和新建的copy node的映射关系
-        这样的话，原node能到的地方（next或者random），通过这个map，也能抵达新的node所对应的地方
+        这样的话,原node能到的地方（next或者random）,通过这个map,也能抵达新的node所对应的地方
          */
         Map<Node, Node> map = new HashMap<>();
         while (head != null) {
-            // 根据map，查询head是否已经有copy node，如果是，获得copy node，如果不是，创建copy node
+            // 根据map,查询head是否已经有copy node,如果是,获得copy node,如果不是,创建copy node
             Node headCopy = map.getOrDefault(head, new Node(head.val));
-            // 无论是否通过head获取到node，都再一次保存这段关系，避免重复创建node
+            // 无论是否通过head获取到node,都再一次保存这段关系,避免重复创建node
             map.put(head, headCopy);
-            // 更新copy node的random，注意null的处理
+            // 更新copy node的random,注意null的处理
             if (head.random != null) {
                 Node headRandom = head.random;
                 Node headCopyRandom = map.getOrDefault(headRandom, new Node(headRandom.val));
-                // 同样再次保存，避免重复创建
+                // 同样再次保存,避免重复创建
                 map.put(headRandom, headCopyRandom);
                 // 更新headCopy的random指针
                 headCopy.random = headCopyRandom;
@@ -76,7 +76,7 @@ public class CopyListWithRandomPointer {
     }
 
     public Node copyRandomList2(Node head) {
-        // 注意：需要单独判断head = null的情况，因为head如果为null，后面Node newHead = head.next;就会报错
+        // 注意：需要单独判断head = null的情况,因为head如果为null,后面Node newHead = head.next;就会报错
         if (head == null) return null;
         // 创建一个node代替head指针
         Node current = head;
@@ -90,7 +90,7 @@ public class CopyListWithRandomPointer {
             // 移动到下一个
             current = copy.next;
         }
-        // 再次遍历链表，设置random值
+        // 再次遍历链表,设置random值
         current = head;
         while (current != null) {
             /*
@@ -106,7 +106,7 @@ public class CopyListWithRandomPointer {
         // 分离两个链表
         current = head;
         Node newHead = head.next;
-        // 只需要将当前的node指向下下个node即可，无需分辨谁是原链表，谁是新链表，因为它们就是隔一个而存在
+        // 只需要将当前的node指向下下个node即可,无需分辨谁是原链表,谁是新链表,因为它们就是隔一个而存在
         while (current != null) {
             // 记录current.next
             Node next = current.next;

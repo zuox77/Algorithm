@@ -23,7 +23,7 @@ Output: []
     2. 将right的下一个指向left
     3. left = right
     4. right = 第一步记录的node
-2. 需要注意的是：Leetcode判题时，会看有没有null作为结束节点，如果left从head开始，那么就没有结束节点，会被判定为有环
+2. 需要注意的是：Leetcode判题时,会看有没有null作为结束节点,如果left从head开始,那么就没有结束节点,会被判定为有环
     所以left要从null开始
 
  */

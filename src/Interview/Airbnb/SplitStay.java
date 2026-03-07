@@ -24,32 +24,22 @@ import java.util.TreeMap;
 
 public class SplitStay {
 
-    public static class Airbnb {
-        String id;
-        int moveInDate;
-        int moveOutDate;
-        Set<Integer> availableDates;
-
-        public Airbnb(String id, List<Integer> availableDates) {
-            this.id = id;
-            this.availableDates = new HashSet<>();
-            this.availableDates.addAll(availableDates);
-            this.moveInDate = -1;
-            this.moveOutDate = -1;
-        }
-    }
-
-    public List<List<String>> findSplitStay(Map<String, List<Integer>> airbnbMap, int start, int end) {
-        // Use 2 maps to store moveInDate/moveOutDate -> List of airbnb
+    public List<List<String>> findSplitStay(
+            Map<String, List<Integer>> airbnbMap, int start, int end) {
+        // Use 2 maps to store moveInDate/moveOutDate -> List of Airbnb
         TreeMap<Integer, List<String>> moveInMap = new TreeMap<>();
         TreeMap<Integer, List<String>> moveOutMap = new TreeMap<>();
         // Create Airbnb for each and calculate their earliest move-in and last move-out date
-        for (Map.Entry<String, List<Integer>> entry: airbnbMap.entrySet()) {
+        for (Map.Entry<String, List<Integer>> entry : airbnbMap.entrySet()) {
             Airbnb airbnb = new Airbnb(entry.getKey(), entry.getValue());
             getMoveInDate(airbnb, start, end);
             getMoveOutDate(airbnb, start, end);
-            if (airbnb.moveOutDate != -1) moveOutMap.computeIfAbsent(airbnb.moveOutDate, k -> new ArrayList<>()).add(airbnb.id);
-            if (airbnb.moveInDate != -1) moveInMap.computeIfAbsent(airbnb.moveInDate, k -> new ArrayList<>()).add(airbnb.id);
+            if (airbnb.moveOutDate != -1)
+                moveOutMap
+                        .computeIfAbsent(airbnb.moveOutDate, k -> new ArrayList<>())
+                        .add(airbnb.id);
+            if (airbnb.moveInDate != -1)
+                moveInMap.computeIfAbsent(airbnb.moveInDate, k -> new ArrayList<>()).add(airbnb.id);
         }
         /*
         Traverse all elements in moveOutMap, and get corresponding moveInDate
@@ -61,17 +51,17 @@ public class SplitStay {
         So, if moveOutMap = moveInMap + 1, this 2 stays can cover all dates
          */
         Set<String> unique = new HashSet<>();
-        for (Map.Entry<Integer, List<String>> entry: moveOutMap.entrySet()) {
+        for (Map.Entry<Integer, List<String>> entry : moveOutMap.entrySet()) {
             int moveOutDate = entry.getKey();
             StringBuilder sb = new StringBuilder();
-            for (String firstStay: entry.getValue()) {
+            for (String firstStay : entry.getValue()) {
                 // Reset sb
                 sb.setLength(0);
                 // Add firstStay
                 sb.append(firstStay).append(",");
                 // Traverse moveInMap on the same date and get the list of airbnbs
                 if (moveInMap.get(moveOutDate + 1) == null) continue;
-                for (String secondStay: moveInMap.get(moveOutDate + 1)) {
+                for (String secondStay : moveInMap.get(moveOutDate + 1)) {
                     if (!firstStay.equals(secondStay)) {
                         // Add secondStay
                         sb.append(secondStay);
@@ -84,7 +74,7 @@ public class SplitStay {
             }
         }
         List<List<String>> result = new ArrayList<>();
-        for (String solution: unique) {
+        for (String solution : unique) {
             result.add(Arrays.asList(solution.split(",")));
         }
         return result;
@@ -97,7 +87,8 @@ public class SplitStay {
     2. Find the first non-consecutive number
      */
     private void getMoveOutDate(Airbnb airbnb, int start, int end) {
-        // This airbnb has to be available on start date, otherwise we cannot treat it as the first stay
+        // This Airbnb has to be available on start date, otherwise we cannot treat it as the first
+        // stay
         if (!airbnb.availableDates.contains(start++)) return;
         // Calculate and find the first non-consecutive number
         while (start <= end && airbnb.availableDates.contains(start)) start++;
@@ -111,10 +102,26 @@ public class SplitStay {
     2. Find the first non-consecutive number
     */
     private void getMoveInDate(Airbnb airbnb, int start, int end) {
-        // This airbnb has to be available on start date, otherwise we cannot treat it as the first stay
+        // This airbnb has to be available on start date, otherwise we cannot treat it as the first
+        // stay
         if (!airbnb.availableDates.contains(end--)) return;
         // Calculate and find the first non-consecutive number
         while (start <= end && airbnb.availableDates.contains(end)) end--;
         airbnb.moveInDate = end + 1;
+    }
+
+    public static class Airbnb {
+        String id;
+        int moveInDate;
+        int moveOutDate;
+        Set<Integer> availableDates;
+
+        public Airbnb(String id, List<Integer> availableDates) {
+            this.id = id;
+            this.availableDates = new HashSet<>();
+            this.availableDates.addAll(availableDates);
+            this.moveInDate = -1;
+            this.moveOutDate = -1;
+        }
     }
 }

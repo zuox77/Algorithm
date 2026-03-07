@@ -47,7 +47,7 @@ public class Permutation2 {
         for (int i = 0; i < nums.length; i++) {
             // 跳过已遍历过的
             if (visited.contains(i)) continue;
-            // 跳过i=0，因为此时肯定不会重复
+            // 跳过i=0,因为此时肯定不会重复
             // 后面两个条件是合在一起看的
             //
             if (i != 0 && nums[i - 1] == nums[i] && !visited.contains(i - 1)) {

@@ -78,10 +78,7 @@ public class SearchMatrix {
         if (findNum(matrix, left, len) == target) {
             return true;
         }
-        if (findNum(matrix, right, len) == target) {
-            return true;
-        }
-        return false;
+        return findNum(matrix, right, len) == target;
     }
 
     public boolean solution2(int[][] matrix, int target) {
